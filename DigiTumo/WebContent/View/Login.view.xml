@@ -2,7 +2,7 @@
 		controllerName="digitumo.Login" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="Title">
 		<content>
-	
+	//Formular
 		</content>
 	</Page>
 </core:View>
