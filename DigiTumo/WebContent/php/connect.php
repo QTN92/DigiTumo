@@ -1,16 +1,14 @@
 <?php
-	function connect() {
-		$servername = "localhost";
-		$username = "admin";
-		$password = "";
+	$servername = "localhost";
+	$username = "admin";
+	$password = "";
 		
-		// Create connection
-		$conn = new mysqli($servername, $username, $password);
+	// Create connection
+	$conn = new mysqli($servername, $username, $password);
 
-		// Check connection
-		if ($conn->connect_error) {
-			die($conn->connect_error);
-		}
-		echo "success";
+	// Check connection
+	if ($conn->connect_error) {
+		die($conn->connect_error);
 	}
+	echo "success";
 ?>
