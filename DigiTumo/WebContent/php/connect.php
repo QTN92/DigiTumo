@@ -8,7 +8,7 @@
 
 	// Check connection
 	if ($conn->connect_error) {
-		die("Error" . $conn->connect_error);
+		die($conn->connect_error);
 	}
-	echo "Success";
+	echo "success";
 ?>

@@ -4,9 +4,25 @@ sap.ui.controller("pages.Login", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf digitumo.Login
 */
-//	onInit: function() {
-//		
-//	},
+	onInit: function() {
+		// Nachladen von SAPUI5-Elementen, die im Weiteren zur Anwendung kommen
+		jQuery.sap.require("sap.m.MessageBox");
+		
+		// Initiale Verbindung zur Datenbank herstellen
+		$.ajax({
+			url: "php/connect.php",
+			context: this,
+			// Success behandelt in diesem Fall sowohl success als auch failure, da bei fehlgeschlagenem Verbindungsaufbau kein verwertbarer Fehler geworfen wird
+			success: function handleSuccess(response) {
+				if (response == "success") {
+					sap.m.MessageToast.show("Verbindung zur Datenbank wurde erfolgreich hergestellt.", {});
+				}
+				else {
+					sap.m.MessageBox.error("Verbindung zur Datenbank ist fehlgeschlagen.", {});
+				}
+			}
+		})
+	},
 
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
@@ -22,18 +38,9 @@ sap.ui.controller("pages.Login", {
 * This hook is the same one that SAPUI5 controls get after being rendered.
 * @memberOf digitumo.Login
 */
-	onAfterRendering: function() {
-		$.ajax({
-			url: "php/connect.php",
-			context: this,
-			success: function handleSuccess(response) {
-				alert(response);
-			},
-			error: function handleError() {
-				alert(response);
-			}
-		})
-	},
+//	onAfterRendering: function() {
+//
+//	},
 
 /**
 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
