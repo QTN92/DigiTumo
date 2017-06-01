@@ -24,7 +24,7 @@ sap.ui.controller("digitumo.view_controller.Login", {
 */
 	onAfterRendering: function() {
 		$.ajax({
-			url: "digitumo/php/connect.php",
+			url: "php/connect.php",
 			context: this,
 			success: function handleSuccess(response) {
 				alert(response);
