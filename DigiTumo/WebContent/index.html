@@ -4,7 +4,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
 
-		<script src="resources/sap-ui-core.js"
+		<script src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
 				id="sap-ui-bootstrap"
 				data-sap-ui-libs="sap.m"
 				data-sap-ui-theme="sap_bluecrystal">
@@ -12,9 +12,9 @@
 		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
 
 		<script>
-				sap.ui.localResources("digitumo");
+				sap.ui.localResources("pages");
 				var app = new sap.m.App({initialPage:"idLogin1"});
-				var page = sap.ui.view({id:"idLogin1", viewName:"digitumo.Login", type:sap.ui.core.mvc.ViewType.XML});
+				var page = sap.ui.view({id:"idLogin1", viewName:"pages.Login", type:sap.ui.core.mvc.ViewType.XML});
 				app.addPage(page);
 				app.placeAt("content");
 		</script>
