@@ -18,7 +18,9 @@ sap.ui.controller("pages.Login", {
 					sap.m.MessageToast.show("Verbindung zur Datenbank wurde erfolgreich hergestellt.", {});
 				}
 				else {
-					sap.m.MessageBox.error("Verbindung zur Datenbank ist fehlgeschlagen.", {});
+//					sap.m.MessageBox.error("Verbindung zur Datenbank ist fehlgeschlagen.", {});
+					// TODO MessageToast endgültig durch MessageBox ersetzen. MessageToast nur zur Erleichterung der Entwicklung
+					sap.m.MessageToast.show("Verbindung zur Datenbank ist fehlgeschlagen.", {});
 				}
 			}
 		})
