@@ -1,4 +1,4 @@
-sap.ui.controller("pages.Login", {
+sap.ui.controller("controller.Login", {
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -14,7 +14,7 @@ sap.ui.controller("pages.Login", {
 			context: this,
 			// Success behandelt in diesem Fall sowohl success als auch failure, da bei fehlgeschlagenem Verbindungsaufbau kein verwertbarer Fehler geworfen wird
 			success: function handleSuccess(response) {
-				if (response == "success") {
+				if (response === "success") {
 					sap.m.MessageToast.show("Verbindung zur Datenbank wurde erfolgreich hergestellt.", {});
 				}
 				else {
@@ -23,8 +23,8 @@ sap.ui.controller("pages.Login", {
 					sap.m.MessageToast.show("Verbindung zur Datenbank ist fehlgeschlagen.", {});
 				}
 			}
-		})
-	},
+		});
+	}
 
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
