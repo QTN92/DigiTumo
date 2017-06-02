@@ -1,7 +1,7 @@
 <mvc:View controllerName="DigiTumo.controller.Login" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" height="100%">
-	<Page title="LogIn - Digital Tumorboard">
+	<Panel headerText="LogIn - Digital Tumorboard">
 		<content>
-			<FlexBox justifyContent="Center">
+			<FlexBox justifyContent="Center" alignItems="Center">
 				<l:VerticalLayout class="sapUiContentPadding" width="100%">
 					<l:content>
 						<Label text="User"/>
@@ -13,5 +13,5 @@
 				</l:VerticalLayout>
 			</FlexBox>
 		</content>
-	</Page>
+	</Panel>
 </mvc:View>
