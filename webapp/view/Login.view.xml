@@ -1,8 +1,17 @@
-<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
-		controllerName="DigiTumo.controller.Login" xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="Title">
+<mvc:View controllerName="DigiTumo.controller.Login" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" height="100%">
+	<Page title="LogIn - Digital Tumorboard">
 		<content>
-			
+			<FlexBox justifyContent="Center">
+				<l:VerticalLayout class="sapUiContentPadding" width="100%">
+					<l:content>
+						<Label text="User"/>
+						<Input id="user" class="sapUiSmallMarginBottom"></Input>
+						<Label text="Passwort"/>
+						<Input id="passwort" type="Password" class="sapUiSmallMarginBottom"></Input>
+						<Button id="loginb" text="Login" press="onLogin"/>
+					</l:content>
+				</l:VerticalLayout>
+			</FlexBox>
 		</content>
 	</Page>
-</core:View>
+</mvc:View>
