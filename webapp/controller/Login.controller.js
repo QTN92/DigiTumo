@@ -14,7 +14,7 @@ sap.ui.define([
 
 			onInit: function() {
 				// Initiale Verbindung zur Datenbank herstellen
-				$.ajax({
+/*				$.ajax({
 					url: "php/db.php",
 					context: this,
 					// Success behandelt in diesem Fall sowohl success als auch failure, da bei fehlgeschlagenem Verbindungsaufbau kein verwertbarer Fehler geworfen wird
@@ -27,7 +27,8 @@ sap.ui.define([
 							MessageToast.show("Verbindung zur Datenbank ist fehlgeschlagen.", {});
 						}
 					}
-				});
+				});*/
+				alert("Blubb");
 			},
 
 			onLogin: function() {
