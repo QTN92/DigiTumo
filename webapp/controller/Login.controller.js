@@ -31,32 +31,36 @@ sap.ui.define([
 			},
 
 			onLogin: function() {
-				//check User und Passwort in DBTabelle
+				//Werte aus den Inputfeldern auslesen
+				var userInput = this.byId("__xmlview0--user").getValue();
+				var pwInput = this.byId("__xmlview0--passwort").getValue();
+
+				 // Ajax call to call php to handle login
+				$.ajax({
+
+					url: "php/login.php",
+					//			TODO
+					data: {
+						"user": userInput,
+						"password": pwInput
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+
+						switch (response) {
+							case '0':
+								sap.m.MessageToast.show("Login erfolgreich");
+								break;
+							case '1':
+								sap.m.MessageToast.show("Nutzer nicht vorhanden");
+								break;
+							case '2':
+								sap.m.MessageToast.show("Falsches Passwort");
+								break;
+						}
+					}
+				});
 			}
 		});
 	});
-/**
- * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
- * (NOT before the first rendering! onInit() is used for that one!).
- * @memberOf digitumo.Login
- */
-//	onBeforeRendering: function() {
-//
-//	},
-
-/**
- * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
- * This hook is the same one that SAPUI5 controls get after being rendered.
- * @memberOf digitumo.Login
- */
-//	onAfterRendering: function() {
-//
-//	},
-
-/**
- * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
- * @memberOf digitumo.Login
- */
-//	onExit: function() {
-//
-//	}
