@@ -15,7 +15,7 @@ sap.ui.define([
 			onInit: function() {
 				// Initiale Verbindung zur Datenbank herstellen
 				$.ajax({
-					url: "php/connect.php",
+					url: "php/db.php",
 					context: this,
 					// Success behandelt in diesem Fall sowohl success als auch failure, da bei fehlgeschlagenem Verbindungsaufbau kein verwertbarer Fehler geworfen wird
 					success: function handleSuccess(response) {
