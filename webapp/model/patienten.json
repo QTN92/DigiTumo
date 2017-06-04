@@ -1,0 +1,19 @@
+{
+	"Patienten": [{
+		"Vorname": "Vladimir",
+		"Nachname": "Bauer",
+		"Alter": "58",
+		"Krebs": "Nasentumor"
+
+	}, {
+		"Vorname": "Heike",
+		"Nachname": "Werner",
+		"Alter": "78",
+		"Krebs": "Blasentumor"
+	}, {
+		"Vorname": "Jason",
+		"Nachname": "Pahlke",
+		"Alter": "35",
+		"Krebs": "Dickdarmkrebs"
+	}]
+}

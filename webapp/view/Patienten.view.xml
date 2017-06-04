@@ -1,17 +1,19 @@
 <View id="patientenscreen" controllerName="DigiTumo.controller.Patienten" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
 	height="100%">
-	<Page title="Patientenliste" showNavButton="true" navButtonPress="onBack">
-		<content>
-			<List headerText="Patienten">
-				<items>
-					<ObjectListItem title="Vor- und Nachname" type="Active" press="onListItemPress">
-						<attributes>
-							<ObjectAttribute text="Alter"/>
-							<ObjectAttribute text="Krebs"/>
-						</attributes>
-					</ObjectListItem>
-				</items>
-			</List>
-		</content>
-	</Page>
+	<Shell>
+		<Page title="Patientenliste" showNavButton="true" navButtonPress="onBack">
+			<content>
+				<List items="{/Patienten}" headerText="Patienten">
+					<items>
+						<ObjectListItem title="{Vorname} {Nachname}" type="Active" press="onListItemPress">
+							<attributes>
+								<ObjectAttribute text="{Alter}"/>
+								<ObjectAttribute text="{Krebs}"/>
+							</attributes>
+						</ObjectListItem>
+					</items>
+				</List>
+			</content>
+		</Page>
+	</Shell>
 </View>
