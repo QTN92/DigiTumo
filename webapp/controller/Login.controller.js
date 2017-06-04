@@ -22,21 +22,21 @@ sap.ui.define([
 			onUserInputChange: function() {
 				this.userChanged = true;
 				if (this.pwChanged === true) {
-					this.byId("__xmlview0--loginb").setEnabled(true);
+					this.byId("__xmlview1--loginb").setEnabled(true);
 				}
 			},
 
 			onPwInputChange: function() {
 				this.pwChanged = true;
 				if (this.userChanged === true) {
-					this.byId("__xmlview0--loginb").setEnabled(true);
+					this.byId("__xmlview1--loginb").setEnabled(true);
 				}
 			},
 
 			onLogin: function() {
 				//Werte aus den Inputfeldern auslesen
-				var userInput = this.byId("__xmlview0--user").getValue();
-				var pwInput = this.byId("__xmlview0--passwort").getValue();
+				var userInput = this.byId("__xmlview1--user").getValue();
+				var pwInput = this.byId("__xmlview1--passwort").getValue();
 
 				// Ajax call to call php to handle login
 				$.ajax({
@@ -52,7 +52,7 @@ sap.ui.define([
 
 						switch (response) {
 							case '0':
-								sap.m.MessageToast.show("Login erfolgreich");
+								this.onPatienten();
 								break;
 							case '1':
 								sap.m.MessageToast.show("Nutzer nicht vorhanden");
@@ -65,9 +65,9 @@ sap.ui.define([
 				});
 
 				//Input aus Inputfeldern löschen und Login Button deaktivieren
-				this.byId("__xmlview0--loginb").setEnabled(false);
-				this.byId("__xmlview0--user").setValue("");
-				this.byId("__xmlview0--passwort").setValue("");
+				this.byId("__xmlview1--loginb").setEnabled(false);
+				this.byId("__xmlview1--user").setValue("");
+				this.byId("__xmlview1--passwort").setValue("");
 				this.userChanged = false;
 				this.pwChanged = false;
 			},
