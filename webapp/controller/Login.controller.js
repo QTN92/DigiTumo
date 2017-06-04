@@ -28,23 +28,23 @@ sap.ui.define([
 										}
 									}
 								});*/
-								
+
 				//Boolean Werte für Änderungen in den Inputfeldern
 				this.userChanged = false;
 				this.pwChanged = false;
 			},
-			
+
 			//Wenn Inputfelder befüllt werden wird der initiale boolean wert auf true gesetzt und der Loginbutton aktiviert
 			onUserInputChange: function() {
 				this.userChanged = true;
-				if (this.pwChanged === true){
+				if (this.pwChanged === true) {
 					this.byId("__xmlview0--loginb").setEnabled(true);
 				}
 			},
-			
+
 			onPwInputChange: function() {
 				this.pwChanged = true;
-				if (this.userChanged === true){
+				if (this.userChanged === true) {
 					this.byId("__xmlview0--loginb").setEnabled(true);
 				}
 			},
@@ -80,7 +80,7 @@ sap.ui.define([
 						}
 					}
 				});
-				
+
 				//Input aus Inputfeldern löschen und Login Button deaktivieren
 				this.byId("__xmlview0--loginb").setEnabled(false);
 				this.byId("__xmlview0--user").setValue("");
@@ -90,7 +90,7 @@ sap.ui.define([
 			},
 
 			onPatienten: function() {
-				// this.getOwnerComponent().getRouter().navTo("second");
+				this.getOwnerComponent().getTargets().display("page2");
 			}
 		});
 	});
