@@ -42,7 +42,6 @@ sap.ui.define([
 				$.ajax({
 
 					url: "php/login.php",
-					//			TODO
 					data: {
 						"user": userInput,
 						"password": pwInput
