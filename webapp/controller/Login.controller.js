@@ -28,10 +28,13 @@ sap.ui.define([
 										}
 									}
 								});*/
+								
+				//Boolean Werte für Änderungen in den Inputfeldern
 				this.userChanged = false;
 				this.pwChanged = false;
 			},
 			
+			//Wenn Inputfelder befüllt werden wird der initiale boolean wert auf true gesetzt und der Loginbutton aktiviert
 			onUserInputChange: function() {
 				this.userChanged = true;
 				if (this.pwChanged === true){
