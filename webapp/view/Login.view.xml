@@ -1,19 +1,21 @@
 <View controllerName="DigiTumo.controller.Login" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" height="100%">
-	<Page title="Login - Digital Tumorboard">
-		<content>
-			<FlexBox justifyContent="Center" alignItems="Center">
-				<l:VerticalLayout class="sapUiContentPadding" width="100%">
-					<l:content>
-						<Label text="User"/>
-						<Input id="user" change="onUserInputChange" class="sapUiSmallMarginBottom"/>
-						<Label text="Passwort"/>
-						<Input id="passwort" type="Password" change="onPwInputChange" class="sapUiSmallMarginBottom"/>
-						<Button id="loginb" text="Login" press="onLogin" enabled="false"/>
-						<!--Testbutton um Patientenview anzuzeigen-->
-						<Button id="Weiter" text="Patienten" press="onPatienten"/>
-					</l:content>
-				</l:VerticalLayout>
-			</FlexBox>
-		</content>
-	</Page>
+	<Shell>
+		<Page title="Login - Digital Tumorboard">
+			<content>
+				<FlexBox justifyContent="Center" alignItems="Center">
+					<l:VerticalLayout class="sapUiContentPadding" width="100%">
+						<l:content>
+							<Label text="User"/>
+							<Input id="user" change="onUserInputChange" class="sapUiSmallMarginBottom"/>
+							<Label text="Passwort"/>
+							<Input id="passwort" type="Password" change="onPwInputChange" class="sapUiSmallMarginBottom"/>
+							<Button id="loginb" text="Login" press="onLogin" enabled="false"/>
+							<!--Testbutton um Patientenview anzuzeigen-->
+							<Button id="Weiter" text="Patienten" press="onPatienten"/>
+						</l:content>
+					</l:VerticalLayout>
+				</FlexBox>
+			</content>
+		</Page>
+	</Shell>
 </View>
