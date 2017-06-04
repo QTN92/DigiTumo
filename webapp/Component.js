@@ -14,7 +14,6 @@ sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
 				},
 				routes: [{
 					name: "page1",
-					// empty hash - normally the start page
 					pattern: "",
 					target: "page1"
 				}, {
