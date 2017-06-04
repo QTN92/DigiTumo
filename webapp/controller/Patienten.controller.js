@@ -14,6 +14,11 @@ sap.ui.define([
 				this.getView().setModel(oModel);
 			},
 			
+			onListItemPress: function (evt) {
+			MessageToast.show("Pressed : " + evt.getSource().getTitle());
+			this.getOwnerComponent().getTargets().display("dashboard");
+		},
+			
 			onBack: function() {
 				
 			}

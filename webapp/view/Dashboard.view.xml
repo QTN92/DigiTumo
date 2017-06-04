@@ -1,0 +1,23 @@
+<View controllerName="DigiTumo.controller.Login" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" height="100%">
+	<l:Grid>
+	<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Datenblatt" press="press" frameType="TwoByOne">
+		<tileContent>
+			<TileContent>
+				<content>
+					<NumericContent icon="sap-icon://hint" value="8" valueColor="Good"/>
+				</content>
+			</TileContent>
+		</tileContent>
+	</GenericTile>
+	
+	<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Gesundheitsscore" press="press">
+		<tileContent>
+			<TileContent>
+				<content>
+					<NumericContent icon="sap-icon://stethoscope" value="8" valueColor="Good"/>
+				</content>
+			</TileContent>
+		</tileContent>
+	</GenericTile>
+</l:Grid>
+</View>
