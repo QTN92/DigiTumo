@@ -12,6 +12,10 @@ sap.ui.define([
 			onInit: function() {
 				var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model","/patienten.json"));
 				this.getView().setModel(oModel);
+			},
+			
+			onBack: function() {
+				
 			}
 		});
 	});
