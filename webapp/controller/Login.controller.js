@@ -13,22 +13,6 @@ sap.ui.define([
 		return Controller.extend("DigiTumo.controller.Login", {
 
 			onInit: function() {
-				// Initiale Verbindung zur Datenbank herstellen
-				/*				$.ajax({
-									url: "php/db.php",
-									context: this,
-									// Success behandelt in diesem Fall sowohl success als auch failure, da bei fehlgeschlagenem Verbindungsaufbau kein verwertbarer Fehler geworfen wird
-									success: function handleSuccess(response) {
-										if (response === "success") {
-											MessageToast.show("Verbindung zur Datenbank wurde erfolgreich hergestellt.", {});
-										} else {
-											//					sap.m.MessageBox.error("Verbindung zur Datenbank ist fehlgeschlagen.", {});
-											// TODO MessageToast endgültig durch MessageBox ersetzen. MessageToast nur zur Erleichterung der Entwicklung
-											MessageToast.show("Verbindung zur Datenbank ist fehlgeschlagen.", {});
-										}
-									}
-								});*/
-
 				//Boolean Werte für Änderungen in den Inputfeldern
 				this.userChanged = false;
 				this.pwChanged = false;
@@ -58,7 +42,6 @@ sap.ui.define([
 				$.ajax({
 
 					url: "php/login.php",
-					//			TODO
 					data: {
 						"user": userInput,
 						"password": pwInput
@@ -69,7 +52,7 @@ sap.ui.define([
 
 						switch (response) {
 							case '0':
-								sap.m.MessageToast.show("Login erfolgreich");
+								this.onPatienten();
 								break;
 							case '1':
 								sap.m.MessageToast.show("Nutzer nicht vorhanden");
