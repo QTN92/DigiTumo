@@ -1,23 +1,46 @@
-sap.ui.define(['sap/ui/core/UIComponent'],
-	function(UIComponent) {
-		"use strict";
+sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
+	"use strict";
+	return UIComponent.extend("DigiTumo.Component", {
 
-		return UIComponent.extend("DigiTumo.Component", {
-
-			metadata: {
+		metadata: {
+			rootView: "DigiTumo.view.Login",
+			routing: {
 				config: {
-					sample: {
-						stretch: true,
-						files: [
-							"Login.view.xml",
-							"Login.controller.js"
-						]
-					}
+					routerClass: "sap.m.routing.Router",
+					viewPath: "DigiTumo.view",
+					controlId: "loginscreen",
+					controlAggregation: "pages",
+					viewType: "XML"
 				},
-				init: function (){
-					UIComponent.prototype.init.apply(this, arguments);
+				routes: [{
+					name: "page1",
+					// empty hash - normally the start page
+					pattern: "",
+					target: "page1"
+				}, {
+					name: "page2",
+					pattern: "Page2",
+					target: "page2"
+				}],
+				targets: {
+					page1: {
+						viewName: "Login",
+						viewLevel: 0
+					},
+					page2: {
+						viewName: "Patienten",
+						viewLevel: 1
+					}
 				}
 			}
-		});
+		},
+
+		init: function() {
+			UIComponent.prototype.init.apply(this, arguments);
+
+			// Parse the current url and display the targets of the route that matches the hash
+			this.getRouter().initialize();
+		}
 
 	});
+}, /* bExport= */ true);

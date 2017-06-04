@@ -53,8 +53,35 @@
 			}
 		},
 		"contentDensities": {
-                        "compact": true,
-                        "cozy": true
+			"compact": true,
+			"cozy": true
+		}
+	},
+	"routing": {
+		"config": {
+			"routerClass": "sap.m.routing.Router",
+			"viewType": "XML",
+			"viewPath": "DigiTumo.view",
+			"controlId": "app",
+			"transition": "slide",
+			"controlAggregation": "pages"
+		},
+		"routes": [{
+			"pattern": "",
+			"name": "master",
+			"target": "master"
+		}, {
+			"pattern": "second",
+			"name": "second",
+			"target": "second"
+		}],
+		"targets": {
+			"master": {
+				"viewName": "Login"
+			},
+			"second": {
+				"viewName": "Patienten"
+			}
 		}
 	}
 }

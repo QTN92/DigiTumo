@@ -1,0 +1,7 @@
+<mvc:View id="patientenscreen" controllerName="DigiTumo.controller.Patienten" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" height="100%">
+	<Panel headerText="Patientenliste">
+		<content>
+// TO DO: Patientenliste
+		</content>
+	</Panel>
+</mvc:View>
