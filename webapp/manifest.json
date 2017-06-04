@@ -53,8 +53,8 @@
 			}
 		},
 		"contentDensities": {
-                        "compact": true,
-                        "cozy": true
+			"compact": true,
+			"cozy": true
 		}
 	}
 }
