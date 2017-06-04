@@ -13,12 +13,12 @@ sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
 					viewType: "XML"
 				},
 				targets: {
-					page1: {
+					login: {
 						viewName: "Login",
 						viewLevel: 0
 					},
 
-					page2: {
+					patienten: {
 						viewName: "Patienten",
 						viewLevel: 1
 					}
@@ -30,7 +30,7 @@ sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
 			UIComponent.prototype.init.apply(this, arguments);
 
 			// Parse the current url and display the targets of the route that matches the hash
-			this.getTargets().display("page1");
+			this.getTargets().display("login");
 		}
 
 	});
