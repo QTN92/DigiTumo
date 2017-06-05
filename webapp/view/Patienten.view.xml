@@ -13,6 +13,7 @@
 						</ObjectListItem>
 					</items>
 				</List>
+				<Button id="dashboard_anzeigen" text="Dashboard anzeigen" press="onPress"/>
 			</content>
 		</Page>
 	</Shell>
