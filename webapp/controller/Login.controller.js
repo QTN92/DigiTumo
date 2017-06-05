@@ -5,26 +5,18 @@ sap.ui.define([
 
 	function(Controller, MessageToast) {
 		"use strict";
-		/**
-		 * Called when a controller is instantiated and its View controls (if available) are already created.
-		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-		 * @memberOf digitumo.Login
-		 */
+
 		return Controller.extend("DigiTumo.controller.Login", {
 
 			onLogin: function() {
-
-				this.user = this.byId("__xmlview1--user");
-				this.pw = this.byId("__xmlview1--passwort");
-				
 				// Initial beide Felder auf fehlerfrei setzen, um ggf. neu eintragene Inputs zu berücksichtigen
 				this.user.setValueState(sap.ui.core.ValueState.None);
 				this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.None);
 
-				// Auslesen des Inputs für User und PW
-				var userStrng = this.user.getValue();
-				var pwStrng = this.pw.getValue();
-
+        // Auslesen des Inputs für User und PW
+				var userInput = this.byId("__xmlview1--user").getValue();
+				var pwInput = this.byId("__xmlview1--passwort").getValue();
+        
 				// Auswertung des Inputs
 				// Handling, falls min. ein Input fehlt
 				if (userStrng === "" || pwStrng === "") {
