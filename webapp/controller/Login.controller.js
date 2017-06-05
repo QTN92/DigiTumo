@@ -13,7 +13,7 @@ sap.ui.define([
 				this.user.setValueState(sap.ui.core.ValueState.None);
 				this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.None);
 
-        // Auslesen des Inputs für User und PW
+				// Auslesen des Inputs für User und PW
 				var userInput = this.byId("__xmlview1--user").getValue();
 				var pwInput = this.byId("__xmlview1--passwort").getValue();
         
