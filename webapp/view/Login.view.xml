@@ -9,7 +9,7 @@
 							<Input id="user" change="onUserInputChange" class="sapUiSmallMarginBottom"/>
 							<Label text="Passwort"/>
 							<Input id="passwort" type="Password" change="onPwInputChange" class="sapUiSmallMarginBottom"/>
-							<Button id="loginb" text="Login" press="onLogin" enabled="false" width="100%"/>
+							<Button id="loginb" text="Login" press="onLogin" enabled="true" width="100%"/>
 							
 							<!--Testbutton um Patientenview anzuzeigen-->
 							<Button id="Weiter" text="Patienten" press="onPatienten" width="100%"/>
