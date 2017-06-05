@@ -10,14 +10,24 @@ sap.ui.define([
 		return Controller.extend("DigiTumo.controller.Patienten", {
 
 			onInit: function() {
-				var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model","/patienten.json"));
-				this.getView().setModel(oModel);
+				$.ajax({
+					url: "php/patienten.php",
+					type: "GET",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", response));
+						this.getView().setModel(response);
+					},
+					error: function handleError() {
+						sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");
+					}
+				})
 			},
 			
 			onListItemPress: function (evt) {
-			MessageToast.show("Pressed : " + evt.getSource().getTitle());
-			this.getOwnerComponent().getTargets().display("dashboard");
-		},
+				MessageToast.show("Pressed : " + evt.getSource().getTitle());
+				this.getOwnerComponent().getTargets().display("dashboard");
+			},
 			
 			onBack: function() {
 				
