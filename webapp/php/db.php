@@ -5,7 +5,7 @@
 
 		// Ausführung des Statements und Speichern des Ergebnisses
 		$result = $conn->query($sql);
-
+		
 		// Handling wenn das Statement kein Select war
 		if (gettype($result) == 'boolean') {
 			// Rückgabe: War die Abfrage erfolgreich oder nicht?
@@ -29,9 +29,9 @@
 
 	function connect() {
 		$servername = "localhost";
-		$username = "admin";
+		$username = "root";
 		$password = "";
-		$database = "test";
+		$database = "digitaltumorboard";
 
 		// Erstellen der DB-Verbindung 
 		$conn = new mysqli($servername, $username, $password, $database);

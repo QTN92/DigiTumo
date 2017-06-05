@@ -10,7 +10,6 @@
 							<Label text="Passwort"/>
 							<Input id="passwort" type="Password" change="onPwInputChange" class="sapUiSmallMarginBottom"/>
 							<Button id="loginb" text="Login" press="onLogin" width="100%" type="Emphasized"/>
-							
 							<!--Testbutton um Patientenview anzuzeigen-->
 							<Button id="Weiter" text="Patienten" press="onPatienten" width="100%"/>
 						</l:content>

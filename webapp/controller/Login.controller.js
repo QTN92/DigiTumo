@@ -10,36 +10,39 @@ sap.ui.define([
 
 			onLogin: function() {
 				// Initial beide Felder auf fehlerfrei setzen, um ggf. neu eintragene Inputs zu berücksichtigen
-				this.user.setValueState(sap.ui.core.ValueState.None);
+				this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.None);
 				this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.None);
 
 				// Auslesen des Inputs für User und PW
-				var userInput = this.byId("__xmlview1--user").getValue();
-				var pwInput = this.byId("__xmlview1--passwort").getValue();
-        
+				var userStrng = this.byId("__xmlview1--user").getValue();
+				var pwStrng = this.byId("__xmlview1--passwort").getValue();
+
 				// Auswertung des Inputs
 				// Handling, falls min. ein Input fehlt
 				if (userStrng === "" || pwStrng === "") {
 					// Unterscheidung, ob beides oder nur eines nicht eingegeben wurde inkl. Handling
 					if (userStrng === "" && pwStrng === "") {
 						// Inputfelder kennzeichnen, um fehlende Werte hervorzuheben
-						this.user.setValueState(sap.ui.core.ValueState.Error);
-						this.user.setShowValueStateMessage(true);
-						this.pw.setValueState(sap.ui.core.ValueState.Error);
-						this.pw.setShowValueStateMessage(true);
+						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
+						this.byId("__xmlview1--user").setShowValueStateMessage(true);
+						this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.Error);
+						this.byId("__xmlview1--passwort").setShowValueStateMessage(true);
 						// Fehlermeldung ausgeben
 						sap.m.MessageToast.show("Bitte Nutzernamen und Passwort eingeben!");
 					}
 					// Handling, wenn nur Username fehlt; Handling äquivalent
+					else if(userStrng === "") {
+						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
+						this.byId("__xmlview1--user").setShowValueStateMessage(false);
 					else if (userStrng === "") {
-						this.user.setValueState(sap.ui.core.ValueState.Error);
-						this.user.setShowValueStateMessage(false);
+						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
+						this.byId("__xmlview1--user").setShowValueStateMessage(false);
 						sap.m.MessageToast.show("Bitte Nutzernamen eingeben!");
 					}
 					// Handling, wenn nur PW fehlt; Handling äquivalent
 					else {
-						this.pw.setValueState(sap.ui.core.ValueState.Error);
-						this.pw.setShowValueStateMessage(false);
+						this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.Error);
+						this.byId("__xmlview1--passwort").setShowValueStateMessage(false);
 						sap.m.MessageToast.show("Bitte Passwort eingeben!");
 					}
 				}
@@ -59,24 +62,28 @@ sap.ui.define([
 							switch (response) {
 								// Unterscheidung zwischen den Rückgabewerten der PHP-Ausführung
 								// 0: Login war erfolgreich
+								case '0':	
+									// Ausgelagertes Handling des erfolgreichen Logins
+									this.onLoginSuccessful();
+                  this.
 								case '0':
 									// Zu Patientenübersicht wechseln
 									this.onPatienten();
 									// Initialzustand der Login-Felder wiederherstellen
-									this.user.setValue("");
-									this.pw.setValue("");
+									this.byId("__xmlview1--user").setValue("");
+									this.byId("__xmlview1--passwort").setValue("");
 									break;
 									// 1: Nutzername war falsch/ nicht vorhanden
 								case '1':
 									sap.m.MessageToast.show("Nutzer nicht vorhanden!");
-									this.user.setValueState(sap.ui.core.ValueState.Error);
-									this.user.setShowValueStateMessage(false);
+									this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
+									this.byId("__xmlview1--user").setShowValueStateMessage(false);
 									break;
 									// 2: Passwort war falsch
 								case '2':
 									sap.m.MessageToast.show("Falsches Passwort!");
-									this.pw.setValueState(sap.ui.core.ValueState.Error);
-									this.pw.setShowValueStateMessage(false);
+									this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.Error);
+									this.byId("__xmlview1--passwort").setShowValueStateMessage(false);
 									break;
 							}
 						},
@@ -87,6 +94,31 @@ sap.ui.define([
 				}
 			},
 
+			onLoginSuccessful: function() {
+				// Rolle des angemeldeten Nutzers abrufen
+				$.ajax({
+					url: "php/getUserRole.php",
+					data: {
+						"user": this.byId("__xmlview1--user").getValue()
+					},	
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						// Rollenabhängige Navigation
+						switch(response) {
+						// 0: User ist Admin
+						case '0':
+							// TODO: Navigation Admin
+							break;
+						// 1: User ist Arzt
+						case '1':
+							this.getOwnerComponent().getTargets().display("patienten");
+							break;
+						}
+					}
+				})
+			},
+			
 			onPatienten: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
 			}

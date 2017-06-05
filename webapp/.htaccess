@@ -1,0 +1,6 @@
+RewriteEngine On
+
+RewriteBase /demo
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^review/(.*)$ review.php?id=$1 [NC,QSA,L]
