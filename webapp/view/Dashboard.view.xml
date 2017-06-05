@@ -12,5 +12,11 @@
 				</tileContent>
 			</GenericTile>
 		</l:Grid>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button id="logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
+			</OverflowToolbar>
+		</footer>
 	</Page>
 </View>
