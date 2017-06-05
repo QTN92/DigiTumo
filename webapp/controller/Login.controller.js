@@ -34,6 +34,7 @@ sap.ui.define([
 					else if(userStrng === "") {
 						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
 						this.byId("__xmlview1--user").setShowValueStateMessage(false);
+					}
 					else if (userStrng === "") {
 						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
 						this.byId("__xmlview1--user").setShowValueStateMessage(false);
@@ -65,10 +66,6 @@ sap.ui.define([
 								case '0':	
 									// Ausgelagertes Handling des erfolgreichen Logins
 									this.onLoginSuccessful();
-                  this.
-								case '0':
-									// Zu Patientenübersicht wechseln
-									this.onPatienten();
 									// Initialzustand der Login-Felder wiederherstellen
 									this.byId("__xmlview1--user").setValue("");
 									this.byId("__xmlview1--passwort").setValue("");
