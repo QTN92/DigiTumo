@@ -15,8 +15,11 @@ sap.ui.define([
 					type: "GET",
 					context: this,
 					success: function handleSuccess(response) {
-						var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", response));
-						this.getView().setModel(response);
+////						var oModel = new sap.ui.model.json.JSONModel();
+////						oModel.setData(response);
+//						var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/patienten.json"));
+						var oModel = new JSONModel(response);
+						this.getView().setModel(oModel);
 					},
 					error: function handleError() {
 						sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");
