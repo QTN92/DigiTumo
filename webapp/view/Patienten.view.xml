@@ -3,12 +3,12 @@
 	<Shell>
 		<Page title="Patientenliste" showNavButton="true" navButtonPress="onBack">
 			<content>
-				<List items="{/Patienten}" headerText="Patienten">
+				<List items="{}" headerText="Patienten">
 					<items>
 						<ObjectListItem title="{Vorname} {Nachname}" type="Active" press="onListItemPress">
 							<attributes>
-								<ObjectAttribute text="{Alter}"/>
-								<ObjectAttribute text="{Krebs}"/>
+								<ObjectAttribute text="{Geburtsdatum}"/>
+								<ObjectAttribute text="{Tumorart}"/>
 							</attributes>
 						</ObjectListItem>
 					</items>
