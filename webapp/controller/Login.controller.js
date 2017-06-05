@@ -7,7 +7,7 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Login", {
-
+			
 			onLogin: function() { 	
 				// Initial beide Felder auf fehlerfrei setzen, um ggf. neu eintragene Inputs zu berücksichtigen
 				this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.None);
@@ -16,12 +16,11 @@ sap.ui.define([
 				// Auslesen des Inputs für User und PW
 				var userInput = this.byId("__xmlview1--user").getValue();
 				var pwInput = this.byId("__xmlview1--passwort").getValue();
-				
 				// Auswertung des Inputs
 				// Handling, falls min. ein Input fehlt
-				if(userInput === "" || pwInput ==="") {
+				if(userInput === "" || pwInput === "") {
 					// Unterscheidung, ob beides oder nur eines nicht eingegeben wurde inkl. Handling
-					if(userInput === "" && pwInput ==="") {
+					if(userInput === "" && pwInput === "") {
 						// Inputfelder kennzeichnen, um fehlende Werte hervorzuheben
 						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
 						this.byId("__xmlview1--user").setShowValueStateMessage(false);
@@ -31,7 +30,7 @@ sap.ui.define([
 						sap.m.MessageToast.show("Bitte Nutzernamen und Passwort eingeben!");
 					}
 					// Handling, wenn nur Username fehlt; Handling äquivalent
-					else if(userInput ==="") {
+					else if(userInput === "") {
 						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
 						this.byId("__xmlview1--user").setShowValueStateMessage(false);
 						sap.m.MessageToast.show("Bitte Nutzernamen eingeben!");
@@ -60,8 +59,8 @@ sap.ui.define([
 								// Unterscheidung zwischen den Rückgabewerten der PHP-Ausführung
 								// 0: Login war erfolgreich
 								case '0':	
-									// Zu Patientenübersicht wechseln
-									this.onPatienten();
+									// Ausgelagertes Handling des erfolgreichen Logins
+									this.onLoginSuccessful();
 									// Initialzustand der Login-Felder wiederherstellen
 									this.byId("__xmlview1--user").setValue("");
 									this.byId("__xmlview1--passwort").setValue("");
@@ -87,6 +86,31 @@ sap.ui.define([
 				}
 			},
 
+			onLoginSuccessful: function() {
+				// Rolle des angemeldeten Nutzers abrufen
+				$.ajax({
+					url: "php/getUserRole.php",
+					data: {
+						"user": this.byId("__xmlview1--user").getValue()
+					},	
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						// Rollenabhängige Navigation
+						switch(response) {
+						// 0: User ist Admin
+						case '0':
+							// TODO: Navigation Admin
+							break;
+						// 1: User ist Arzt
+						case '1':
+							this.getOwnerComponent().getTargets().display("patienten");
+							break;
+						}
+					}
+				})
+			},
+			
 			onPatienten: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
 			}
