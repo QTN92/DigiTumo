@@ -1,5 +1,4 @@
-{
-	"Patienten": [{
+[{
 		"Vorname": "Vladimir",
 		"Nachname": "Bauer",
 		"Alter": "58",
@@ -15,4 +14,3 @@
 		"Alter": "35",
 		"Krebs": "Dickdarmkrebs"
 	}]
-}
