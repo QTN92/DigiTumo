@@ -32,6 +32,11 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 			
+			//Nur zum DashboardView testen
+			onPress: function() {
+				this.getOwnerComponent().getTargets().display("dashboard");
+			},
+			
 			onBack: function() {
 				
 			}
