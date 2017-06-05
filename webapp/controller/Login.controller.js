@@ -90,6 +90,7 @@ sap.ui.define([
 						}
 					});
 				}
+			},
 
 			onPatienten: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
