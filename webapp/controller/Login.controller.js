@@ -12,6 +12,7 @@ sap.ui.define([
 		 */
 		return Controller.extend("DigiTumo.controller.Login", {
 
+
 			onLogin: function() { 	
 				// Initial beide Felder auf fehlerfrei setzen, um ggf. neu eintragene Inputs zu berücksichtigen
 				this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.None);
@@ -89,7 +90,6 @@ sap.ui.define([
 						}
 					});
 				}
-			},
 
 			onPatienten: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
