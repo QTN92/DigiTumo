@@ -5,13 +5,8 @@ sap.ui.define([
 
 	function(Controller, MessageToast) {
 		"use strict";
-		/**
-		 * Called when a controller is instantiated and its View controls (if available) are already created.
-		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-		 * @memberOf digitumo.Login
-		 */
-		return Controller.extend("DigiTumo.controller.Login", {
 
+		return Controller.extend("DigiTumo.controller.Login", {
 
 			onLogin: function() { 	
 				// Initial beide Felder auf fehlerfrei setzen, um ggf. neu eintragene Inputs zu berücksichtigen
@@ -90,6 +85,7 @@ sap.ui.define([
 						}
 					});
 				}
+			},
 
 			onPatienten: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
