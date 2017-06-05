@@ -16,9 +16,10 @@ sap.ui.define([
 				// Initial beide Felder auf fehlerfrei setzen, um ggf. neu eintragene Inputs zu berücksichtigen
 				this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.None);
 				this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.None);
+				
 				// Auslesen des Inputs für User und PW
 				var userInput = this.byId("__xmlview1--user").getValue();
-				var pwInput = this.byId("__xmlview1--passwort").getValue()
+				var pwInput = this.byId("__xmlview1--passwort").getValue();
 				
 				// Auswertung des Inputs
 				// Handling, falls min. ein Input fehlt
@@ -81,12 +82,12 @@ sap.ui.define([
 									this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.Error);
 									this.byId("__xmlview1--passwort").setShowValueStateMessage(false);
 									break;
-							};
+							}
 						},
 						error: function handleError() {
 							sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");
 						}
-					})
+					});
 				}
 			},
 

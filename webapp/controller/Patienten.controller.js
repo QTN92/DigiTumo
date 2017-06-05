@@ -24,7 +24,7 @@ sap.ui.define([
 					error: function handleError() {
 						sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");
 					}
-				})
+				});
 			},
 			
 			onListItemPress: function (evt) {
