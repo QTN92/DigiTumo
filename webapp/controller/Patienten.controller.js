@@ -37,6 +37,10 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 			
+			onLogout: function() {
+				this.getOwnerComponent().getTargets().display("login");
+			},
+			
 			onBack: function() {
 				
 			}

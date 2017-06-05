@@ -9,11 +9,15 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
 
-			onInit: function() {
-			},
-			
+			onInit: function() {},
+
 			onBack: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
+			},
+
+			onLogout: function() {
+				this.getOwnerComponent().getTargets().display("login");
 			}
+			
 		});
 	});
