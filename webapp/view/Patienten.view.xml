@@ -1,7 +1,7 @@
 <View id="patientenscreen" controllerName="DigiTumo.controller.Patienten" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
 	height="100%">
 	<Shell>
-		<Page title="Patientenliste" showNavButton="true" navButtonPress="onBack">
+		<Page title="Patientenliste" responsive="true">
 			<content>
 				<List items="{}" headerText="Patienten">
 					<items>
@@ -13,7 +13,14 @@
 						</ObjectListItem>
 					</items>
 				</List>
+				<Button id="dashboard_anzeigen" text="Dashboard anzeigen" press="onPress"/>
 			</content>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button id="logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
+				</OverflowToolbar>
+			</footer>
 		</Page>
 	</Shell>
 </View>
