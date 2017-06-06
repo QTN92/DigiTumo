@@ -24,9 +24,9 @@ sap.ui.define([
 					if (userStrng === "" && pwStrng === "") {
 						// Inputfelder kennzeichnen, um fehlende Werte hervorzuheben
 						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
-						this.byId("__xmlview1--user").setShowValueStateMessage(true);
+						this.byId("__xmlview1--user").setShowValueStateMessage(false);
 						this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.Error);
-						this.byId("__xmlview1--passwort").setShowValueStateMessage(true);
+						this.byId("__xmlview1--passwort").setShowValueStateMessage(false);
 						// Fehlermeldung ausgeben
 						sap.m.MessageToast.show("Bitte Nutzernamen und Passwort eingeben!");
 					}
