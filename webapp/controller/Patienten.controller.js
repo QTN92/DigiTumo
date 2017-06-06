@@ -17,7 +17,7 @@ sap.ui.define([
 					success: function handleSuccess(response) {
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
-						this.getView().setModel(oModel);
+						this.getView().setModel(oModel);	
 					},
 					error: function handleError() {
 						sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");

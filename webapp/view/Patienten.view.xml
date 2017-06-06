@@ -3,9 +3,9 @@
 	<Shell>
 		<Page title="Patienten">
 			<content>
-				<List items="{/Patienten}" headerText="Patienten" id="patientenliste"> 
+				<List items="{/patienten}" headerText="Patienten" id="patientenliste"> 
 					<items>
-						<ObjectListItem title="{vorname} {nachname}" type="Active" press="onListItemPress" id="patient_name">
+						<ObjectListItem title="{vorname} {nachname}" type="Active" press="onListItemPress">
 							<attributes>
 								<ObjectAttribute text="{geburtsdatum}"/>
 								<ObjectAttribute text="{tumor} {tumorstadium}"/>
