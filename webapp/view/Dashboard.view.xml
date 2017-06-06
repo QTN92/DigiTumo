@@ -5,16 +5,39 @@
 				<l:content>
 					<Panel headerText="Datenblatt" width="100%" class="sapUiResponsiveMargin">
 						<content>
-							<List>
+							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Name" info="Vladimir Bauer"/>
-									<StandardListItem title="Krankenkasse" info="Privat"/>
-									<StandardListItem title="Geburtstag" info="21.01.1959"/>
-									<StandardListItem title="Alter" info="58"/>
-									<StandardListItem title="Krebs" info="Nasentumor"/>
-									<StandardListItem title="Datum der Diagnose" info="20.05.2014"/>
-									<StandardListItem title="Raucher" info="Nein"/>
-									<StandardListItem title="Weitere Krankheiten" info="Diabetes"/>
+									<StandardListItem title="Tumor" info="{vorname} {nachname}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Krankenkasse" info="{krankenkasse}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Geburtstag" info="{geburtstag}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Tumor" info="{tumor} {tumorstadium}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Datum der Diagnose" info="{diagnosedatum}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Raucher" info="{raucher}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Weitere Krankheiten" info="{weitere_krankheiten}"/>
 								</items>
 							</List>
 						</content>

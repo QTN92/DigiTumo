@@ -9,7 +9,14 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
 
-			onInit: function() {},
+			onInit: function() {
+				var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/dashboard.json"));
+				this.getView().setModel(oModel);
+
+//				var oModel = new JSONModel();
+//				oModel.setJSON(jQuery.sap.getModulePath("DigiTumo.model", "/dashboard.json"));
+//				this.getView().setModel(oModel);
+			},
 
 			onBack: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
