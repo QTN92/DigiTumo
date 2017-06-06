@@ -1,9 +1,11 @@
-<View controllerName="DigiTumo.controller.Dashboard" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" height="100%">
+<View controllerName="DigiTumo.controller.Dashboard" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:viz="sap.viz.ui5.controls" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" height="100%">
 	<Shell>
-		<Page title="Dashboard" showNavButton="true" navButtonPress="onBack" showHeader="true">
-			<l:Grid width="160%">
+		<Page responsive="true" title="Dashboard" showNavButton="true" navButtonPress="onBack" showHeader="true" enableScrolling="true">
+			<l:Grid width="100%" defaultSpan="L4 M6 S6">
 				<l:content>
-					<Panel headerText="Datenblatt" width="100%" class="sapUiResponsiveMargin">
+					<!-- Datenblatt -->
+					<Panel headerText="Datenblatt" width="100%" class="sapUiSmallMargin">
 						<content>
 							<List items="{/datenblatt}">
 								<items>
@@ -48,20 +50,61 @@
 							</List>
 						</content>
 					</Panel>
-					<Panel headerText="Ultraschall" class="sapUiResponsiveMargin">
-						<Image src="http://edoc.hu-berlin.de/dissertationen/chopra-sascha-santosh-2005-03-18/HTML/image015.jpg" densityAware="false" width="100%"/>
+					<!-- Ultraschall -->
+					<Panel headerText="Ultraschall" class="sapUiSmallMargin" width="100%">
+						<Image src="http://www.newhealthadvisor.com/images/1HT17497/pancreatic%20cancer.jpg" densityAware="false" width="100%"/>
 					</Panel>
-					<GenericTile class="sapUiResponsiveMargin tileLayout " header="Gesundheitsscore" press="press">
-						<tileContent>
-							<TileContent>
-								<content>
-									<NumericContent icon="sap-icon://stethoscope" value="8" valueColor="Good"/>
-								</content>
-							</TileContent>
-						</tileContent>
-					</GenericTile>
+					<!-- Gesundheitsscore -->
+					<Panel headerText="Gesundheitsscore" class="sapUiSmallMargin" width="100%">
+						<GenericTile header="Gesundheitsscore" press="press">
+							<tileContent>
+								<TileContent>
+									<content>
+										<NumericContent icon="sap-icon://stethoscope" value="8" valueColor="Good"/>
+									</content>
+								</TileContent>
+							</tileContent>
+						</GenericTile>
+					</Panel>
+					<!-- Studienfeed -->
+					<Panel headerText="Studienergebnisse" class="sapUiSmallMargin" width="100%" height="100%">
+						<content>
+							<List>
+								<items>
+									<FeedListItem senderActive="false" text="Diskussion um potenzielle Anti-Tumor-Wirkung von Methadon" sender="Peter Vajkoczy" showIcon="false"/>
+									<FeedListItem senderActive="false" text="Bevacizumab verlängert progressionsfreies Überleben" sender="Susanne Heinzl" showIcon="false"/>
+									<FeedListItem senderActive="false" text="Frühes Mammakarzinom: Prophylaktische Mastektomie ohne Überlebensvorteil" sender="Sigmund Schultze" showIcon="false"/>
+									<FeedListItem senderActive="false" text="Abirateron: Frühzeitiger Einsatz beim fortgeschrittenen Prostatakrebs verlängert Überleben in zwei Studien"
+										sender="Hans-Peter Bauer" showIcon="false"/>
+								</items>
+							</List>
+						</content>
+					</Panel>
+					<!--Krankheitsverlauf-->
+					<viz:Popover id="idPopOver"></viz:Popover>
+					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='combination'>
+						<viz:dataset>
+							<viz.data:FlattenedDataset data="{/milk}">
+								<viz.data:dimensions>
+									<viz.data:DimensionDefinition name="Week" value="{Week}"/>
+								</viz.data:dimensions>
+								<viz.data:measures>
+									<viz.data:MeasureDefinition name="Revenue" value="{Revenue}"/>
+									<viz.data:MeasureDefinition name="Cost" value="{Cost}"/>
+									<viz.data:MeasureDefinition name="Cost2" value="{Cost2}"/>
+									<viz.data:MeasureDefinition name="Cost1" value="{Cost1}"/>
+								</viz.data:measures>
+							</viz.data:FlattenedDataset>
+						</viz:dataset>
+						<viz:feeds>
+							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Revenue"/>
+							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Cost"/>
+							<viz.feeds:FeedItem id="feedCategoryAxis" uid="categoryAxis" type="Dimension" values="Week"/>
+						</viz:feeds>
+					</viz:VizFrame>
 				</l:content>
 			</l:Grid>
+			<!-- Footer mit Vorgehen festhalten + LogOut Buttons -->
 			<footer>
 				<OverflowToolbar>
 					<ToolbarSpacer/>

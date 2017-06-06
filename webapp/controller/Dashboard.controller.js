@@ -62,7 +62,7 @@ sap.ui.define([
 						}),
 						new sap.m.TextArea("Anmerkungen", {
 							width: "100%",
-							growing: "true"
+							growing: true
 						})
 
 					],
