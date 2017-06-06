@@ -7,17 +7,27 @@
 						<content>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Tumor" info="{vorname} {nachname}"/>
+									<StandardListItem title="Name" info="{vorname} {nachname}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Geburtsdatum" info="{geburtsdatum}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Geschlecht" info="{geschlecht}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Raucher" info="{raucher}"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
 									<StandardListItem title="Krankenkasse" info="{krankenkasse}"/>
-								</items>
-							</List>
-							<List items="{/datenblatt}">
-								<items>
-									<StandardListItem title="Geburtstag" info="{geburtstag}"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
@@ -30,11 +40,7 @@
 									<StandardListItem title="Datum der Diagnose" info="{diagnosedatum}"/>
 								</items>
 							</List>
-							<List items="{/datenblatt}">
-								<items>
-									<StandardListItem title="Raucher" info="{raucher}"/>
-								</items>
-							</List>
+
 							<List items="{/datenblatt}">
 								<items>
 									<StandardListItem title="Weitere Krankheiten" info="{weitere_krankheiten}"/>

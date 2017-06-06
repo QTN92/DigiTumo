@@ -10,12 +10,28 @@ sap.ui.define([
 		return Controller.extend("DigiTumo.controller.Dashboard", {
 
 			onInit: function() {
-				var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/dashboard.json"));
-				this.getView().setModel(oModel);
-
-//				var oModel = new JSONModel();
-//				oModel.setJSON(jQuery.sap.getModulePath("DigiTumo.model", "/dashboard.json"));
-//				this.getView().setModel(oModel);
+				var patient_vorname = "Amelie";
+				var patient_nachname = "Balmann";
+				var patient_geburtsdatum = "1992-12-16";
+				$.ajax({
+					url: "php/getDashboardPatientendaten.php",
+					data: {
+						"patient_vorname": patient_vorname,
+						"patient_nachname": patient_nachname,
+						"patient_geburtsdatum": patient_geburtsdatum
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						this.getView().setModel(oModel);
+						alert(response);
+					},
+					error: function handleError() {
+						sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");
+					}
+				})
 			},
 
 			onBack: function() {
