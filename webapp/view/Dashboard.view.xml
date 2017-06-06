@@ -1,22 +1,44 @@
 <View controllerName="DigiTumo.controller.Dashboard" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" height="100%">
-	<Page title="Dashboard" showNavButton="true" navButtonPress="onBack">
-		<l:Grid>
-			<!--Datenblatt nicht als Tile sondern Scrollpanel?-->
-			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Gesundheitsscore" press="press">
-				<tileContent>
-					<TileContent>
+	<Shell>
+		<Page title="Dashboard" showNavButton="true" navButtonPress="onBack" showHeader="true">
+			<l:Grid width="160%">
+				<l:content>
+					<Panel headerText="Datenblatt" width="100%">
 						<content>
-							<NumericContent icon="sap-icon://stethoscope" value="8" valueColor="Good"/>
+							<List>
+								<items>
+									<StandardListItem title="Name" info="Vladimir Bauer"/>
+									<StandardListItem title="Krankenkasse" info="Privat"/>
+									<StandardListItem title="Geburtstag" info="21.01.1959"/>
+									<StandardListItem title="Alter" info="58"/>
+									<StandardListItem title="Krebs" info="Nasentumor"/>
+									<StandardListItem title="Datum der Diagnose" info="20.05.2014"/>
+									<StandardListItem title="Raucher" info="Nein"/>
+									<StandardListItem title="Weitere Krankheiten" info="Diabetes"/>
+								</items>
+							</List>
 						</content>
-					</TileContent>
-				</tileContent>
-			</GenericTile>
-		</l:Grid>
-		<footer>
-			<OverflowToolbar>
-				<ToolbarSpacer/>
-				<Button id="logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
-			</OverflowToolbar>
-		</footer>
-	</Page>
+					</Panel>
+					<Panel headerText="Ultraschall">
+						<Image src="http://edoc.hu-berlin.de/dissertationen/chopra-sascha-santosh-2005-03-18/HTML/image015.jpg" densityAware="false" width="100%"/>
+					</Panel>
+					<GenericTile class="sapUiSmallMarginBegin sapUiSmallMarginTop tileLayout" header="Gesundheitsscore" press="press">
+						<tileContent>
+							<TileContent>
+								<content>
+									<NumericContent icon="sap-icon://stethoscope" value="8" valueColor="Good"/>
+								</content>
+							</TileContent>
+						</tileContent>
+					</GenericTile>
+				</l:content>
+			</l:Grid>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button id="logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</Shell>
 </View>
