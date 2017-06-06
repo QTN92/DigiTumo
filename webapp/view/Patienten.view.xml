@@ -1,9 +1,9 @@
-<View id="patientenscreen" controllerName="DigiTumo.controller.Patienten" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+<View id="patientenscreen" controllerName="DigiTumo.controller.Patienten" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified"
 	height="100%">
 	<Shell>
-		<Page title="Patientenliste" responsive="true">
+		<Page title="Patienten">
 			<content>
-				<List items="{}" headerText="Patienten">
+				<List items="{}">
 					<items>
 						<ObjectListItem title="{Vorname} {Nachname}" type="Active" press="onListItemPress">
 							<attributes>
