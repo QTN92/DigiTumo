@@ -1,11 +1,10 @@
 <?php
 	include_once 'db.php';
 	
-	// Name Geburtsdatum Tumorart aller aktuellen Patienten laden
-	$sql = "SELECT vorname, nachname, geburtsdatum, tumorart FROM test_patienten";
-	// Rückgabe des Ergebnisses als JSON-File
-	echo json_encode(sql($sql));
-	//$result = '{ "Patienten": ' . sql($sql) + 
-	//$array = array("Patienten:", sql($sql));
-	//echo json_encode($array);
+	// Abfrage der gewünschten Informationen zu allen Patienten
+	$sql = "SELECT vorname, nachname, geburtsdatum, tumor, tumorstadium FROM patienten, krankenakte WHERE patienten.krankenakteId = krankenakte.id";
+	// Rückgabe des Abfrageergebnisses
+	$result = json_encode(sql($sql));
+	$str = '{"Patienten": ' . $result . '}';
+	echo $str;
 ?>

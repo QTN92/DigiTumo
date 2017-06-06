@@ -13,18 +13,16 @@ sap.ui.define([
 				$.ajax({
 					url: "php/patienten.php",
 					type: "GET",
-					context: this,
+					context: this, 
 					success: function handleSuccess(response) {
-////						var oModel = new sap.ui.model.json.JSONModel();
-////						oModel.setData(response);
-//						var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/patienten.json"));
-						var oModel = new JSONModel(response);
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
 						this.getView().setModel(oModel);
 					},
 					error: function handleError() {
 						sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");
 					}
-				});
+				})
 			},
 			
 			onListItemPress: function (evt) {

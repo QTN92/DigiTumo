@@ -3,15 +3,15 @@
 	<Shell>
 		<Page title="Patienten">
 			<content>
-				<List items="{}">
+				<List items="{/Patienten}" headerText="Patienten" id="patientenliste"> 
 					<items>
-						<ObjectListItem title="{Vorname} {Nachname}" type="Active" press="onListItemPress">
+						<ObjectListItem title="{vorname} {nachname}" type="Active" press="onListItemPress" id="patient_name">
 							<attributes>
-								<ObjectAttribute text="{Geburtsdatum}"/>
-								<ObjectAttribute text="{Tumorart}"/>
+								<ObjectAttribute text="{geburtsdatum}"/>
+								<ObjectAttribute text="{tumor} {tumorstadium}"/>
 							</attributes>
 						</ObjectListItem>
-					</items>
+					</items> 
 				</List>
 				<Button id="dashboard_anzeigen" text="Dashboard anzeigen" press="onPress"/>
 			</content>
