@@ -99,7 +99,6 @@ sap.ui.define([
 							width: "100%",
 							growing: true
 						})
-
 					],
 					beginButton: new sap.m.Button({
 						icon: "sap-icon://save",
