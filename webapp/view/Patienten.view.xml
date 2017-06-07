@@ -5,7 +5,7 @@
 			<content>
 				<List items="{/patienten}" headerText="Patienten" id="patientenliste"> 
 					<items>
-						<ObjectListItem title="{vorname} {nachname}" type="Active" press="onListItemPress">
+						<ObjectListItem title="{patientenid} {vorname} {nachname}" type="Active" press="onListItemPress">
 							<attributes>
 								<ObjectAttribute text="{geburtsdatum}"/>
 								<ObjectAttribute text="{tumor} {tumorstadium}"/>

@@ -47,7 +47,7 @@ sap.ui.define([
 				else {
 					// Ajax call zum Aufruf des PHP zum Datenabruf
 					$.ajax({
-						url: "php/login.php",
+						url: "php/login/login.php",
 						data: {
 							"user": userStrng,
 							"passwort": pwStrng
@@ -90,7 +90,7 @@ sap.ui.define([
 			onLoginSuccessful: function() {
 				// Rolle des angemeldeten Nutzers abrufen
 				$.ajax({
-					url: "php/getUserRole.php",
+					url: "php/login/getUserRole.php",
 					data: {
 						"user": this.byId("__xmlview1--user").getValue()
 					},	
@@ -102,6 +102,7 @@ sap.ui.define([
 						// 0: User ist Admin
 						case '0':
 							// TODO: Navigation Admin
+							MessageBox.show("Anmeldung als Admin erfolgreich");
 							break;
 						// 1: User ist Arzt
 						case '1':
