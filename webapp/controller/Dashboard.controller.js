@@ -8,9 +8,8 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
-			
-			onInit: function() {
-				var patientenid = "1";
+						
+			onLoad: function(patientenid) {
 				// Abfrage von Detailinformationen zum Patienten
 				$.ajax({
 					url: "php/dashboard/getDashboardPatientendaten.php",
@@ -54,7 +53,7 @@ sap.ui.define([
 					}
 				})
 			},
-
+			
 			onBack: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
 			},

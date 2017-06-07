@@ -31,11 +31,12 @@ sap.ui.define([
 				var id = "";
 				var index = 0;
 				while(evtTitle[index] != " ") {
-					id = index+evtTitle[index];
+					id = id+evtTitle[index];
 					index++;
 				};
 				var patientenid = id;
 				this.getOwnerComponent().getTargets().display("dashboard");
+				sap.ui.getCore().byId("__xmlview3").oController.onLoad(patientenid);
 			},
 			
 			//Nur zum DashboardView testen
