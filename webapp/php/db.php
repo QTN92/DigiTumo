@@ -3,6 +3,9 @@
 		// Aufruf der Funktion zur Erstellung einer DB-Verbindung
 		$conn = connect();
 
+		// Deklaration aller Daten als UTF-8, um Probleme mit Umlauten zu vermeiden
+		$conn->set_charset('utf8');
+
 		// Ausführung des Statements und Speichern des Ergebnisses
 		$result = $conn->query($sql);
 		
@@ -40,6 +43,7 @@
 		if ($conn->connect_error) {
 			die($conn->connect_error);
 		};
+
 		// Rückgabe der Verbindung
 		return $conn;
 	}

@@ -10,6 +10,7 @@ sap.ui.define([
 		return Controller.extend("DigiTumo.controller.Dashboard", {
 						
 			onLoad: function(patientenid) {
+				// Patientendaten
 				// Abfrage von Detailinformationen zum Patienten
 				$.ajax({
 					url: "php/dashboard/getDashboardPatientendaten.php",
@@ -50,6 +51,19 @@ sap.ui.define([
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+				
+				// Newsfeed: neue Studien etc.
+				$.ajax({
+					url: "php/dashboard/getNews.php",
+					type: "GET",
+					context: this,
+					success: function handleSuccess(response) {
+						// TODO
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen");
 					}
 				})
 			},
