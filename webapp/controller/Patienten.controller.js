@@ -1,17 +1,18 @@
 sap.ui.define([
 		"sap/ui/core/mvc/Controller",
-		"sap/m/MessageToast",
+		"sap/m/MessageBox",
 		"sap/ui/model/json/JSONModel"
 	],
 
-	function(Controller, MessageToast, JSONModel) {
+	function(Controller, MessageBox, JSONModel) {
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Patienten", {
 
 			onInit: function() {
+				// Binding der Patienten- und Krankenakteninformationen
 				$.ajax({
-					url: "php/patienten.php",
+					url: "php/patienten/getPatienten.php",
 					type: "GET",
 					context: this, 
 					success: function handleSuccess(response) {
@@ -20,13 +21,20 @@ sap.ui.define([
 						this.getView().setModel(oModel);	
 					},
 					error: function handleError() {
-						sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");
+						sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
-				})
+				});
 			},
 			
-			onListItemPress: function (evt) {
-				MessageToast.show("Pressed : " + evt.getSource().getTitle());
+			onListItemPress: function (oEvent) {
+				var evtTitle = oEvent.getSource().getTitle();
+				var id = "";
+				var index = 0;
+				while(evtTitle[index] != " ") {
+					id = index+evtTitle[index];
+					index++;
+				};
+				var patientenid = id;
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 			

@@ -1,5 +1,5 @@
 <?php
-	include_once 'db.php';
+	include_once '../db.php';
 
 	// Prüfung ob Username und Passwort übergeben wurden
 	// Im Erfolgsfall lokale Speicherung 

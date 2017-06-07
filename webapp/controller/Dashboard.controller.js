@@ -1,24 +1,21 @@
 sap.ui.define([
 		"sap/ui/core/mvc/Controller",
-		"sap/m/MessageToast",
+		"sap/m/MessageBox",
 		"sap/ui/model/json/JSONModel"
 	],
 
-	function(Controller, MessageToast, JSONModel) {
+	function(Controller, MessageBox, JSONModel) {
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
-
+			
 			onInit: function() {
-				var patient_vorname = "Amelie";
-				var patient_nachname = "Balmann";
-				var patient_geburtsdatum = "1992-12-16";
+				var patientenid = "1";
+				// Abfrage von Detailinformationen zum Patienten
 				$.ajax({
-					url: "php/getDashboardPatientendaten.php",
+					url: "php/dashboard/getDashboardPatientendaten.php",
 					data: {
-						"patient_vorname": patient_vorname,
-						"patient_nachname": patient_nachname,
-						"patient_geburtsdatum": patient_geburtsdatum
+						"patientenid": patientenid
 					},
 					type: "POST",
 					context: this,
@@ -28,7 +25,32 @@ sap.ui.define([
 						this.getView().setModel(oModel);
 					},
 					error: function handleError() {
-						sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+				// Abfrage vom Gesundheitsscore des Patienten
+				$.ajax({
+					url: "php/dashboard/getGesundheitsscore.php",
+					data: {
+						"patientenid": patientenid
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						this.byId("score").setValue(response);
+						// Abhängig vom Score wird dieser entsprechend gefärbt
+						if(response <= 3) {
+							this.byId("score").setValueColor("Error");
+						}
+						else if(response > 3 && response <= 7) {
+							this.byId("score").setValueColor("Critical");
+						}
+						else {
+							this.byId("score").setValueColor("Good");
+						}
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				})
 			},

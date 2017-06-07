@@ -60,7 +60,7 @@
 							<tileContent>
 								<TileContent>
 									<content>
-										<NumericContent icon="sap-icon://stethoscope" value="8" valueColor="Good"/>
+										<NumericContent icon="sap-icon://stethoscope" id="score"/>
 									</content>
 								</TileContent>
 							</tileContent>
