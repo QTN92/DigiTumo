@@ -1,9 +1,9 @@
 sap.ui.define([
 		"sap/ui/core/mvc/Controller",
-		"sap/m/MessageToast"
+		"sap/m/MessageBox"
 	],
 
-	function(Controller, MessageToast) {
+	function(Controller, MessageBox) {
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Login", {
@@ -28,30 +28,26 @@ sap.ui.define([
 						this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.Error);
 						this.byId("__xmlview1--passwort").setShowValueStateMessage(false);
 						// Fehlermeldung ausgeben
-						sap.m.MessageToast.show("Bitte Nutzernamen und Passwort eingeben!");
+						MessageBox.error("Bitte Nutzernamen und Passwort eingeben!");
 					}
 					// Handling, wenn nur Username fehlt; Handling äquivalent
-					else if(userStrng === "") {
-						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
-						this.byId("__xmlview1--user").setShowValueStateMessage(false);
-					}
 					else if (userStrng === "") {
 						this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
 						this.byId("__xmlview1--user").setShowValueStateMessage(false);
-						sap.m.MessageToast.show("Bitte Nutzernamen eingeben!");
+						MessageBox.error("Bitte Nutzernamen eingeben!");
 					}
 					// Handling, wenn nur PW fehlt; Handling äquivalent
 					else {
 						this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.Error);
 						this.byId("__xmlview1--passwort").setShowValueStateMessage(false);
-						sap.m.MessageToast.show("Bitte Passwort eingeben!");
+						MessageBox.error("Bitte Passwort eingeben!");
 					}
 				}
 				// Handling, wenn Username und PW eingegeben wurden
 				else {
 					// Ajax call zum Aufruf des PHP zum Datenabruf
 					$.ajax({
-						url: "php/login.php",
+						url: "php/login/login.php",
 						data: {
 							"user": userStrng,
 							"passwort": pwStrng
@@ -85,7 +81,7 @@ sap.ui.define([
 							}
 						},
 						error: function handleError() {
-							sap.m.MessageToast.show("Die Verbindung ist fehlgeschlagen.");
+							MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 						}
 					});
 				}
@@ -94,7 +90,7 @@ sap.ui.define([
 			onLoginSuccessful: function() {
 				// Rolle des angemeldeten Nutzers abrufen
 				$.ajax({
-					url: "php/getUserRole.php",
+					url: "php/login/getUserRole.php",
 					data: {
 						"user": this.byId("__xmlview1--user").getValue()
 					},	
@@ -106,6 +102,7 @@ sap.ui.define([
 						// 0: User ist Admin
 						case '0':
 							// TODO: Navigation Admin
+							MessageBox.show("Anmeldung als Admin erfolgreich");
 							break;
 						// 1: User ist Arzt
 						case '1':
@@ -113,7 +110,7 @@ sap.ui.define([
 							break;
 						}
 					}
-				})
+				});
 			},
 			
 			onPatienten: function() {

@@ -5,6 +5,6 @@
 	$sql = "SELECT vorname, nachname, geburtsdatum, tumor, tumorstadium FROM patienten, krankenakte WHERE patienten.krankenakteId = krankenakte.id";
 	// Rückgabe des Abfrageergebnisses
 	$result = json_encode(sql($sql));
-	$str = '{"Patienten": ' . $result . '}';
+	$str = '{"patienten": ' . $result . '}';
 	echo $str;
 ?>

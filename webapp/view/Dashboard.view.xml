@@ -1,21 +1,51 @@
-<View controllerName="DigiTumo.controller.Dashboard" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:l="sap.ui.layout" height="100%">
+<View controllerName="DigiTumo.controller.Dashboard" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:viz="sap.viz.ui5.controls" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" height="100%">
 	<Shell>
-		<Page title="Dashboard" showNavButton="true" navButtonPress="onBack" showHeader="true">
-			<l:Grid width="160%">
+		<Page responsive="true" title="Dashboard" showNavButton="true" navButtonPress="onBack" showHeader="true" enableScrolling="true">
+			<l:Grid width="100%" defaultSpan="L4 M6 S6">
 				<l:content>
-					<Panel headerText="Datenblatt" width="100%">
+					<!-- Datenblatt -->
+					<Panel headerText="Datenblatt" width="100%" class="sapUiSmallMargin">
 						<content>
-							<List>
+							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Name" info="Vladimir Bauer"/>
-									<StandardListItem title="Krankenkasse" info="Privat"/>
-									<StandardListItem title="Geburtstag" info="21.01.1959"/>
-									<StandardListItem title="Alter" info="58"/>
-									<StandardListItem title="Krebs" info="Nasentumor"/>
-									<StandardListItem title="Datum der Diagnose" info="20.05.2014"/>
-									<StandardListItem title="Raucher" info="Nein"/>
-									<StandardListItem title="Weitere Krankheiten" info="Diabetes"/>
+									<StandardListItem title="Name" info="{vorname} {nachname}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Geburtsdatum" info="{geburtsdatum}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Geschlecht" info="{geschlecht}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Raucher" info="{raucher}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Krankenkasse" info="{krankenkasse}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Tumor" info="{tumor} {tumorstadium}"/>
+								</items>
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Datum der Diagnose" info="{diagnosedatum}"/>
+								</items>
+							</List>
+
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title="Weitere Krankheiten" info="{weitere_krankheiten}"/>
 								</items>
 							</List>
 						</content>
@@ -44,20 +74,35 @@
 							<Text text="Live-Röntgenbild"/>
 						</content>
 					</Panel>
-					<GenericTile class="sapUiSmallMarginBegin sapUiSmallMarginTop tileLayout" header="Gesundheitsscore" press="press">
-						<tileContent>
-							<TileContent>
-								<content>
-									<NumericContent icon="sap-icon://stethoscope" value="8" valueColor="Good"/>
-								</content>
-							</TileContent>
-						</tileContent>
-					</GenericTile>
+					<!--Krankheitsverlauf-->
+					<viz:Popover id="idPopOver"></viz:Popover>
+					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='combination'>
+						<viz:dataset>
+							<viz.data:FlattenedDataset data="{/milk}">
+								<viz.data:dimensions>
+									<viz.data:DimensionDefinition name="Week" value="{Week}"/>
+								</viz.data:dimensions>
+								<viz.data:measures>
+									<viz.data:MeasureDefinition name="Revenue" value="{Revenue}"/>
+									<viz.data:MeasureDefinition name="Cost" value="{Cost}"/>
+									<viz.data:MeasureDefinition name="Cost2" value="{Cost2}"/>
+									<viz.data:MeasureDefinition name="Cost1" value="{Cost1}"/>
+								</viz.data:measures>
+							</viz.data:FlattenedDataset>
+						</viz:dataset>
+						<viz:feeds>
+							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Revenue"/>
+							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Cost"/>
+							<viz.feeds:FeedItem id="feedCategoryAxis" uid="categoryAxis" type="Dimension" values="Week"/>
+						</viz:feeds>
+					</viz:VizFrame>
 				</l:content>
 			</l:Grid>
+			<!-- Footer mit Vorgehen festhalten + LogOut Buttons -->
 			<footer>
 				<OverflowToolbar>
 					<ToolbarSpacer/>
+					<Button id="vorgehen" text="Vorgehen festhalten" press="onSave" icon="sap-icon://request" type="Accept"/>
 					<Button id="logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
 				</OverflowToolbar>
 			</footer>
