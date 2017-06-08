@@ -122,6 +122,11 @@ sap.ui.define([
 
 				dialog_vorgehen.open();
 			},
+			
+			onDashboard: function() {
+				this.getOwnerComponent().getTargets().display("dashboard");
+
+			}
 
 			onLogout: function() {
 				this.getOwnerComponent().getTargets().display("login");
