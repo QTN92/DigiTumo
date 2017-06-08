@@ -48,6 +48,10 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("login");
 			},
 			
+			onDashboard: function() {
+				this.getOwnerComponent().getTargets().display("dashboard");
+			},
+			
 			onBack: function() {
 				
 			}
