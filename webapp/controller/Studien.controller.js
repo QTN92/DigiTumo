@@ -21,14 +21,29 @@ sap.ui.define([
 						this.getView().setModel(oModel);	
 					},
 					error: function handleError() {
-						sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
 			},
 			
 			onPress: function(oEvent) {
-				var i = oEvent.getSource();
-				alert(i);
+				var autor = oEvent.getSource().getSender().toString();
+				var titel = oEvent.getSource().getText().toString();
+				$.ajax({
+					url: 'php/studien/getLink.php',
+					data: {
+						"autor": autor,
+						"titel": titel
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						window.open(response, '_blank');
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				})
 			},
 			
 			onLogout: function() {
