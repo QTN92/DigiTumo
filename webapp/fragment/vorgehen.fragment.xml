@@ -3,14 +3,14 @@
 		<content>
 			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
 			<Label text="Datum" labelFor="datum" width="100%"/>
-			<DatePicker id="datum" displayFormat="medium" displayFormatType="Gregorian"
+			<DatePicker id="datum" displayFormat="medium" displayFormatType="Gregorian" pattern="d.m.Y" valueFormat="dd.mm.YYYY"
 				change="handleChange"/>
 			<Label text="Vorgehen" width="100%"/>
 			<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
-				<core:Item key="{ProductId}" text="{Name}"/>
+				<core:Item key="{ProductId}" text="{Name}" id="vorgehen"/>
 			</ComboBox>
 			<Label text="Anmerkungen" labelFor="anmerkungen" width="100%"/>
-			<TextArea growing="true" width="100%"/>
+			<TextArea growing="true" width="100%" id="anmerkungen"/>
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
