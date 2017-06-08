@@ -48,7 +48,6 @@
 									<StandardListItem title="Weitere Krankheiten" info="{weitere_krankheiten}"/>
 								</items>
 							</List>
-							<Button id="Dashboard" text="Dashboard" press="onDashboard" width="100%"/>
 						</content>
 					</Panel>
 					<!-- Ultraschall neuester Stand-->
