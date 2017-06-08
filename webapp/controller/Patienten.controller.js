@@ -27,14 +27,15 @@ sap.ui.define([
 			},
 			
 			onListItemPress: function (oEvent) {
-				var evtTitle = oEvent.getSource().getTitle();
+				var evt = oEvent.getSource().getId().toString();
+				var i = evt.length-1;
 				var id = "";
-				var index = 0;
-				while(evtTitle[index] != " ") {
-					id = id+evtTitle[index];
-					index++;
-				}
-				var patientenid = id;
+				while(!isNaN(parseInt(evt[i]))) {
+					id = evt[i] + id;
+					i--;
+				};
+				id = parseInt(id);
+				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[0];
 				this.getOwnerComponent().getTargets().display("dashboard");
 				sap.ui.getCore().byId("__xmlview3").oController.onLoad(patientenid);
 			},
