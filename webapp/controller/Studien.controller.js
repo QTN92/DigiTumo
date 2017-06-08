@@ -43,7 +43,7 @@ sap.ui.define([
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
-				})
+				});
 			},
 			
 			onLogout: function() {

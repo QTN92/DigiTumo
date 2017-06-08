@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" controllerName="DigiTumo.controller.Vorgehen">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
 	<Dialog id="vorgehendialog" title="Weiteres Vorgehen festhalten" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
 		<content>
 			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
@@ -14,10 +14,10 @@
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
-			<Button icon="sap-icon://save" press="onDialogSubmitButton" type="Accept"/>
+			<Button icon="sap-icon://save" press="onSave" type="Accept"/>
 		</beginButton>
 		<endButton>
-			<Button icon="sap-icon://sys-cancel" press="onDialogCancelButton" type="Reject"/>
+			<Button icon="sap-icon://sys-cancel" press="onClose" type="Reject"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

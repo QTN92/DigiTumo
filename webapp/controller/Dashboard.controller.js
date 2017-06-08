@@ -64,10 +64,18 @@ sap.ui.define([
 				// Dialog laden
 				if (!oDialog) {
 					// Dialog über fragment factory erstellen
-					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.vorgehen");
+					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.vorgehen", this);
 					oView.addDependent(oDialog);
 				}
 				oDialog.open();
+			},
+			
+			onClose: function () {
+			this.getView().byId("vorgehendialog").close();
+		},
+
+			onCancel: function() {
+				this.getView().byId("helloDialog").close();
 			},
 
 			onStudien: function() {
