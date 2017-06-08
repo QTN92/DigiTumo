@@ -108,9 +108,22 @@ sap.ui.define([
 						case '1':
 							this.getOwnerComponent().getTargets().display("patienten");
 							break;
+						// 2: User kann Nachrichten pflegen
+						case '2':
+							// TODO: Navigation Newspflege 
+							MessageBox.show("Anmeldung zur Pflege von News erfolgreich");
+							break;
 						}
 					}
 				});
+			},
+			
+			onPwInputChange: function() {
+				this.byId("passwort").setValueState(sap.ui.core.ValueState.none);
+			},
+			
+			onUserInputChange: function() {
+				this.byId("user").setValueState(sap.ui.core.ValueState.none);
 			},
 			
 			onPatienten: function() {
