@@ -1,10 +1,11 @@
 sap.ui.define([
 		"sap/ui/core/mvc/Controller",
 		"sap/m/MessageBox",
-		"sap/ui/model/json/JSONModel"
+		"sap/ui/model/json/JSONModel",
+		"sap/ui/core/Fragment"
 	],
 
-	function(Controller, MessageBox, JSONModel) {
+	function(Controller, MessageBox, JSONModel, Fragment) {
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
@@ -70,57 +71,19 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
 
-			onSave: function() {
-				var dialog_vorgehen = new sap.m.Dialog({
-					contentWidth: "550px",
-					contentHeight: "300px",
-					title: "Vorgehen festhalten",
-					type: "Message",
-					content: [
-						new sap.m.Label({
-							text: "Datum",
-							labelFor: "Datum"
-						}),
-						new sap.m.DatePicker("Datum"),
-						new sap.m.Label({
-							text: "Aktion",
-							labelFor: "Aktion"
-						}),
-						new sap.m.ComboBox("Aktion", {
-							width: "100%"
-						}),
-						new sap.m.Label({
-							text: "Anmerkungen",
-							labelFor: "Anmerkungen"
-						}),
-						new sap.m.TextArea("Anmerkungen", {
-							width: "100%",
-							growing: true
-						})
-					],
-					beginButton: new sap.m.Button({
-						icon: "sap-icon://save",
-						type: "Accept",
-						press: function() {
-							var sText = sap.ui.getCore().byId("Anmerkungen").getValue();
-							dialog_vorgehen.close();
-						}
-					}),
-					endButton: new sap.m.Button({
-						icon: "sap-icon://sys-cancel",
-						type: "Reject",
-						press: function() {
-							dialog_vorgehen.close();
-						}
-					}),
-					afterClose: function() {
-						dialog_vorgehen.destroy();
-					}
-				});
+			onSave: function(oEvent) {
+				var oView = this.getView();
+				var oDialog = oView.byId("vorgehendialog");
+				// create dialog lazily
+				if (!oDialog) {
+					// create dialog via fragment factory
+					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.vorgehen");
+					oView.addDependent(oDialog);
+				}
 
-				dialog_vorgehen.open();
+				oDialog.open();
 			},
-			
+
 			onStudien: function() {
 				this.getOwnerComponent().getTargets().display("studien");
 			},

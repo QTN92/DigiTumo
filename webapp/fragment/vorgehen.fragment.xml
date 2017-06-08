@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" controllerName="DigiTumo.controller.Vorgehen">
+	<Dialog id="vorgehendialog" title="Weiteres Vorgehen festhalten" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
+		<content>
+			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
+			<Label text="Datum" labelFor="datum" width="100%"/>
+			<DatePicker id="datum" displayFormat="short" displayFormatType="Gregorian"
+				change="handleChange"/>
+			<Label text="Vorgehen" width="100%"/>
+			<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
+				<core:Item key="{ProductId}" text="{Name}"/>
+			</ComboBox>
+			<Label text="Anmerkungen" labelFor="anmerkungen" width="100%"/>
+			<TextArea growing="true" width="100%"/>
+			</l:VerticalLayout>
+		</content>
+		<beginButton>
+			<Button icon="sap-icon://save" press="onDialogSubmitButton" type="Accept"/>
+		</beginButton>
+		<endButton>
+			<Button icon="sap-icon://sys-cancel" press="onDialogCancelButton" type="Reject"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
