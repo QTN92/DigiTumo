@@ -33,7 +33,7 @@ sap.ui.define([
 				while(evtTitle[index] != " ") {
 					id = id+evtTitle[index];
 					index++;
-				};
+				}
 				var patientenid = id;
 				this.getOwnerComponent().getTargets().display("dashboard");
 				sap.ui.getCore().byId("__xmlview3").oController.onLoad(patientenid);

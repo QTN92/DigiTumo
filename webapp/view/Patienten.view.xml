@@ -1,9 +1,9 @@
-<View id="patientenscreen" controllerName="DigiTumo.controller.Patienten" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified"
-	height="100%">
+<View id="patientenscreen" controllerName="DigiTumo.controller.Patienten" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified" height="100%">
 	<Shell>
 		<Page title="Patienten">
 			<content>
-				<List items="{/patienten}" headerText="Patienten" id="patientenliste"> 
+				<List items="{/patienten}" headerText="Patienten" id="patientenliste">
 					<items>
 						<ObjectListItem title="{patientenid} {vorname} {nachname}" type="Active" press="onListItemPress">
 							<attributes>
@@ -11,10 +11,9 @@
 								<ObjectAttribute text="{tumor} {tumorstadium}"/>
 							</attributes>
 						</ObjectListItem>
-					</items> 
+					</items>
 				</List>
-											<Button id="Dashboard" text="Dashboard" press="onDashboard" width="100%"/>
-				
+				<Button id="Dashboard" text="Dashboard" press="onDashboard" width="100%"/>
 			</content>
 			<footer>
 				<OverflowToolbar>
