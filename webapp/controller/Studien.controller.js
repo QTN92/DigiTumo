@@ -12,7 +12,7 @@ sap.ui.define([
 			onInit: function() {
 				// Binding der Patienten- und Krankenakteninformationen
 				$.ajax({
-					url: "php/patienten/getPatienten.php",
+					url: "php/studien/getNews.php",
 					type: "GET",
 					context: this, 
 					success: function handleSuccess(response) {
@@ -24,6 +24,11 @@ sap.ui.define([
 						sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+			},
+			
+			onPress: function(oEvent) {
+				var i = oEvent.getSource();
+				alert(i);
 			},
 			
 			onLogout: function() {

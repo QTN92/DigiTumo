@@ -52,19 +52,6 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
-
-				// Newsfeed: neue Studien etc.
-				$.ajax({
-					url: "php/dashboard/getNews.php",
-					type: "GET",
-					context: this,
-					success: function handleSuccess(response) {
-						// TODO
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen");
-					}
-				});
 			},
 
 			onBack: function() {
