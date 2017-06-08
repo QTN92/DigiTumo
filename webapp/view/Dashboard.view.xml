@@ -79,18 +79,8 @@
 							</tileContent>
 						</GenericTile>
 					</Panel>
-					<!-- Studienfeed -->
-					<Panel headerText="Studienergebnisse" class="sapUiSmallMargin" width="100%" height="100%">
-						<content>
-							<List items="{/news}">
-								<items>
-									<FeedListItem senderActive="false" text="{titel}" sender="{autor}" showIcon="false"/>
-								</items>
-							</List>
-						</content>
-					</Panel>
 					<!--Krankheitsverlauf-->
-					<viz:Popover id="idPopOver"></viz:Popover>
+					<!--<viz:Popover id="idPopOver"></viz:Popover>
 					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='combination'>
 						<viz:dataset>
 							<viz.data:FlattenedDataset data="{/milk}">
@@ -110,15 +100,16 @@
 							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Cost"/>
 							<viz.feeds:FeedItem id="feedCategoryAxis" uid="categoryAxis" type="Dimension" values="Week"/>
 						</viz:feeds>
-					</viz:VizFrame>
+					</viz:VizFrame>-->
 				</l:content>
 			</l:Grid>
 			<!-- Footer mit Vorgehen festhalten + LogOut Buttons -->
 			<footer>
 				<OverflowToolbar>
+					<Button id="studien" text="Zu den Studienergebnissen" press="onStudien" icon="sap-icon://electronic-medical-record" type="Emphasized"/>
 					<ToolbarSpacer/>
 					<Button id="vorgehen" text="Vorgehen festhalten" press="onSave" icon="sap-icon://request" type="Accept"/>
-					<Button id="logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
+					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
 				</OverflowToolbar>
 			</footer>
 		</Page>

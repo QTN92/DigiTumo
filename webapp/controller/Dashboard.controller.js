@@ -8,7 +8,7 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
-						
+
 			onLoad: function(patientenid) {
 				// Patientendaten
 				// Abfrage von Detailinformationen zum Patienten
@@ -39,13 +39,11 @@ sap.ui.define([
 					success: function handleSuccess(response) {
 						this.byId("score").setValue(response);
 						// Abhängig vom Score wird dieser entsprechend gefärbt
-						if(response <= 3) {
+						if (response <= 3) {
 							this.byId("score").setValueColor("Error");
-						}
-						else if(response > 3 && response <= 7) {
+						} else if (response > 3 && response <= 7) {
 							this.byId("score").setValueColor("Critical");
-						}
-						else {
+						} else {
 							this.byId("score").setValueColor("Good");
 						}
 					},
@@ -53,7 +51,7 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
-				
+
 				// Newsfeed: neue Studien etc.
 				$.ajax({
 					url: "php/dashboard/getNews.php",
@@ -65,9 +63,9 @@ sap.ui.define([
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen");
 					}
-				})
+				});
 			},
-			
+
 			onBack: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
@@ -121,6 +119,10 @@ sap.ui.define([
 				});
 
 				dialog_vorgehen.open();
+			},
+			
+			onStudien: function() {
+				this.getOwnerComponent().getTargets().display("studien");
 			},
 
 			onLogout: function() {

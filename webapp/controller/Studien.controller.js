@@ -7,7 +7,7 @@ sap.ui.define([
 	function(Controller, MessageBox, JSONModel) {
 		"use strict";
 
-		return Controller.extend("DigiTumo.controller.Patienten", {
+		return Controller.extend("DigiTumo.controller.Studien", {
 
 			onInit: function() {
 				// Binding der Patienten- und Krankenakteninformationen
@@ -26,29 +26,11 @@ sap.ui.define([
 				});
 			},
 			
-			onListItemPress: function (oEvent) {
-				var evtTitle = oEvent.getSource().getTitle();
-				var id = "";
-				var index = 0;
-				while(evtTitle[index] != " ") {
-					id = id+evtTitle[index];
-					index++;
-				}
-				var patientenid = id;
-				this.getOwnerComponent().getTargets().display("dashboard");
-				sap.ui.getCore().byId("__xmlview3").oController.onLoad(patientenid);
-			},
-			
-			//Nur zum DashboardView testen
-			onPress: function() {
-				this.getOwnerComponent().getTargets().display("dashboard");
-			},
-			
 			onLogout: function() {
 				this.getOwnerComponent().getTargets().display("login");
 			},
 			
-			onDashboard: function() {
+			onBack: function() {
 				this.getOwnerComponent().getTargets().display("dashboard");
 			}
 		});

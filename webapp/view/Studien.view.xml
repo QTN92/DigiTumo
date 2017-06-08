@@ -1,0 +1,25 @@
+<View id="patientenscreen" controllerName="DigiTumo.controller.Studien" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified" height="100%">
+	<Shell>
+		<Page responsive="true" title="Studien" showNavButton="true" navButtonPress="onBack" showHeader="true" enableScrolling="true">
+			<content>
+				<!-- Studienfeed -->
+				<Panel headerText="Studienergebnisse" class="sapUiSmallMargin" width="100%" height="100%">
+					<content>
+						<List items="{/news}">
+							<items>
+								<FeedListItem senderActive="false" text="{titel}" sender="{autor}" showIcon="false"/>
+							</items>
+						</List>
+					</content>
+				</Panel>
+			</content>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</Shell>
+</View>
