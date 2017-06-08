@@ -38,15 +38,15 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
-						this.byId("score").setValue(response);
+						this.byId("__xmlview3--score").setValue(response);
 						// Abhängig vom Score wird dieser entsprechend gefärbt
 						if (response <= 3) {
-							this.byId("score").setValueColor("Error");
+							this.byId("__xmlview3--score").setValueColor("Error");
 						} else if (response > 3 && response <= 7) {
-							this.byId("score").setValueColor("Critical");
+							this.byId("__xmlview3--score").setValueColor("Critical");
 						} else {
-							this.byId("score").setValueColor("Good");
-						}
+							this.byId("__xmlview3--score").setValueColor("Good");
+						};
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
@@ -68,14 +68,38 @@ sap.ui.define([
 					oView.addDependent(oDialog);
 				}
 				oDialog.open();
+				var datum = new Date();
+				datum = datum.getDate() + "." + (datum.getMonth()+1) + "." + datum.getFullYear();
+				this.byId("__xmlview3--datum").setValue(datum);
 			},
 			
 			onClose: function () {
-			this.getView().byId("vorgehendialog").close();
-		},
+				this.getView().byId("vorgehendialog").close();
+			},
 
-			onCancel: function() {
-				this.getView().byId("helloDialog").close();
+			onSave: function() {
+				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
+				var datum = this.byId("__xmlview3--datum").getValue();
+//				var vorgehen = this.byId("__xmlview3--vorgehen").getText();
+				var vorgehen = "dummy";
+				var anmerkungen = this.byId("__xmlview3--anmerkungen").getValue();
+				$.ajax({
+					url: 'php/dashboard/setWeiteresVorgehen.php',
+					data: {
+						"patientenid": patientenid,
+						"datum": datum,
+						"vorgehen": vorgehen,
+						"anmerkungen": anmerkungen
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess() {
+						MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
+					},
+					error: function handleError() {
+						MessageBox.error("Speichern fehlgeschlagen.");
+					}
+				})
 			},
 
 			onStudien: function() {

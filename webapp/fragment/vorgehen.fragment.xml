@@ -7,10 +7,10 @@
 				change="handleChange"/>
 			<Label text="Vorgehen" width="100%"/>
 			<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
-				<core:Item key="{ProductId}" text="{Name}"/>
+				<core:Item key="{ProductId}" text="{Name}" id="vorgehen"/>
 			</ComboBox>
 			<Label text="Anmerkungen" labelFor="anmerkungen" width="100%"/>
-			<TextArea growing="true" width="100%"/>
+			<TextArea growing="true" width="100%" id="anmerkungen"/>
 			</l:VerticalLayout>
 		</content>
 		<beginButton>

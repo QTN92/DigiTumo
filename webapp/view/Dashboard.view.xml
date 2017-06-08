@@ -10,42 +10,42 @@
 						<content>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Name" info="{vorname} {nachname}"/>
+									<StandardListItem title="Name" info="{vorname} {nachname}" id="showName"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Geburtsdatum" info="{geburtsdatum}"/>
+									<StandardListItem title="Geburtsdatum" info="{geburtsdatum}" id="showGeburtsdatum"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Geschlecht" info="{geschlecht}"/>
+									<StandardListItem title="Geschlecht" info="{geschlecht}" id="showGeschlecht"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Raucher" info="{raucher}"/>
+									<StandardListItem title="Raucher" info="{raucher}" id="showRaucher"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Krankenkasse" info="{krankenkasse}"/>
+									<StandardListItem title="Krankenkasse" info="{krankenkasse}" id="showKrankenkasse"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Tumor" info="{tumor} {tumorstadium}"/>
+									<StandardListItem title="Tumor" info="{tumor} {tumorstadium}" id="showTumor"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Datum der Diagnose" info="{diagnosedatum}"/>
+									<StandardListItem title="Datum der Diagnose" info="{diagnosedatum}" id="showDiagnosedatum"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Weitere Krankheiten" info="{weitere_krankheiten}"/>
+									<StandardListItem title="Weitere Krankheiten" info="{weitere_krankheiten}" id="showWeitereKrankheiten"/>
 								</items>
 							</List>
 						</content>
@@ -108,7 +108,7 @@
 				<OverflowToolbar>
 					<Button id="studien" text="Zu den Studienergebnissen" press="onStudien" icon="sap-icon://electronic-medical-record" type="Emphasized"/>
 					<ToolbarSpacer/>
-					<Button id="vorgehen" text="Vorgehen festhalten" press="onSaveAction" icon="sap-icon://request" type="Accept"/>
+					<Button id="vorgehenFesthalten" text="Vorgehen festhalten" press="onSaveAction" icon="sap-icon://request" type="Accept"/>
 					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
 				</OverflowToolbar>
 			</footer>
