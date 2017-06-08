@@ -11,7 +11,9 @@
 							<Input id="passwort" type="Password" change="onPwInputChange" class="sapUiSmallMarginBottom"/>
 							<Button id="loginb" text="Login" press="onLogin" width="100%" type="Emphasized"/>
 							<!--Testbutton um Patientenview anzuzeigen-->
-							<Button id="Weiter" text="Patienten" press="onPatienten" width="100%"/>
+							<Button id="Patienten" text="Patienten" press="onPatienten" width="100%"/>
+							<Button id="Admin" text="Admin" press="onAdmin" width="100%"/>
+							<Button id="Newspflege" text="Newspflege" press="onNewspflege" width="100%"/>
 						</l:content>
 					</l:VerticalLayout>
 				</FlexBox>

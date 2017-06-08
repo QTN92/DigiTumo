@@ -115,6 +115,12 @@ sap.ui.define([
 			
 			onPatienten: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
+			},
+			onAdmin: function() {
+				this.getOwnerComponent().getTargets().display("admin");
+			},
+			onNewspflege: function() {
+				this.getOwnerComponent().getTargets().display("newspflege");
 			}
 		});
 	});
