@@ -125,7 +125,6 @@ sap.ui.define([
 			
 			onDashboard: function() {
 				this.getOwnerComponent().getTargets().display("dashboard");
-
 			}
 
 			onLogout: function() {

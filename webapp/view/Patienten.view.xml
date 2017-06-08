@@ -13,6 +13,8 @@
 						</ObjectListItem>
 					</items> 
 				</List>
+											<Button id="Dashboard" text="Dashboard" press="onDashboard" width="100%"/>
+				
 			</content>
 			<footer>
 				<OverflowToolbar>
