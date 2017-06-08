@@ -58,16 +58,15 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
 
-			onSave: function(oEvent) {
+			onSaveAction: function(oEvent) {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
-				// create dialog lazily
+				// Dialog laden
 				if (!oDialog) {
-					// create dialog via fragment factory
+					// Dialog über fragment factory erstellen
 					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.vorgehen");
 					oView.addDependent(oDialog);
 				}
-
 				oDialog.open();
 			},
 

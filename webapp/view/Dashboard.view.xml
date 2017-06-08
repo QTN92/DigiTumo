@@ -108,7 +108,7 @@
 				<OverflowToolbar>
 					<Button id="studien" text="Zu den Studienergebnissen" press="onStudien" icon="sap-icon://electronic-medical-record" type="Emphasized"/>
 					<ToolbarSpacer/>
-					<Button id="vorgehen" text="Vorgehen festhalten" press="onSave" icon="sap-icon://request" type="Accept"/>
+					<Button id="vorgehen" text="Vorgehen festhalten" press="onSaveAction" icon="sap-icon://request" type="Accept"/>
 					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
 				</OverflowToolbar>
 			</footer>
