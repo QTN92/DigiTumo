@@ -68,18 +68,6 @@ sap.ui.define([
 					oView.addDependent(oDialog);
 				}
 				oDialog.open();
-				var datum = new Date();
-				console.log(datum.getMonth());
-				datum = datum.getDate() + "." + (parseInt(datum.getMonth())+1) + "." + datum.getFullYear();
-				if(datum[1] === ".") {
-					datum = "0" + datum;
-				};
-				if(datum[4] === ".") {
-					var tmp = datum.substring(0, 3) + "0" + datum.substring(3, datum.length);
-					datum = tmp;
-				};
-				console.log(datum);
-				this.byId("__xmlview3--datum").setValue(datum);
 			},
 			
 			onClose: function () {
@@ -89,29 +77,27 @@ sap.ui.define([
 			onSave: function() {
 				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
 				var datum = this.byId("__xmlview3--datum").getValue();
-				else {
-//					var vorgehen = this.byId("__xmlview3--vorgehen").getText();
-					var vorgehen = "dummy";
-					var anmerkungen = this.byId("__xmlview3--anmerkungen").getValue();
-					$.ajax({
-						url: 'php/dashboard/setWeiteresVorgehen.php',
-						data: {
-							"patientenid": patientenid,
-							"datum": datum,
-							"vorgehen": vorgehen,
-							"anmerkungen": anmerkungen
-						},
-						type: "POST",
-						context: this,
-						success: function handleSuccess(response) {
-							MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
-							console.log(response);
-						},
-						error: function handleError() {
-							MessageBox.error("Speichern fehlgeschlagen.");
-						}
-					})
-				}
+//				var vorgehen = this.byId("__xmlview3--vorgehen").getText();
+				var vorgehen = "dummy";
+				var anmerkungen = this.byId("__xmlview3--anmerkungen").getValue();
+				$.ajax({
+					url: 'php/dashboard/setWeiteresVorgehen.php',
+					data: {
+						"patientenid": patientenid,
+						"datum": datum,
+						"vorgehen": vorgehen,
+						"anmerkungen": anmerkungen
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
+						console.log(response);
+					},
+					error: function handleError() {
+						MessageBox.error("Speichern fehlgeschlagen.");
+					}
+				})
 			},
 
 			onStudien: function() {
