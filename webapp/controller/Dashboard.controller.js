@@ -46,7 +46,7 @@ sap.ui.define([
 							this.byId("__xmlview3--score").setValueColor("Critical");
 						} else {
 							this.byId("__xmlview3--score").setValueColor("Good");
-						};
+						}
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
@@ -67,6 +67,7 @@ sap.ui.define([
 					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.vorgehen", this);
 					oView.addDependent(oDialog);
 				}
+				this.byId("__xmlview3--datum").setText(new Date());
 				oDialog.open();
 			},
 			
@@ -97,7 +98,7 @@ sap.ui.define([
 					error: function handleError() {
 						MessageBox.error("Speichern fehlgeschlagen.");
 					}
-				})
+				});
 			},
 
 			onStudien: function() {

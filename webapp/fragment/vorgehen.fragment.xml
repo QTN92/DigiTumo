@@ -3,8 +3,7 @@
 		<content>
 			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
 			<Label text="Datum" labelFor="datum" width="100%"/>
-			<DatePicker id="datum" displayFormat="medium" displayFormatType="Gregorian" pattern="d.m.Y" valueFormat="dd.mm.YYYY"
-				change="handleChange"/>
+			<Text id="datum" text=""/>
 			<Label text="Vorgehen" width="100%"/>
 			<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
 				<core:Item key="{ProductId}" text="{Name}" id="vorgehen"/>
