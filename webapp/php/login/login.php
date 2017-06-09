@@ -1,30 +1,24 @@
 <?php
 	include_once '../db.php';
 
-	// Prüfung ob Username und Passwort übergeben wurden
-	// Im Erfolgsfall lokale Speicherung 
-	if(isset($_POST['user'])) { 
-		$post_user = $_POST['user'];
-	};
-	if(isset($_POST['passwort'])) {
-		$post_passwort = $_POST['passwort'];
-	};
-
+	$post_user = $_POST['user'];
+	$post_passwort = $_POST['passwort'];
+	
 	// Prüfung ob Username und Passwort nicht leer sind
 	if($post_user != "" AND $post_passwort != "") {
 		// Auslesen des Nutzernamens aus der DB
 		$sql = "SELECT userid FROM user WHERE userid = '$post_user'";
 		$result = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 		// Extrahieren des Nutzernamens aus dem Ergebnisstring
-		$start = strlen($result)*(-1)+12;
-		$max_length = $start*(-1)-3;
+		$start = 12;
+		$max_length = strlen($result)-$start-3;
 		$get_user = substr($result, $start, $max_length);
 		// Auslesen des Passworts aus der DB
 		$sql = "SELECT passwort FROM user WHERE userid = '$post_user'";
 		$result = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 		// Extrahieren des Passworts aus dem Ergebnisstring
-		$start = strlen($result)*(-1)+14;
-		$max_length = $start*(-1)-3;
+		$start = 14;
+		$max_length = strlen($result)-$start-3;
 		$get_passwort = substr($result, $start, $max_length);
 
 		// Prüfung der Login-Daten

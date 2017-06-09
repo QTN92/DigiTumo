@@ -66,8 +66,19 @@ sap.ui.define([
 					// Dialog über fragment factory erstellen
 					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.vorgehen", this);
 					oView.addDependent(oDialog);
-				}
-				this.byId("__xmlview3--datum").setText(new Date());
+				};
+				var datum = new Date();
+				var tmp = datum.getDate() + "." + datum.getMonth() + "." + datum.getFullYear();
+				datum = tmp;
+				if(tmp[1] == ".") {
+					tmp = "0" + tmp;
+					datum = tmp;
+				};
+				if(tmp[4] == ".") {
+					tmp = datum.substring(0, 3) + "0" + datum.substring(3, datum.length);
+					datum = tmp;
+				};
+				this.byId("__xmlview3--datum").setText(datum);
 				oDialog.open();
 			},
 			
@@ -77,7 +88,7 @@ sap.ui.define([
 
 			onSave: function() {
 				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
-				var datum = this.byId("__xmlview3--datum").getValue();
+				var datum = this.byId("__xmlview3--datum").getText();
 //				var vorgehen = this.byId("__xmlview3--vorgehen").getText();
 				var vorgehen = "dummy";
 				var anmerkungen = this.byId("__xmlview3--anmerkungen").getValue();
@@ -92,8 +103,14 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
-						MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
-						console.log(response);
+						if(response === "fehler") {
+							MessageBox.error("Speichern fehlgeschlagen.");
+						}
+						else {
+							MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
+							this.getView().byId("vorgehendialog").close();
+							console.log(response);
+						};
 					},
 					error: function handleError() {
 						MessageBox.error("Speichern fehlgeschlagen.");
