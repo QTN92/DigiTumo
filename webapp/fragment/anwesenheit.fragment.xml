@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog id="vorgehendialog" title="Weiteres Vorgehen festhalten" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
+		<content>
+			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
+				<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="true">
+					<List id="arzteliste" items="" mode="MultiSelect" selectionChange="onSelectionChange">
+						<StandardListItem></StandardListItem>
+					</List>
+				</ScrollContainer>
+			</l:VerticalLayout>
+		</content>
+		<beginButton>
+			<Button icon="sap-icon://save" press="onSpeichern" type="Accept"/>
+		</beginButton>
+		<endButton>
+			<Button icon="sap-icon://sys-cancel" press="onOhneSpeichern" type="Reject"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
