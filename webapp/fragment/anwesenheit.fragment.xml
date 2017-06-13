@@ -1,19 +1,18 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-	<Dialog id="vorgehendialog" title="Weiteres Vorgehen festhalten" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
+	<Dialog id="anwesenheitdialog" title="Anwesenheitsliste" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
 		<content>
-			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
-				<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="true">
-					<List id="arzteliste" items="" mode="MultiSelect" selectionChange="onSelectionChange">
-						<StandardListItem></StandardListItem>
+				<ScrollContainer height="100%" horizontal="true" vertical="true" class="sapUiSmallMargin">
+					<List id="arzteliste" items="{/aerzte}" mode="MultiSelect" selectionChange="onSelectionChange">
+						<StandardListItem title="{vorname} {nachname}"
+			description="{fachgebiet}"></StandardListItem>
 					</List>
 				</ScrollContainer>
-			</l:VerticalLayout>
 		</content>
 		<beginButton>
-			<Button icon="sap-icon://save" press="onSpeichern" type="Accept"/>
+			<Button text="Ohne Anwesenheitsliste fortfahren" press="onOhneListe" type="Default"/>
 		</beginButton>
 		<endButton>
-			<Button icon="sap-icon://sys-cancel" press="onOhneSpeichern" type="Reject"/>
+			<Button id="anwSave" icon="sap-icon://save" press="onSpeichern" type="Accept" visible="false"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

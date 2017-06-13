@@ -126,9 +126,44 @@ sap.ui.define([
 				this.byId("user").setValueState(sap.ui.core.ValueState.none);
 			},
 			
+			//Test Aanwesenheitsliste inkl Controllerskelett
 			onPatienten: function() {
+				var oView = this.getView();
+				var oModel = new sap.ui.model.json.JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/aerzte.json"));
+				this.oView.setModel(oModel);
+				var oDialog = oView.byId("anwesenheitdialog");
+				// Dialog laden
+				if (!oDialog) {
+					// Dialog über fragment factory erstellen
+					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.anwesenheit", this);
+					oView.addDependent(oDialog);
+				}
+				oDialog.open();
+			},
+			
+			//Error Handling um leere Liste zu vermeiden
+			onSelectionChange: function() {
+				this.getView().byId("__xmlview1--anwSave").setVisible(true);
+			},
+			
+			onSpeichern: function() {
+				this.oView = this.getView().byId("__xmlview1--arzteliste");
+				var listLength = this.oView.mAggregations.items.length;
+				for (var i = 0; i < listLength; i++) {
+					if (this.oView.mAggregations.items[i].mProperties.selected === true){
+						var oArzt = this.oView.mAggregations.items[i].mProperties.title;
+						//TO DO: In Array speichern und an DB übergeben
+						MessageBox.success(oArzt);
+					}
+				}
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
+			
+			//wenn Arzt außerhalb Tummorkonferenz Dashboard anzeigen lassen will
+			onOhneListe  : function() {
+				this.getOwnerComponent().getTargets().display("patienten");
+			},
+			
 			onAdmin: function() {
 				this.getOwnerComponent().getTargets().display("admin");
 			},
