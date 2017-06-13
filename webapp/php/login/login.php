@@ -1,5 +1,5 @@
 <?php
-	include_once '../db.php';
+	include_once '../db2.php';
 
 	$post_user = $_POST['user'];
 	$post_passwort = $_POST['passwort'];
