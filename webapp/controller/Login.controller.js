@@ -104,14 +104,14 @@ sap.ui.define([
 							// TODO: Navigation Admin
 							MessageBox.show("Anmeldung als Admin erfolgreich");
 							break;
-						// 1: User ist Arzt
+						// 1: User kann Nachrichten pflegen
 						case '1':
-							this.getOwnerComponent().getTargets().display("patienten");
-							break;
-						// 2: User kann Nachrichten pflegen
-						case '2':
 							// TODO: Navigation Newspflege 
 							MessageBox.show("Anmeldung zur Pflege von News erfolgreich");
+							break;
+						// 2: User ist Arzt
+						case '2':
+							this.getOwnerComponent().getTargets().display("patienten");
 							break;
 						}
 					}
