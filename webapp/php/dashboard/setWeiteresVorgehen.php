@@ -1,5 +1,5 @@
 <?php
-	include_once '../db.php';
+	include_once '../db2.php';
 
 	$patientenid = $_POST['patientenid'];
 	$sql = "SELECT krankenaktenid FROM patienten WHERE patientenid = '$patientenid'";

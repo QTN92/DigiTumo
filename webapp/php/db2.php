@@ -34,7 +34,7 @@
 		$servername = "localhost";
 		$username = "root";
 		$password = "";
-		$database = "digitaltumorboard";
+		$database = "digitaltumorboard2";
 
 		// Erstellen der DB-Verbindung 
 		$conn = new mysqli($servername, $username, $password, $database);

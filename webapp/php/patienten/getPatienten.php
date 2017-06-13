@@ -1,5 +1,5 @@
 <?php
-	include_once '../db.php';
+	include_once '../db2.php';
 	
 	// Abfrage der gewünschten Informationen zu allen Patienten
 	$sql = "SELECT patientenid, vorname, nachname, DATE_FORMAT(geburtsdatum, '%d.%m.%Y') AS geburtsdatum, tumor, tumorstadium FROM patienten, krankenakte WHERE patienten.krankenaktenid = krankenakte.krankenaktenid";
