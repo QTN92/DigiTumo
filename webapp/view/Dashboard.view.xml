@@ -35,12 +35,17 @@
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Tumor" info="{tumor} {stadium}" id="showTumor"/>
+									<StandardListItem title="Tumor" info="{tumor}" id="showTumor"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
 									<StandardListItem title="Datum der Diagnose" info="{diagnosedatum}" id="showDiagnosedatum"/>
+								</items>				
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title ="Tumorstadium" info = "{stadium} ({letztesStadium})" id="showTumorstadium"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
