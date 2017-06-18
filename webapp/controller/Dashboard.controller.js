@@ -92,13 +92,15 @@ sap.ui.define([
 //				var vorgehen = this.byId("__xmlview3--vorgehen").getText();
 				var vorgehen = "dummy";
 				var anmerkungen = this.byId("__xmlview3--anmerkungen").getValue();
+				var anwesendeExperten = "";
 				$.ajax({
 					url: 'php/dashboard/setWeiteresVorgehen.php',
 					data: {
 						"patientenid": patientenid,
 						"datum": datum,
 						"vorgehen": vorgehen,
-						"anmerkungen": anmerkungen
+						"anmerkungen": anmerkungen,
+						"anwesendeExperten": anwesendeExperten
 					},
 					type: "POST",
 					context: this,

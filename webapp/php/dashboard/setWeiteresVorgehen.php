@@ -1,10 +1,10 @@
 <?php
-	include_once '../db2.php';
+	include_once '../db.php';
 
 	$patientenid = $_POST['patientenid'];
-	$sql = "SELECT krankenaktenid FROM patienten WHERE patientenid = '$patientenid'";
+	$sql = "SELECT krankenakteId FROM krankenakte WHERE patient_patientId = '$patientenid'";
 	$tmp = json_encode(sql($sql));
-	$krankenaktenid = substr($tmp, 20, strlen($tmp)-23);
+	$krankenaktenid = substr($tmp, 19, -3);
 	if($krankenaktenid == "") {
 		echo "fehler";
 	}
@@ -18,7 +18,9 @@
 		$datum = date('Y-m-d', $tmp);
 		$vorgehen = $_POST['vorgehen'];
 		$anmerkungen = $_POST['anmerkungen'];
-		$sql = "INSERT INTO weiteresVorgehen (krankenaktenid, datum, vorgehen, anmerkungen) VALUES ('$krankenaktenid', '$datum', '$vorgehen', '$anmerkungen')";
+		$notiz = $vorgehen . ": " . $anmerkungen;
+		$anwesendeExperten = $_POST['anwesendeExperten'];
+		$sql = "INSERT INTO vorgehenshistorie (krankenakte_krankenakteId, datum, notiz, anwesendeExperten) VALUES ('$krankenaktenid', '$datum', '$notiz', '$anwesendeExperten')";
 		sql($sql);
 	};	
 ?>
