@@ -54,10 +54,6 @@ sap.ui.define([
 				});
 			},
 
-			onBack: function() {
-				this.getOwnerComponent().getTargets().display("patienten");
-			},
-
 			onSaveAction: function(oEvent) {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
@@ -82,10 +78,6 @@ sap.ui.define([
 				oDialog.open();
 			},
 			
-			onClose: function () {
-				this.getView().byId("vorgehendialog").close();
-			},
-
 			onSave: function() {
 				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
 				var datum = this.byId("__xmlview3--datum").getText();
@@ -118,14 +110,21 @@ sap.ui.define([
 					}
 				});
 			},
+			
+			onClose: function () {
+				this.getView().byId("vorgehendialog").close();
+			},
 
 			onStudien: function() {
 				this.getOwnerComponent().getTargets().display("studien");
 			},
 
+			onBack: function() {
+				this.getOwnerComponent().getTargets().display("patienten");
+			},
+			
 			onLogout: function() {
 				this.getOwnerComponent().getTargets().display("login");
 			}
-
 		});
 	});
