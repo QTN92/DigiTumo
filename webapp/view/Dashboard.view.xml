@@ -30,12 +30,12 @@
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Krankenkasse" info="{krankenkasse}" id="showKrankenkasse"/>
+									<StandardListItem title="Krankenkasse" info="{versicherung}" id="showKrankenkasse"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Tumor" info="{tumor} {tumorstadium}" id="showTumor"/>
+									<StandardListItem title="Tumor" info="{tumor} {stadium}" id="showTumor"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
