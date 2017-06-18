@@ -30,7 +30,7 @@ sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
 					
 					studien: {
 						viewName: "Studien",
-						viewLevel: 2
+						viewLevel: 3
 					}
 				}
 			}

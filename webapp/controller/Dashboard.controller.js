@@ -89,8 +89,7 @@ sap.ui.define([
 			onSave: function() {
 				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
 				var datum = this.byId("__xmlview3--datum").getText();
-//				var vorgehen = this.byId("__xmlview3--vorgehen").getText();
-				var vorgehen = "dummy";
+				var vorgehen = this.byId("__xmlview3--vorgehen").getText();
 				var anmerkungen = this.byId("__xmlview3--anmerkungen").getValue();
 				var anwesendeExperten = "";
 				$.ajax({
