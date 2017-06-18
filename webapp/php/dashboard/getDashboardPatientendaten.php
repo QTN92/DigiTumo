@@ -1,7 +1,6 @@
 <?php
 	include_once '../db.php';
-	//$patientenid = $_POST['patientenid'];
-	$patientenid = '3';
+	$patientenid = $_POST['patientenid'];
 	$tmp = json_encode(sql("SELECT krankenakteId FROM krankenakte WHERE patient_patientId = '$patientenid'"));
 	$krankenakteid = substr($tmp, 19, -3);
 	$sql = "SELECT 
