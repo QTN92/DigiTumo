@@ -1,9 +1,10 @@
 <?php 
 	include_once '../db.php';
 
-	$autor = $_POST['autor'];
+	$autorVorname = $_POST['autorVorname'];
+	$autorNachname = $_POST['autorNachname'];
 	$titel = $_POST['titel'];
-	$sql = "SELECT verweis FROM newsfeed WHERE autor = '$autor' AND titel = '$titel'";
+	$sql = "SELECT verweis FROM newsfeed WHERE autorVorname = '$autorVorname' AND autorNachname = '$autorNachname' AND titel = '$titel'";
 	$result = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 	$result = stripslashes($result);
 	$start = 13;

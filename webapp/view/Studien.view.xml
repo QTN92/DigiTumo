@@ -8,7 +8,7 @@
 					<content>
 						<List items="{/news}">
 							<items>
-								<FeedListItem type="Active" sender="{autor}" text="{titel}" info="{abstract}" showIcon="false" press="onPress"/>
+								<FeedListItem type="Active" sender="{autorVorname} {autorNachname}" text="{titel}" info="{abstract}" showIcon="false" press="onPress"/>
 							</items>
 						</List>
 					</content>
