@@ -110,6 +110,13 @@ sap.ui.define([
 			},
 			
 			onLogout: function() {
+				$.ajax({
+					url: "php/clearHilfstabelle.php",
+					context: this,
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
 				this.getOwnerComponent().getTargets().display("login");
 			},
 			

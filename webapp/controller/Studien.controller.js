@@ -40,7 +40,7 @@ sap.ui.define([
 				var autorNachname = news[1];
 				var titel = news[2];
 				$.ajax({
-					url: 'php/studien/getLink.php',
+					url: "php/studien/getLink.php",
 					data: {
 						"autorVorname": autorVorname,
 						"autorNachname": autorNachname,
@@ -58,6 +58,13 @@ sap.ui.define([
 			},
 			
 			onLogout: function() {
+				$.ajax({
+					url: "php/clearHilfstabelle.php",
+					context: this,
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
 				this.getOwnerComponent().getTargets().display("login");
 			},
 			
