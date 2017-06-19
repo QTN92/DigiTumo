@@ -9,18 +9,14 @@
 		echo "fehler";
 	}
 	else {
-		$tmp = $_POST['datum'];
-		$jahr = substr($tmp, 6);
-		$monat = substr($tmp, 3, 2);
-		$tag = substr($tmp, 0, 2);
-		$tmp = $jahr . "-" . $monat . "-" . $tag;
-		$tmp = strtotime($tmp);
-		$datum = date('Y-m-d', $tmp);
 		$vorgehen = $_POST['vorgehen'];
-		$anmerkungen = $_POST['anmerkungen'];
-		$notiz = $vorgehen . ": " . $anmerkungen;
-		$anwesendeExperten = $_POST['anwesendeExperten'];
-		$sql = "INSERT INTO vorgehenshistorie (krankenakte_krankenakteId, datum, notiz, anwesendeExperten) VALUES ('$krankenaktenid', '$datum', '$notiz', '$anwesendeExperten')";
+		$notiz = $_POST['notiz'];
+		$sql = "SELECT MAX(datum) FROM hilfstabelle";
+		$tmp = substr(json_encode(sql($sql)), 16, -3);
+		$sql = "SELECT anwesendeAerzte FROM hilfstabelle WHERE datum = '$tmp'";
+		$anwesendeAerzte = substr(json_encode(sql($sql)), 21, -3);
+		sql($sql);
+		$sql = "INSERT INTO vorgehenshistorie (krankenakte_krankenakteId, vorgehen, notiz, anwesendeExperten) VALUES ('$krankenaktenid', '$vorgehen', '$notiz', '$anwesendeAerzte')";
 		sql($sql);
 	};	
 ?>
