@@ -126,9 +126,33 @@ sap.ui.define([
 				this.byId("user").setValueState(sap.ui.core.ValueState.none);
 			},
 			
+			//Logik Anwesenheitsliste
+			
 			onPatienten: function() {
+				var oView = this.getView();
+				var oDialog = oView.byId("anwesenheitdialog");
+				// Dialog laden
+				if (!oDialog) {
+					// Dialog über fragment factory erstellen
+					this.oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.anwesenheit", this);
+					oView.addDependent(oDialog);
+				}
+				this.oDialog.open();
+			},
+			
+			onSpeichern: function() {
+				//
+				this.oDialog.close();
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
+			
+			onOhneSpeichern: function(){
+				this.oDialog.close();
+				this.getOwnerComponent().getTargets().display("patienten");
+			},
+			
+			//Testen von Views
+			
 			onAdmin: function() {
 				this.getOwnerComponent().getTargets().display("admin");
 			},

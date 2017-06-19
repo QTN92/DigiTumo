@@ -1,5 +1,5 @@
-<View id="patientenscreen" controllerName="DigiTumo.controller.Patienten" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
-	xmlns:u="sap.ui.unified" height="100%">
+<View id="patientenscreen" controllerName="DigiTumo.controller.Patienten" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" height="100%">
 	<Shell>
 		<Page title="Patienten">
 			<content>
@@ -12,13 +12,20 @@
 							</attributes>
 						</ObjectListItem>
 					</items>
+					<headerToolbar>
+						<Toolbar>
+							<Title text="Products" level="H2"/>
+							<ToolbarSpacer/>
+							<ComboBox placeholder="Filter nach Tumor" items="">
+								<core:Item key="{ProductId}" text="{Name}"/>
+							</ComboBox>
+						</Toolbar>
+					</headerToolbar>
 				</List>
 				<Button id="Dashboard" text="Dashboard" press="onDashboard" width="100%"/>
 			</content>
 			<footer>
 				<OverflowToolbar>
-					<Button id ="filter" text="Filtern" press="onFilter" icon="sap-icon://filter" type="Emphasized"/>
-					<ToolbarSpacer/>
 					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
 				</OverflowToolbar>
 			</footer>
