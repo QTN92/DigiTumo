@@ -69,13 +69,13 @@ sap.ui.define([
 									break;
 									// 1: Nutzername war falsch/ nicht vorhanden
 								case '1':
-									sap.m.MessageToast.show("Nutzer nicht vorhanden!");
+									MessageBox.error("Nutzer nicht vorhanden!");
 									this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
 									this.byId("__xmlview1--user").setShowValueStateMessage(false);
 									break;
 									// 2: Passwort war falsch
 								case '2':
-									sap.m.MessageToast.show("Falsches Passwort!");
+									MessageBox.error("Falsches Passwort!");
 									this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.Error);
 									this.byId("__xmlview1--passwort").setShowValueStateMessage(false);
 									break;
@@ -102,8 +102,7 @@ sap.ui.define([
 						switch(response) {
 						// 0: User ist Admin
 						case '0':
-							// TODO: Navigation Admin
-							MessageBox.show("Anmeldung als Admin erfolgreich");
+							this.getOwnerComponent().getTargets().display("admin");
 							break;
 						// 1: User kann Nachrichten pflegen
 						case '1':

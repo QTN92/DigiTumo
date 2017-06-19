@@ -4,8 +4,8 @@
 		<Page responsive="true" title="Benutzerverwaltung" showHeader="true" enableScrolling="true" enableBusyIndicator="true" mode="SingleSelectMaster">
 			<content>
 				<!-- Benutzerliste -->
-				<List delete="handleDelete" items="{/news}">
-					<StandardListItem title="{Name}" description="{ProductId}"/>
+				<List delete="handleDelete" items="{/user}">
+					<StandardListItem title="{vorname} {nachname}"/>
 					<swipeContent>
 						<Button text="Delete User" type="Reject" press="handleReject"/>
 					</swipeContent>
