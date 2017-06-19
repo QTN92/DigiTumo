@@ -1,0 +1,24 @@
+<View id="adminscreen" controllerName="DigiTumo.controller.Admin" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified" height="100%">
+	<Shell>
+		<Page responsive="true" title="Benutzerverwaltung" showHeader="true" enableScrolling="true" enableBusyIndicator="true" mode="SingleSelectMaster">
+			<content>
+				<!-- Benutzerliste -->
+				<List delete="handleDelete" items="{/news}">
+					<StandardListItem title="{Name}" description="{ProductId}"/>
+					<swipeContent>
+						<Button text="Delete User" type="Reject" press="handleReject"/>
+					</swipeContent>
+				</List>
+			</content>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button id="save"  press="onSave" icon="sap-icon://save" type="Accept"/>
+					<Button id="cancel" press="onCancel" icon="sap-icon://sys-cancel-2" type="Reject"/>
+					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Default"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</Shell>
+</View>

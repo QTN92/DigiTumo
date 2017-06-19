@@ -18,16 +18,21 @@ sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
 						viewLevel: 0
 					},
 
+					admin: {
+						viewName: "Admin",
+						viewLevel: 0
+					},
+
 					patienten: {
 						viewName: "Patienten",
 						viewLevel: 1
 					},
-					
+
 					dashboard: {
 						viewName: "Dashboard",
 						viewLevel: 2
 					},
-					
+
 					studien: {
 						viewName: "Studien",
 						viewLevel: 3

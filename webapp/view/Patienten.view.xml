@@ -26,7 +26,7 @@
 			</content>
 			<footer>
 				<OverflowToolbar>
-					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
+					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Default"/>
 				</OverflowToolbar>
 			</footer>
 		</Page>
