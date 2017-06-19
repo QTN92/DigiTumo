@@ -17,6 +17,7 @@
 			</content>
 			<footer>
 				<OverflowToolbar>
+					<Button id ="filter" text="Filtern" press="onFilter" icon="sap-icon://filter" type="Emphasized"/>
 					<ToolbarSpacer/>
 					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
 				</OverflowToolbar>

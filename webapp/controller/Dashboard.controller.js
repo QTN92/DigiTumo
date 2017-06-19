@@ -64,16 +64,16 @@ sap.ui.define([
 					oView.addDependent(oDialog);
 				};
 				var datum = new Date();
-				var tmp = datum.getDate() + "." + datum.getMonth() + "." + datum.getFullYear();
-				datum = tmp;
-				if(tmp[1] == ".") {
-					tmp = "0" + tmp;
-					datum = tmp;
+				var tag = datum.getDate().toString();
+				var monat = (datum.getMonth()+1).toString();
+				var jahr = datum.getFullYear().toString();
+				if(tag.length == 1) {
+					tag = "0" + tag;
 				};
-				if(tmp[4] == ".") {
-					tmp = datum.substring(0, 3) + "0" + datum.substring(3, datum.length);
-					datum = tmp;
+				if(monat.length == 1) {
+					monat = "0" + monat;
 				};
+				datum = tag + "." + monat + "." + jahr;
 				this.byId("__xmlview3--datum").setText(datum);
 				oDialog.open();
 			},
