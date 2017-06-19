@@ -1,9 +1,10 @@
 sap.ui.define([
 		"sap/ui/core/mvc/Controller",
-		"sap/m/MessageBox"
+		"sap/m/MessageBox",
+		"sap/ui/model/json/JSONModel"
 	],
 
-	function(Controller, MessageBox) {
+	function(Controller, MessageBox, JSONModel) {
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Login", {
@@ -136,7 +137,20 @@ sap.ui.define([
 					// Dialog über fragment factory erstellen
 					this.oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.anwesenheit", this);
 					oView.addDependent(oDialog);
-				}
+				};
+				$.ajax({
+					url: "php/login/getExperten.php",
+					type: "GET",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						sap.ui.getCore().byId("__xmlview1--anwesenheitdialog").setModel(oModel);
+					},
+					error: function handleError(response) {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
 				this.oDialog.open();
 			},
 			

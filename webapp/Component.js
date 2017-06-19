@@ -20,7 +20,7 @@ sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
 
 					admin: {
 						viewName: "Admin",
-						viewLevel: 0
+						viewLevel: 1
 					},
 
 					patienten: {

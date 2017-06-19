@@ -1,10 +1,10 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-	<Dialog id="anwesenheitdialog" title="Weiteres Vorgehen festhalten" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
+	<Dialog id="anwesenheitdialog" title="Anwesende Ärzte vermerken" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
 		<content>
 			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
 				<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="true">
-					<List id="arzteliste" items="" mode="MultiSelect" selectionChange="onSelectionChange">
-						<StandardListItem></StandardListItem>
+					<List items="{/anwesenheit}" id="anwesenheitsliste" mode="MultiSelect" selectionChange="onSelectionChange">
+						<StandardListItem title="{vorname} {nachname}" info="{rang} {fachgebiet}"/>
 					</List>
 				</ScrollContainer>
 			</l:VerticalLayout>

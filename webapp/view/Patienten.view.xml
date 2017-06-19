@@ -14,10 +14,10 @@
 					</items>
 					<headerToolbar>
 						<Toolbar>
-							<Title text="Products" level="H2"/>
+							<Title text="Patienten" level="H2"/>
 							<ToolbarSpacer/>
 							<ComboBox placeholder="Filter nach Tumor" items="">
-								<core:Item key="{ProductId}" text="{Name}"/>
+								<core:Item key="{bezeichnung}" text="{bezeichnung}"/>
 							</ComboBox>
 						</Toolbar>
 					</headerToolbar>
@@ -26,6 +26,7 @@
 			</content>
 			<footer>
 				<OverflowToolbar>
+					<ToolbarSpacer/>
 					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Default"/>
 				</OverflowToolbar>
 			</footer>
