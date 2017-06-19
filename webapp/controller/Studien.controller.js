@@ -27,12 +27,23 @@ sap.ui.define([
 			},
 			
 			onPress: function(oEvent) {
-				var autor = oEvent.getSource().getSender().toString();
-				var titel = oEvent.getSource().getText().toString();
+				var evt = oEvent.getSource().getId().toString();
+				var i = evt.length-1;
+				var id = "";
+				while(!isNaN(parseInt(evt[i]))) {
+					id = evt[i] + id;
+					i--;
+				};
+				id = parseInt(id);
+				var news = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id]);
+				var autorVorname = news[0];
+				var autorNachname = news[1];
+				var titel = news[2];
 				$.ajax({
 					url: 'php/studien/getLink.php',
 					data: {
-						"autor": autor,
+						"autorVorname": autorVorname,
+						"autorNachname": autorNachname,
 						"titel": titel
 					},
 					type: "POST",
@@ -43,7 +54,7 @@ sap.ui.define([
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
-				});
+				})
 			},
 			
 			onLogout: function() {
