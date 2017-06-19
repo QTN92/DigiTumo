@@ -39,7 +39,7 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("dashboard");
 				sap.ui.getCore().byId("__xmlview3").oController.onLoad(patientenid);
 			},
-			
+
 			//Nur zum DashboardView testen
 			onPress: function() {
 				this.getOwnerComponent().getTargets().display("dashboard");
