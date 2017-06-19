@@ -126,45 +126,11 @@ sap.ui.define([
 			onUserInputChange: function() {
 				this.byId("user").setValueState(sap.ui.core.ValueState.none);
 			},
-			
-			//Logik Anwesenheitsliste
-			
+					
 			onPatienten: function() {
-				var oView = this.getView();
-				var oDialog = oView.byId("anwesenheitdialog");
-				// Dialog laden
-				if (!oDialog) {
-					// Dialog über fragment factory erstellen
-					this.oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.anwesenheit", this);
-					oView.addDependent(oDialog);
-				};
-				$.ajax({
-					url: "php/login/getExperten.php",
-					type: "GET",
-					context: this,
-					success: function handleSuccess(response) {
-						var oModel = new JSONModel();
-						oModel.setJSON(response);
-						sap.ui.getCore().byId("__xmlview1--anwesenheitdialog").setModel(oModel);
-					},
-					error: function handleError(response) {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-					}
-				});
-				this.oDialog.open();
-			},
-			
-			onSpeichern: function() {
-				//
-				this.oDialog.close();
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
-			
-			onOhneSpeichern: function(){
-				this.oDialog.close();
-				this.getOwnerComponent().getTargets().display("patienten");
-			},
-			
+				
 			//Testen von Views
 			
 			onAdmin: function() {

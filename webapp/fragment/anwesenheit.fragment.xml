@@ -10,10 +10,10 @@
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
-			<Button icon="sap-icon://save" press="onSpeichern" type="Accept"/>
+			<Button icon="sap-icon://save" press="onAnwesenheitSpeichern" type="Accept"/>
 		</beginButton>
 		<endButton>
-			<Button icon="sap-icon://sys-cancel" press="onOhneSpeichern" type="Reject"/>
+			<Button icon="sap-icon://sys-cancel" press="onAnwesenheitNichtSpeichern" type="Reject"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>
