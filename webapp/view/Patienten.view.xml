@@ -16,7 +16,7 @@
 						<Toolbar>
 							<Title text="Patienten" level="H2"/>
 							<ToolbarSpacer/>
-							<ComboBox placeholder="Filter nach Tumor" items="">
+							<ComboBox placeholder="Filter nach Tumor" items="{/filter}" id="filter" change="onFilter">
 								<core:Item key="{bezeichnung}" text="{bezeichnung}"/>
 							</ComboBox>
 						</Toolbar>

@@ -25,6 +25,16 @@ sap.ui.define([
 						sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+				$.ajax({
+					url: "php/patienten/getFilter.php",
+					type: "GET",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						this.getView().byId("__xmlview2--filter").setModel(oModel);
+					}
+				})
 			},
 			
 			onAnwesenheitVermerken: function() {
@@ -41,9 +51,9 @@ sap.ui.define([
 					success: function handleSuccess(response) {
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
-						sap.ui.getCore().byId("__xmlview2--anwesenheitdialog").setModel(oModel);
+						sap.ui.getCore().byId("__xmlview2--anwesenheitsdialog").setModel(oModel);
 					},
-					error: function handleError(response) {
+					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
@@ -52,12 +62,12 @@ sap.ui.define([
 			
 			// Methoden für das Vermerken der Anwesenheit
 			onAnwesenheitSpeichern: function() {
-				var alleAerzte = sap.ui.getCore().byId("__xmlview2--anwesenheitdialog").getModel().getProperty("/anwesenheit");
+				var alleAerzte = sap.ui.getCore().byId("__xmlview2--anwesenheitsdialog").getModel().getProperty("/anwesenheit");
 				var anzahlAerzte = alleAerzte.length;
-				var id = "__item2-__xmlview2--anwesenheitsliste-x";
+				var id = "__item2-__xmlview2--anwesenheitsliste-";
 				var anwesendeAerzte = "";
 				for (var i = 0; i < anzahlAerzte; i++) {
-					id = id.substring(0, 38) + i;
+					id = id + i;
 					if(sap.ui.getCore().byId(id).isSelected()) {
 						var arzt = Object.values(alleAerzte[i]);
 						var tmp = arzt[0] + " " + arzt[1];
@@ -87,6 +97,43 @@ sap.ui.define([
 			
 			onAnwesenheitNichtSpeichern: function(){
 				this.oDialog.close();
+			},
+			
+			onFilter: function() {
+				var key = this.getView().byId("__xmlview2--filter").getSelectedKey();
+				if(key != "") {
+					$.ajax({
+						url: "php/patienten/getFilterGesetzt.php",
+						data: {
+							"key": key
+						},
+						type: "POST",
+						context: this,
+						success: function handleSuccess(response) {
+							var oModel = new JSONModel();
+							oModel.setJSON(response);
+							this.getView().setModel(oModel);
+						},
+						error: function handleError() {
+							MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+						}
+					});
+				}
+				else {
+					$.ajax({
+						url: "php/patienten/getPatienten.php",
+						type: "GET",
+						context: this, 
+						success: function handleSuccess(response) {
+							var oModel = new JSONModel();
+							oModel.setJSON(response);
+							this.getView().setModel(oModel);
+						},
+						error: function handleError() {
+							MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+						}
+					});
+				}
 			},
 			
 			// Logik für den Patientenview
