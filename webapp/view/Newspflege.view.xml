@@ -5,7 +5,14 @@
 			mode="SingleSelectMaster">
 			<content>
 				<!-- Studienliste -->
-				<Table id="BenutzerTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/TimeRecTabSet}">
+				<Table id="StudienTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/TimeRecTabSet}">
+					<headerToolbar>
+						<OverflowToolbar id="otbSubheader">
+							<Title text="Studien"/>
+							<ToolbarSpacer/>
+							<Button id="addStudie" icon="sap-icon://add" type="Accept" press="onAddStudie"/>
+						</OverflowToolbar>
+					</headerToolbar>
 					<columns>
 						<Column visible="false">
 							<Text text="TaskGuid"/>

@@ -6,6 +6,13 @@
 			<content>
 				<!-- Benutzerliste -->
 				<Table id="BenutzerTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/TimeRecTabSet}">
+					<headerToolbar>
+						<OverflowToolbar id="otbSubheader">
+							<Title text="Benutzer"/>
+							<ToolbarSpacer/>
+							<Button id="addBenutzer" icon="sap-icon://add" type="Accept" press="onAddBen"/>
+						</OverflowToolbar>
+					</headerToolbar>
 					<columns>
 						<Column visible="false">
 							<Text text="TaskGuid"/>
