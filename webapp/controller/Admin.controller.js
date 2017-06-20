@@ -26,6 +26,18 @@ sap.ui.define([
 				});
 			},
 			
+			onSave: function() {
+				
+			},
+			
+			onCancel: function() {
+				
+			},
+			
+			onDeleteBen: function() {
+				
+			},          
+			
 			onLogout: function() {
 				this.getOwnerComponent().getTargets().display("login");
 			}

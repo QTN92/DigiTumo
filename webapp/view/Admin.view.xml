@@ -5,30 +5,50 @@
 			mode="SingleSelectMaster">
 			<content>
 				<!-- Benutzerliste -->
-<<<<<<< HEAD
-				<List delete="handleDelete" items="">
-					<StandardListItem title="{Name}" description="{ProductId}"/>
-					<headerToolbar>
-						<Toolbar>
-							<Title text="Benutzerliste"/>
-							<ToolbarSpacer/>
-							<Button id="add" press="onAdd" icon="sap-icon://add" type="Accept"/>
-						</Toolbar>
-					</headerToolbar>
-=======
-				<List delete="handleDelete" items="{/user}">
-					<StandardListItem title="{vorname} {nachname}"/>
-					<swipeContent>
-						<Button text="Delete User" type="Reject" press="handleReject"/>
-					</swipeContent>
->>>>>>> 203a7287e070393f07d824d2d4716c31a6e6dd6a
-				</List>
+				<Table id="BenutzerTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/TimeRecTabSet}">
+					<columns>
+						<Column visible="false">
+							<Text text="TaskGuid"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Vorname"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Nachname"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Benutzername"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Passwort"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Berechtigungsstatus"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Aktion"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Input id="Vorname" text="{TaskGuid}"/>
+								<Input id="Nachname" text="{TrecStatus}"/>
+								<Input id="Benutzerkennung" text="{TaskText}" design="Bold"/>
+								<Input id="Passwort" text="{ProjectText}"/>
+								<Input id="Berechtigungsstatus" text="{RoleText}"/>
+								<Input id="ErfZeit" value="{TrecHours}" type="Number" change="onChange" width="50%"/>
+								<Button id="DeleteBenutzer" press="onDeleteBen" icon="sap-icon://delete"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
 			</content>
 			<footer>
 				<OverflowToolbar>
 					<ToolbarSpacer/>
 					<Button id="save" press="onSave" icon="sap-icon://save" type="Accept"/>
-					<Button id="cancel" press="onCancel" icon="sap-icon://eraser" type="Reject"/>
+					<Button id="cancel" press="onCancel" icon="sap-icon://cancel" type="Reject"/>
 					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Default"/>
 				</OverflowToolbar>
 			</footer>

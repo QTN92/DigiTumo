@@ -10,9 +10,9 @@ sap.ui.define([
 		return Controller.extend("DigiTumo.controller.Newspflege", {
 
 			onInit: function() {
-				// Binding der
-			/**	$.ajax({
-					url: "",
+				// Binding der Patienten- und Krankenakteninformationen
+				$.ajax({
+					url: "php/studien/getNews.php",
 					type: "GET",
 					context: this, 
 					success: function handleSuccess(response) {
@@ -23,7 +23,7 @@ sap.ui.define([
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
-				}); */
+				});
 			},
 			
 			onLogout: function() {
