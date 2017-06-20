@@ -1,0 +1,15 @@
+{
+	"aerzte": [{
+		"vorname": "Amelie",
+		"nachname": "Balmann",
+		"fachgebiet": "Chirurgie"
+	}, {
+		"vorname": "Andre",
+		"nachname": "Mihaljevic",
+		"fachgebiet": "Roentgen"
+	}, {
+		"vorname": "Christina",
+		"nachname": "Neumann",
+		"fachgebiet": "Homoeopathie"
+	}]
+}

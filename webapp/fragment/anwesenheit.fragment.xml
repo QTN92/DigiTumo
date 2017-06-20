@@ -7,7 +7,6 @@
 						<StandardListItem title="{vorname} {nachname}" info="{rang} {fachgebiet}"/>
 					</List>
 				</ScrollContainer>
-			</l:VerticalLayout>
 		</content>
 		<beginButton>
 			<Button icon="sap-icon://save" press="onAnwesenheitSpeichern" type="Accept"/>
