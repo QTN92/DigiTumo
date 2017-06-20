@@ -8,8 +8,8 @@
 			<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
 				<core:Item key="{ProductId}" text="{Name}" id="vorgehen"/>
 			</ComboBox>
-			<Label text="Anmerkungen" labelFor="anmerkungen" width="100%"/>
-			<TextArea growing="true" width="100%" id="anmerkungen"/>
+			<Label text="Notiz" labelFor="notiz" width="100%"/>
+			<TextArea growing="true" width="100%" id="notiz"/>
 			</l:VerticalLayout>
 		</content>
 		<beginButton>

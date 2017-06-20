@@ -1,9 +1,10 @@
 sap.ui.define([
 		"sap/ui/core/mvc/Controller",
-		"sap/m/MessageBox"
+		"sap/m/MessageBox",
+		"sap/ui/model/json/JSONModel"
 	],
 
-	function(Controller, MessageBox) {
+	function(Controller, MessageBox, JSONModel) {
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Login", {
@@ -68,13 +69,13 @@ sap.ui.define([
 									break;
 									// 1: Nutzername war falsch/ nicht vorhanden
 								case '1':
-									sap.m.MessageToast.show("Nutzer nicht vorhanden!");
+									MessageBox.error("Nutzer nicht vorhanden!");
 									this.byId("__xmlview1--user").setValueState(sap.ui.core.ValueState.Error);
 									this.byId("__xmlview1--user").setShowValueStateMessage(false);
 									break;
 									// 2: Passwort war falsch
 								case '2':
-									sap.m.MessageToast.show("Falsches Passwort!");
+									MessageBox.error("Falsches Passwort!");
 									this.byId("__xmlview1--passwort").setValueState(sap.ui.core.ValueState.Error);
 									this.byId("__xmlview1--passwort").setShowValueStateMessage(false);
 									break;
@@ -101,8 +102,7 @@ sap.ui.define([
 						switch(response) {
 						// 0: User ist Admin
 						case '0':
-							// TODO: Navigation Admin
-							MessageBox.show("Anmeldung als Admin erfolgreich");
+							this.getOwnerComponent().getTargets().display("admin");
 							break;
 						// 1: User kann Nachrichten pflegen
 						case '1':
@@ -125,32 +125,11 @@ sap.ui.define([
 			onUserInputChange: function() {
 				this.byId("user").setValueState(sap.ui.core.ValueState.none);
 			},
-			
-			//Logik Anwesenheitsliste
-			
+					
 			onPatienten: function() {
-				var oView = this.getView();
-				var oDialog = oView.byId("anwesenheitdialog");
-				// Dialog laden
-				if (!oDialog) {
-					// Dialog über fragment factory erstellen
-					this.oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.anwesenheit", this);
-					oView.addDependent(oDialog);
-				}
-				this.oDialog.open();
-			},
-			
-			onSpeichern: function() {
-				//
-				this.oDialog.close();
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
-			
-			onOhneSpeichern: function(){
-				this.oDialog.close();
-				this.getOwnerComponent().getTargets().display("patienten");
-			},
-			
+				
 			//Testen von Views
 			
 			onAdmin: function() {

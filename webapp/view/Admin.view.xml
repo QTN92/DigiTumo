@@ -5,6 +5,7 @@
 			mode="SingleSelectMaster">
 			<content>
 				<!-- Benutzerliste -->
+<<<<<<< HEAD
 				<List delete="handleDelete" items="">
 					<StandardListItem title="{Name}" description="{ProductId}"/>
 					<headerToolbar>
@@ -14,6 +15,13 @@
 							<Button id="add" press="onAdd" icon="sap-icon://add" type="Accept"/>
 						</Toolbar>
 					</headerToolbar>
+=======
+				<List delete="handleDelete" items="{/user}">
+					<StandardListItem title="{vorname} {nachname}"/>
+					<swipeContent>
+						<Button text="Delete User" type="Reject" press="handleReject"/>
+					</swipeContent>
+>>>>>>> 203a7287e070393f07d824d2d4716c31a6e6dd6a
 				</List>
 			</content>
 			<footer>

@@ -12,7 +12,7 @@ sap.ui.define([
 			onInit: function() {
 				// Binding der Patienten- und Krankenakteninformationen
 				$.ajax({
-					url: "php/studien/getNews.php",
+					url: "php/admin/getUser.php",
 					type: "GET",
 					context: this, 
 					success: function handleSuccess(response) {
