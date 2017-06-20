@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-	<Dialog id="anwesenheitdialog" title="Weiteres Vorgehen festhalten" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
+	<Dialog id="anwesenheitdialog" title="Anwesenheitsliste" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
 		<content>
 			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
 				<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="true">
