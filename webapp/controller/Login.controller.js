@@ -127,17 +127,7 @@ sap.ui.define([
 			},
 				
 			onPatienten: function() {
-				var oView = this.getView();
-				var oModel = new sap.ui.model.json.JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/aerzte.json"));
-				this.oView.setModel(oModel);
-				var oDialog = oView.byId("anwesenheitdialog");
-				// Dialog laden
-				if (!oDialog) {
-					// Dialog über fragment factory erstellen
-					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.anwesenheit", this);
-					oView.addDependent(oDialog);
-				}
-				oDialog.open();
+				this.getOwnerComponent().getTargets().display("patienten");
 			},
 			
 			//Error Handling um leere Liste zu vermeiden
