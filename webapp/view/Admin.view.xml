@@ -5,23 +5,29 @@
 			mode="SingleSelectMaster">
 			<content>
 				<!-- Benutzerliste -->
-				<Table id="BenutzerTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/TimeRecTabSet}">
+				<Table id="BenutzerTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/user}">
 					<headerToolbar>
 						<OverflowToolbar id="otbSubheader">
 							<Title text="Benutzer"/>
 							<ToolbarSpacer/>
-							<Button id="addBenutzer" icon="sap-icon://add" type="Accept" press="onAddBen"/>
+							<Button id="addUser" icon="sap-icon://add" type="Accept" press="onAddUser"/>
 						</OverflowToolbar>
 					</headerToolbar>
 					<columns>
-						<Column visible="false">
-							<Text text="TaskGuid"/>
-						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
 							<Text text="Vorname"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
 							<Text text="Nachname"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Geburtsdatum"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Fachgebiet"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Rang"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
 							<Text text="Benutzername"/>
@@ -39,13 +45,15 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Input id="Vorname" text="{TaskGuid}"/>
-								<Input id="Nachname" text="{TrecStatus}"/>
-								<Input id="Benutzerkennung" text="{TaskText}" design="Bold"/>
-								<Input id="Passwort" text="{ProjectText}"/>
-								<Input id="Berechtigungsstatus" text="{RoleText}"/>
-								<Input id="ErfZeit" value="{TrecHours}" type="Number" change="onChange" width="50%"/>
-								<Button id="DeleteBenutzer" press="onDeleteBen" icon="sap-icon://delete"/>
+								<Input id="Vorname" value="{vorname}"/>
+								<Input id="Nachname" value="{nachname}"/>
+								<Input id="Geburtsdatum" value="{geburtsdatum}" editable="false"/>
+								<Input id="Fachgebiet" value="{fachgebiet}"/>
+								<Input id="Rang" value="{rang}"/>
+								<Input id="Benutzerkennung" value="{userId}" design="Bold" editable="false"/>
+								<Input id="Passwort" value="{passwort}"/>
+								<Input id="Berechtigungsstatus" value="{rolle}"/>
+								<Button id="DeleteUser" press="onDeleteUser" icon="sap-icon://delete"/>
 							</cells>
 						</ColumnListItem>
 					</items>
