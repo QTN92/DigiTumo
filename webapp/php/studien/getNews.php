@@ -1,8 +1,7 @@
 <?php
 	include_once '../db.php';
 
-	$maxId = "SELECT MAX(newsid) AS maxId FROM news";
-	$sql = "SELECT autor, titel, abstract FROM news WHERE newsid > ('$maxId'-5)";
+	$sql = "SELECT autorVorname, autorNachname, titel, abstract FROM newsfeed";
 	$result = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 	$str = '{"news": ' . $result . '}';
 	echo $str;

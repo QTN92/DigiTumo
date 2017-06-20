@@ -54,10 +54,6 @@ sap.ui.define([
 				});
 			},
 
-			onBack: function() {
-				this.getOwnerComponent().getTargets().display("patienten");
-			},
-
 			onSaveAction: function(oEvent) {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
@@ -68,37 +64,33 @@ sap.ui.define([
 					oView.addDependent(oDialog);
 				};
 				var datum = new Date();
-				var tmp = datum.getDate() + "." + datum.getMonth() + "." + datum.getFullYear();
-				datum = tmp;
-				if(tmp[1] == ".") {
-					tmp = "0" + tmp;
-					datum = tmp;
+				var tag = datum.getDate().toString();
+				var monat = (datum.getMonth()+1).toString();
+				var jahr = datum.getFullYear().toString();
+				if(tag.length == 1) {
+					tag = "0" + tag;
 				};
-				if(tmp[4] == ".") {
-					tmp = datum.substring(0, 3) + "0" + datum.substring(3, datum.length);
-					datum = tmp;
+				if(monat.length == 1) {
+					monat = "0" + monat;
 				};
+				datum = tag + "." + monat + "." + jahr;
 				this.byId("__xmlview3--datum").setText(datum);
 				oDialog.open();
 			},
 			
-			onClose: function () {
-				this.getView().byId("vorgehendialog").close();
-			},
-
 			onSave: function() {
 				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
 				var datum = this.byId("__xmlview3--datum").getText();
-//				var vorgehen = this.byId("__xmlview3--vorgehen").getText();
-				var vorgehen = "dummy";
-				var anmerkungen = this.byId("__xmlview3--anmerkungen").getValue();
+				var vorgehen = this.byId("__xmlview3--vorgehen").getText();
+				var notiz = this.byId("__xmlview3--notiz").getValue();
+				var anwesendeExperten = "";
 				$.ajax({
-					url: 'php/dashboard/setWeiteresVorgehen.php',
+					url: "php/dashboard/setWeiteresVorgehen.php",
 					data: {
 						"patientenid": patientenid,
-						"datum": datum,
 						"vorgehen": vorgehen,
-						"anmerkungen": anmerkungen
+						"notiz": notiz,
+						"anwesendeExperten": anwesendeExperten
 					},
 					type: "POST",
 					context: this,
@@ -109,7 +101,6 @@ sap.ui.define([
 						else {
 							MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
 							this.getView().byId("vorgehendialog").close();
-							console.log(response);
 						};
 					},
 					error: function handleError() {
@@ -117,14 +108,28 @@ sap.ui.define([
 					}
 				});
 			},
+			
+			onClose: function () {
+				this.getView().byId("vorgehendialog").close();
+			},
 
 			onStudien: function() {
 				this.getOwnerComponent().getTargets().display("studien");
 			},
 
+			onBack: function() {
+				this.getOwnerComponent().getTargets().display("patienten");
+			},
+			
 			onLogout: function() {
+				$.ajax({
+					url: "php/clearHilfstabelle.php",
+					context: this,
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
 				this.getOwnerComponent().getTargets().display("login");
 			}
-
 		});
 	});

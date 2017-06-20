@@ -30,17 +30,22 @@
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Krankenkasse" info="{krankenkasse}" id="showKrankenkasse"/>
+									<StandardListItem title="Krankenkasse" info="{versicherung}" id="showKrankenkasse"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
-									<StandardListItem title="Tumor" info="{tumor} {tumorstadium}" id="showTumor"/>
+									<StandardListItem title="Tumor" info="{tumor}" id="showTumor"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
 								<items>
 									<StandardListItem title="Datum der Diagnose" info="{diagnosedatum}" id="showDiagnosedatum"/>
+								</items>				
+							</List>
+							<List items="{/datenblatt}">
+								<items>
+									<StandardListItem title ="Tumorstadium" info = "{stadium} ({letztesStadium})" id="showTumorstadium"/>
 								</items>
 							</List>
 							<List items="{/datenblatt}">
@@ -109,7 +114,7 @@
 					<Button id="studien" text="Zu den Studienergebnissen" press="onStudien" icon="sap-icon://electronic-medical-record" type="Emphasized"/>
 					<ToolbarSpacer/>
 					<Button id="vorgehenFesthalten" text="Vorgehen festhalten" press="onSaveAction" icon="sap-icon://request" type="Accept"/>
-					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Reject"/>
+					<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Default"/>
 				</OverflowToolbar>
 			</footer>
 		</Page>

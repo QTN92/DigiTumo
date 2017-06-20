@@ -7,14 +7,14 @@
 	// Prüfung ob Username und Passwort nicht leer sind
 	if($post_user != "" AND $post_passwort != "") {
 		// Auslesen des Nutzernamens aus der DB
-		$sql = "SELECT userid FROM user WHERE userid = '$post_user'";
+		$sql = "SELECT userId FROM user WHERE userId = '$post_user'";
 		$result = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 		// Extrahieren des Nutzernamens aus dem Ergebnisstring
 		$start = 12;
 		$max_length = strlen($result)-$start-3;
 		$get_user = substr($result, $start, $max_length);
 		// Auslesen des Passworts aus der DB
-		$sql = "SELECT passwort FROM user WHERE userid = '$post_user'";
+		$sql = "SELECT passwort FROM user WHERE userId = '$post_user'";
 		$result = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 		// Extrahieren des Passworts aus dem Ergebnisstring
 		$start = 14;
