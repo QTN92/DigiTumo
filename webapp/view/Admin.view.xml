@@ -50,7 +50,7 @@
 								<Input id="Geburtsdatum" value="{geburtsdatum}" editable="false"/>
 								<Input id="Fachgebiet" value="{fachgebiet}"/>
 								<Input id="Rang" value="{rang}"/>
-								<Input id="Benutzerkennung" value="{userId}" design="Bold" editable="false"/>
+								<Input id="Benutzerkennung" value="{userId}" editable="false"/>
 								<Input id="Passwort" value="{passwort}"/>
 								<Input id="Berechtigungsstatus" value="{rolle}"/>
 								<Button id="DeleteUser" press="onDeleteUser" icon="sap-icon://delete"/>

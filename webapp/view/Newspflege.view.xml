@@ -5,7 +5,7 @@
 			mode="SingleSelectMaster">
 			<content>
 				<!-- Studienliste -->
-				<Table id="StudienTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/TimeRecTabSet}">
+				<Table id="StudienTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/news}">
 					<headerToolbar>
 						<OverflowToolbar id="otbSubheader">
 							<Title text="Studien"/>
@@ -14,9 +14,6 @@
 						</OverflowToolbar>
 					</headerToolbar>
 					<columns>
-						<Column visible="false">
-							<Text text="TaskGuid"/>
-						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
 							<Text text="Vorname"/>
 						</Column>
@@ -27,19 +24,28 @@
 							<Text text="Titel"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Jahr"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Medium"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
 							<Text text="Abstract"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
-							<Text text="Aktion"/>
+							<Text text="Verweis"/>
 						</Column>
 					</columns>
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Input id="Vorname" text="{autorVorname}"/>
-								<Input id="Nachname" text="{autorNachname}"/>
-								<Input id="Benutzerkennung" text="{titel}" design="Bold"/>
-								<Input id="Abstract" text="{abstract}"/>
+								<Input id="Vorname" value="{autorVorname}"/>
+								<Input id="Nachname" value="{autorNachname}"/>
+								<Input id="Titel" value="{titel}"/>
+								<Input id="Jahr" value="{jahr}"/>
+								<Input id="Medium" value="{medium}"/>
+								<Input id="Abstract" value="{abstract}"/>
+								<Input id="Verweis" value="{verweis}"/>
 								<Button id="DeleteStudie" press="onDeleteStudie" icon="sap-icon://delete"/>
 							</cells>
 						</ColumnListItem>
