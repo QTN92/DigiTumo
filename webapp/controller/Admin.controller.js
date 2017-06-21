@@ -13,49 +13,46 @@ sap.ui.define([
 				$.ajax({
 					url: "php/admin/getUser.php",
 					type: "GET",
-					context: this, 
+					context: this,
 					success: function handleSuccess(response) {
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
-						this.getView().setModel(oModel);	
+						this.getView().setModel(oModel);
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
 			},
-			
+
 			onAddUser: function() {
-				var vorname = "Valentin";
-				var nachname = "Grafenstein";
-				$.ajax({
-					url: "php/admin/generateUserId.php",
-					data: {
-						"vorname": vorname,
-						"nachname": nachname
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						console.log(response);
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-					}
-				})
+				var oDialog = this.getView().byId("benutzerdialogdialog");
+				if (!oDialog) {
+					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addBenutzer", this);
+					this.getView().addDependent(oDialog);
+				}
+				this.oDialog.open();
 			},
-			
+
+			onBenSave: function() {
+				this.oDialog.close();
+			},
+
+			onClose: function() {
+				this.oDialog.close();
+			},
+
 			onSave: function() {
 				var i = 0;
 				var userListe = new Array();
 				var tmpObject = Object.values(this.getView().getModel().getData())[0];
-				while(Object.values(tmpObject)[i] != null) {
+				while (Object.values(tmpObject)[i] != null) {
 					userListe[i] = new Array(8);
-					for(var j = 0; j < 8; j++) {
+					for (var j = 0; j < 8; j++) {
 						userListe[i][j] = Object.values(Object.values(tmpObject)[i])[j];
-					};
+					}
 					i++;
-				};
+				}
 				$.ajax({
 					url: "php/admin/updateUser.php",
 					data: {
@@ -69,29 +66,29 @@ sap.ui.define([
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
-				})
+				});
 			},
-			
+
 			onCancel: function() {
 				$.ajax({
 					url: "php/admin/getUser.php",
 					type: "GET",
-					context: this, 
+					context: this,
 					success: function handleSuccess(response) {
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
-						this.getView().setModel(oModel);	
+						this.getView().setModel(oModel);
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
 			},
-			
+
 			onDeleteUser: function() {
-				
-			},          
-			
+
+			},
+
 			onLogout: function() {
 				this.getOwnerComponent().getTargets().display("login");
 			}

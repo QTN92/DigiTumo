@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog id="benutzerdialog" title="Neuen Benutzer anlegen" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
+		<content>
+			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
+				<Label text="Vorname" labelFor="vorname" width="100%"/>
+				<Input id="vorname" text=""/>
+				<Label text="Nachname" width="100%"/>
+				<Input id="nachname" text=""/>
+				<Label text="Geburtsdatum" labelFor="geburtsdatum" width="100%"/>
+				<DatePicker id="DP3" displayFormat="short" change="handleChange"/>
+				<Label text="Passwort" width="100%"/>
+				<Input id="passwort" text=""/>
+				<Label text="Berechtigungsstatus" width="100%"/>
+				<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
+					<core:Item key="{ProductId}" text="{Name}" id="vorgehen"/>
+				</ComboBox>
+			</l:VerticalLayout>
+		</content>
+		<beginButton>
+			<Button icon="sap-icon://save" press="onBenSave" type="Accept"/>
+		</beginButton>
+		<endButton>
+			<Button icon="sap-icon://sys-cancel" press="onClose" type="Reject"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
