@@ -10,15 +10,14 @@ sap.ui.define([
 		return Controller.extend("DigiTumo.controller.Newspflege", {
 
 			onInit: function() {
-				// Binding der Patienten- und Krankenakteninformationen
 				$.ajax({
-					url: "php/studien/getNews.php",
+					url: "php/newspflege/getNews.php",
 					type: "GET",
 					context: this, 
 					success: function handleSuccess(response) {
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
-						this.getView().setModel(oModel);	
+						this.getView().setModel(oModel);
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
