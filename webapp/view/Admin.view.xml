@@ -24,12 +24,6 @@
 							<Text text="Geburtsdatum"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
-							<Text text="Fachgebiet"/>
-						</Column>
-						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
-							<Text text="Rang"/>
-						</Column>
-						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
 							<Text text="Benutzername"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
@@ -48,8 +42,6 @@
 								<Input id="Vorname" value="{vorname}"/>
 								<Input id="Nachname" value="{nachname}"/>
 								<Input id="Geburtsdatum" value="{geburtsdatum}" editable="false"/>
-								<Input id="Fachgebiet" value="{fachgebiet}"/>
-								<Input id="Rang" value="{rang}"/>
 								<Input id="Benutzerkennung" value="{userId}" editable="false"/>
 								<Input id="Passwort" value="{passwort}"/>
 								<Input id="Berechtigungsstatus" value="{rolle}"/>
