@@ -26,18 +26,14 @@ sap.ui.define([
 			},
 
 			onAddUser: function() {
-				var oDialog = this.getView().byId("benutzerdialogdialog");
+				var oDialog = this.getView().byId("benutzerdialog");
 				if (!oDialog) {
-					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addBenutzer", this);
+					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addStudie", this);
 					this.getView().addDependent(oDialog);
 				};
 				this.oDialog.open();
 			},
 
-<<<<<<< HEAD
-			onBenSave: function() {
-				this.oDialog.destroy();
-=======
 			onUserSave: function() {
 				var vorname = this.byId("__xmlview2--vorname").getValue();
 				var nachname = this.getView().byId("__xmlview2--nachname").getValue();
@@ -56,13 +52,13 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess() {
-						
+
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
->>>>>>> 82956ef9d4646dfed8dfc16433ae808f65eb8664
+				this.oDialog.destroy();
 				this.oDialog.close();
 			},
 
