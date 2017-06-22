@@ -28,7 +28,7 @@ sap.ui.define([
 			onAddUser: function() {
 				var oDialog = this.getView().byId("benutzerdialog");
 				if (!oDialog) {
-					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addStudie", this);
+					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addBenutzer", this);
 					this.getView().addDependent(oDialog);
 				};
 				this.oDialog.open();
