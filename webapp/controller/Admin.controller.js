@@ -35,10 +35,12 @@ sap.ui.define([
 			},
 
 			onBenSave: function() {
+				this.oDialog.destroy();
 				this.oDialog.close();
 			},
 
 			onClose: function() {
+				this.oDialog.destroy();
 				this.oDialog.close();
 			},
 

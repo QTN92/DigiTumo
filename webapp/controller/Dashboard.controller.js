@@ -100,6 +100,7 @@ sap.ui.define([
 						}
 						else {
 							MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
+							this.getView().byId("vorgehendialog").destroy();
 							this.getView().byId("vorgehendialog").close();
 						};
 					},
@@ -110,6 +111,7 @@ sap.ui.define([
 			},
 			
 			onClose: function () {
+				this.getView().byId("vorgehendialog").destroy();
 				this.getView().byId("vorgehendialog").close();
 			},
 
