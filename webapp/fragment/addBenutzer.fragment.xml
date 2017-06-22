@@ -7,12 +7,16 @@
 				<Label text="Nachname" width="100%"/>
 				<Input id="nachname" text=""/>
 				<Label text="Geburtsdatum" labelFor="geburtsdatum" width="100%"/>
-				<DatePicker id="geburtsdatum" displayFormat="short" change="handleChange"/>
+				<DatePicker id="geburtsdatum" displayFormat="medium" change="handleDateChange" valueFormat="medium" strictParsing="true"/>
 				<Label text="Passwort" width="100%"/>
 				<Input id="passwort" text=""/>
 				<Label text="Berechtigungsstatus" width="100%"/>
-			<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
-				<core:Item key="{ProductId}" text="{Name}" id="berechtigungsstatus"/>
+			<ComboBox width="100%" id="berechtigungsstatus">
+				<items>
+					<core:Item key="arzt" text="Arzt"/>
+					<core:Item key="admin" text="Administrator"/>
+					<core:Item key="newspflege" text="Newspflege"/>
+				</items>
 			</ComboBox>
 			</l:VerticalLayout>
 		</content>
