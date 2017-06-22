@@ -3,16 +3,28 @@
 
 	$vorname = $_POST['vorname'];
 	$nachname = $_POST['nachname'];
-	$userId = $vorname[0] . $nachname;
-	$userId = strtolower($userId);
-	$userId = str_replace("ä", "ae", $userId);
-	$userId = str_replace("ö", "oe", $userId);
-	$userId = str_replace("ü", "ue", $userId);
-	$userId = str_replace("ß", "ss", $userId);
-	$userId = $userId[0] . strtoupper($userId[1]) . substr($userId, 2);
-	if(strlen($userId) > 10) {
-		$userId = substr($userId, 0, 10);
-	};
+
+	$vorname = str_replace("Ä", "a", $vorname);
+	$vorname = str_replace("Ö", "o", $vorname);
+	$vorname = str_replace("Ü", "u", $vorname);
+	$vorname = str_replace("ä", "a", $vorname);
+	$vorname = str_replace("ö", "o", $vorname);
+	$vorname = str_replace("ü", "u", $vorname);
+	$vorname = str_replace("ß", "s", $vorname);
+	$vorname = strtolower($vorname);
+	$vorname = $vorname[0];
+
+	$nachname = str_replace("Ä", "a", $nachname);
+	$nachname = str_replace("Ö", "o", $nachname);
+	$nachname = str_replace("Ü", "u", $nachname);
+	$nachname = str_replace("ä", "a", $nachname);
+	$nachname = str_replace("ö", "o", $nachname);
+	$nachname = str_replace("ü", "u", $nachname);
+	$nachname = str_replace("ß", "s", $nachname);
+	$nachname = strtolower($nachname);
+	$nachname = strtoupper($nachname[0]) . substr($nachname, 1, strlen($nachname)-1);
+
+	$userId = $vorname . $nachname;
 
 	$ok = 1;
 	$marker = 1;
@@ -36,5 +48,6 @@
 			$marker = 0;
 		}		
 	};
+
 	echo $userId;
 ?>
