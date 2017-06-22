@@ -30,12 +30,39 @@ sap.ui.define([
 				if (!oDialog) {
 					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addBenutzer", this);
 					this.getView().addDependent(oDialog);
-				}
+				};
 				this.oDialog.open();
 			},
 
+<<<<<<< HEAD
 			onBenSave: function() {
 				this.oDialog.destroy();
+=======
+			onUserSave: function() {
+				var vorname = this.byId("__xmlview2--vorname").getValue();
+				var nachname = this.getView().byId("__xmlview2--nachname").getValue();
+				var geburtsdatum = this.getView().byId("__xmlview2--geburtsdatum").getValue();
+				var passwort = this.getView().byId("__xmlview2--passwort").getValue();
+				var berechtigungsstatus = this.getView().byId("__xmlview2--berechtigungsstatus").getText();
+				$.ajax({
+					url: "php/admin/setNewUser.php",
+					data: {
+						"vorname": vorname,
+						"nachname": nachname,
+						"geburtsdatum": geburtsdatum,
+						"passwort": passwort,
+						"berechtigungsstatus": berechtigungsstatus
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess() {
+						
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+>>>>>>> 82956ef9d4646dfed8dfc16433ae808f65eb8664
 				this.oDialog.close();
 			},
 
