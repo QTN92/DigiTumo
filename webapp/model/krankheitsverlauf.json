@@ -1,0 +1,23 @@
+{
+	"krankheitsverlauf": [{
+		"Monat": "Januar",
+		"Gesundheitsscore": 5,
+		"Medikamentendosis": 504
+	}, {
+		"Monat": "Februar",
+		"Gesundheitsscore": 3,
+		"Medikamentendosis": 100
+	}, {
+		"Monat": "Maerz",
+		"Gesundheitsscore": 6,
+		"Medikamentendosis": 350
+	}, {
+		"Monat": "April",
+		"Gesundheitsscore": 5,
+		"Medikamentendosis": 504
+	}, {
+		"Monat": "Mai",
+		"Gesundheitsscore": 1,
+		"Medikamentendosis": 127
+	}]
+}
