@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog id="studiendialog" title="Neue Studie hinzufügen" stretch="false" draggable="true" resizable="true" class="sapUiSmallMargin">
+		<content>
+			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
+				<Label text="Vorname" labelFor="vorname" width="100%"/>
+				<Input id="vorname" text=""/>
+				<Label text="Nachname" width="100%"/>
+				<Input id="nachname" text=""/>
+				<Label text="Titel" width="100%"/>
+				<Input id="titel" text=""/>
+				<Label text="Jahr" width="100%"/>
+				<Input id="jahr" text=""/>
+				<Label text="Medium" width="100%"/>
+				<Input id="medium" text=""/>
+				<Label text="Abstract" width="100%"/>
+				<TextArea id="abstract" text=""/>
+				<Label text="Verweis" width="100%"/>
+				<Input id="verweis" text=""/>
+			</l:VerticalLayout>
+		</content>
+		<beginButton>
+			<Button icon="sap-icon://save" press="onStudieSave" type="Accept"/>
+		</beginButton>
+		<endButton>
+			<Button icon="sap-icon://sys-cancel" press="onClose" type="Reject"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -91,11 +91,13 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+				this.oDialog.destroy();
 				this.oDialog.close();
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
 			
 			onAnwesenheitNichtSpeichern: function(){
+				this.oDialog.destroy();
 				this.oDialog.close();
 			},
 			

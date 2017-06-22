@@ -47,9 +47,9 @@ sap.ui.define([
 			},
 
 			onAddUser: function() {
-				var oDialog = this.getView().byId("benutzerdialogdialog");
+				var oDialog = this.getView().byId("benutzerdialog");
 				if (!oDialog) {
-					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addBenutzer", this);
+					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addStudie", this);
 					this.getView().addDependent(oDialog);
 				};
 				this.oDialog.open();
@@ -194,6 +194,7 @@ sap.ui.define([
 								context: this,
 								success: function handleSuccess(response) {
 									this.onLoadData();
+                  this.oDialog.destroy();
 									this.oDialog.close();
 								},
 								error: function handleError() {
@@ -206,6 +207,11 @@ sap.ui.define([
 						}
 					});
 				};
+      },
+
+			onClose: function() {
+				this.oDialog.destroy();
+				this.oDialog.close();
 			},
 
 			onSave: function() {
