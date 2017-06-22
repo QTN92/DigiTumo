@@ -7,17 +7,17 @@
 				<Label text="Nachname" width="100%"/>
 				<Input id="nachname" text=""/>
 				<Label text="Geburtsdatum" labelFor="geburtsdatum" width="100%"/>
-				<DatePicker id="DP3" displayFormat="short" change="handleChange"/>
+				<DatePicker id="geburtsdatum" displayFormat="short" change="handleChange"/>
 				<Label text="Passwort" width="100%"/>
 				<Input id="passwort" text=""/>
 				<Label text="Berechtigungsstatus" width="100%"/>
-				<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
-					<core:Item key="{ProductId}" text="{Name}" id="vorgehen"/>
-				</ComboBox>
+			<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
+				<core:Item key="{ProductId}" text="{Name}" id="berechtigungsstatus"/>
+			</ComboBox>
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
-			<Button icon="sap-icon://save" press="onBenSave" type="Accept"/>
+			<Button icon="sap-icon://save" press="onUserSave" type="Accept"/>
 		</beginButton>
 		<endButton>
 			<Button icon="sap-icon://sys-cancel" press="onClose" type="Reject"/>
