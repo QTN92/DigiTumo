@@ -34,7 +34,7 @@ sap.ui.define([
 						oModel.setJSON(response);
 						this.getView().byId("__xmlview2--filter").setModel(oModel);
 					}
-				})
+				});
 			},
 
 			onAnwesenheitVermerken: function() {
