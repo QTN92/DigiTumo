@@ -2,6 +2,7 @@
 	include_once '../db.php';
 
 	$post_user = $_POST['user'];
+	$post_user = strtolower($post_user);
 	$post_passwort = $_POST['passwort'];
 	
 	// Prüfung ob Username und Passwort nicht leer sind
@@ -12,7 +13,7 @@
 		// Extrahieren des Nutzernamens aus dem Ergebnisstring
 		$start = 12;
 		$max_length = strlen($result)-$start-3;
-		$get_user = substr($result, $start, $max_length);
+		$get_user = strtolower(substr($result, $start, $max_length));
 		// Auslesen des Passworts aus der DB
 		$sql = "SELECT passwort FROM user WHERE userId = '$post_user'";
 		$result = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);

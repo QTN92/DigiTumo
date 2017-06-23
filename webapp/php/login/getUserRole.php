@@ -7,13 +7,13 @@
 	$start = 23;
 	$str = substr($result, $start, -3);
 	switch($str) {
-		case 'admin':
+		case 'Administrator':
 			echo '0';
 			break;
-		case 'newspflege':
+		case 'Newspflege':
 			echo '1';
 			break;
-		case 'arzt':
+		case 'Arzt':
 			echo 2;
 			break;
 	}
