@@ -9,7 +9,7 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Admin", {
 
-			onLoadData: function() {
+			loadData: function() {
 				$.ajax({
 					url: "php/admin/getUser.php",
 					type: "GET",
@@ -26,7 +26,7 @@ sap.ui.define([
 			},
 			
 			onInit: function() {
-				this.onLoadData();
+				this.loadData();
 				sap.ui.getCore().attachParseError(
 					function(oEvent) {
 						var oElement = oEvent.getParameter("value");
@@ -152,14 +152,14 @@ sap.ui.define([
 					};
 				};
 				if(validVorname && validNachname && validGeburtsdatum && validPasswort) {
-					var berechtigungsstatus = this.getView().byId("__xmlview2--berechtigungsstatus").getSelectedKey();
+					var berechtigungsstatus = this.getView().byId("__xmlview2--berechtigungsstatus").getValue();
 					var validBerechtigungsstatus = false;
 					if(berechtigungsstatus == "") {
 						this.getView().byId("__xmlview2--berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);
 						this.byId("__xmlview2--berechtigungsstatus").setShowValueStateMessage(false);
 						MessageBox.error("Bitte einen Berechtigungsstatus auswählen.");
 					}
-					else if(berechtigungsstatus !== "arzt" && berechtigungsstatus !== "admin" && berechtigungsstatus !== "newspflege") {
+					else if(berechtigungsstatus !== "Arzt" && berechtigungsstatus !== "Administrator" && berechtigungsstatus !== "Newspflege") {
 						this.getView().byId("__xmlview2--berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);
 						this.byId("__xmlview2--berechtigungsstatus").setShowValueStateMessage(false);
 						MessageBox.error("Bitte einen gültigen Berechtigungsstatus auswählen.");
@@ -193,8 +193,8 @@ sap.ui.define([
 								type: "POST",
 								context: this,
 								success: function handleSuccess(response) {
-									this.onLoadData();
-                  this.oDialog.destroy();
+									this.loadData();
+									this.oDialog.destroy();
 									this.oDialog.close();
 								},
 								error: function handleError() {
@@ -207,7 +207,7 @@ sap.ui.define([
 						}
 					});
 				};
-      },
+			},
 
 			onClose: function() {
 				this.oDialog.destroy();
@@ -219,12 +219,12 @@ sap.ui.define([
 				var userListe = new Array();
 				var tmpObject = Object.values(this.getView().getModel().getData())[0];
 				while (Object.values(tmpObject)[i] != null) {
-					userListe[i] = new Array(8);
-					for (var j = 0; j < 8; j++) {
+					userListe[i] = new Array(6);
+					for (var j = 0; j < userListe[i].length; j++) {
 						userListe[i][j] = Object.values(Object.values(tmpObject)[i])[j];
-					}
+					};
 					i++;
-				}
+				};
 				$.ajax({
 					url: "php/admin/updateUser.php",
 					data: {
@@ -242,23 +242,43 @@ sap.ui.define([
 			},
 
 			onCancel: function() {
-				$.ajax({
-					url: "php/admin/getUser.php",
-					type: "GET",
-					context: this,
-					success: function handleSuccess(response) {
-						var oModel = new JSONModel();
-						oModel.setJSON(response);
-						this.getView().setModel(oModel);
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+				var pointer = this;
+				MessageBox.confirm("Möchten Sie wirklich alle Änderungen verwerfen?", {
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+					onClose: function(sResult) {
+						if(sResult == "YES") {
+							pointer.loadData();
+						};
 					}
 				});
 			},
 
-			onDeleteUser: function() {
-
+			onDeleteUser: function(oEvent) {
+				var tmp = Object.values(oEvent.getParameters())[0];
+				var id = tmp.substring(47, tmp.length);
+				var userId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[3];
+				var pointer = this;
+				MessageBox.confirm("Möchten Sie den Benutzer " + userId + " wirklich löschen?", {
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+					onClose: function(sResult) {
+						if(sResult == "YES") {
+							$.ajax({
+								url: "php/admin/deleteUser.php",
+								data: {
+									"userId": userId
+								},
+								type: "POST",
+								context: this,
+								success: function handleSuccess() {
+									pointer.loadData();
+								},
+								error: function handleError() {
+									MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+								}
+							})
+						};
+					}
+				});
 			},
 
 			onLogout: function() {
