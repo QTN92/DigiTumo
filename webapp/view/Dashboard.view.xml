@@ -4,12 +4,12 @@
 	<Page responsive="true" title="Dashboard" showNavButton="true" navButtonPress="onBack" showHeader="true" enableScrolling="true">
 		<l:BlockLayout id="BlockLayout" background="Dashboard">
 			<l:BlockLayoutRow>
-				<l:BlockLayoutCell title="Datenblatt" width="50%">
+				<l:BlockLayoutCell title="Datenblatt" width="25%">
 					<List items="{/datenblatt}">
 						<items>
 							<ObjectListItem title="{vorname} {nachname}">
 								<attributes>
-									<ObjectAttribute title="Geschlecht " text="{geschlecht}"/>
+									<ObjectAttribute title="Geschlecht" text="{geschlecht}"/>
 									<ObjectAttribute title="Geburtstag" text="{geburtsdatum}"/>
 									<ObjectAttribute title="Raucher" text="{raucher}"/>
 									<ObjectAttribute title="Krankenkasse" text="{versicherung}"/>
