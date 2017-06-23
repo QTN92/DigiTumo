@@ -165,8 +165,9 @@ sap.ui.define([
 							MessageBox.error("Speichern fehlgeschlagen.");
 						} else {
 							MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
-							this.getView().byId("vorgehendialog").destroy();
 							this.getView().byId("vorgehendialog").close();
+							this.getView().byId("vorgehendialog").destroy();
+
 						};
 					},
 					error: function handleError() {
@@ -176,8 +177,9 @@ sap.ui.define([
 			},
 
 			onClose: function() {
-				this.getView().byId("vorgehendialog").destroy();
 				this.getView().byId("vorgehendialog").close();
+				this.getView().byId("vorgehendialog").destroy();
+
 			},
 
 			onStudien: function() {

@@ -4,7 +4,7 @@
 	<Page responsive="true" title="Dashboard" showNavButton="true" navButtonPress="onBack" showHeader="true" enableScrolling="true">
 		<l:BlockLayout id="BlockLayout" background="Dashboard">
 			<l:BlockLayoutRow>
-				<l:BlockLayoutCell title="Datenblatt" width="40%">
+				<l:BlockLayoutCell title="Datenblatt" width="50%">
 					<List binding="{/datenblatt}">
 						<items>
 							<DisplayListItem label="Name" value="{vorname} {nachname}" id="showName"/>
@@ -19,7 +19,7 @@
 						</items>
 					</List>
 				</l:BlockLayoutCell>
-				<l:BlockLayoutCell title="Ultraschall" width="35%">
+				<l:BlockLayoutCell title="Ultraschall" width="25%">
 					<core:HTML
 						content="&lt;video width=&apos;100%&apos; height=&apos;100%&apos; autoplay=&apos;true&apos; loop=&apos;true&apos;&gt; &lt;source src=&apos;https://v.ftcdn.net/01/56/16/91/700_F_156169178_g8yH413jkVr8AuaP6UTVbmTZ1GryqZ8N.mp4&apos; type=&apos;video/mp4&apos;&gt; &lt;/video&gt;"></core:HTML>
 					<!-- Nieren: https://v.ftcdn.net/01/56/16/98/700_F_156169863_M1s0SBEAlXNQxcxcfXB0f5AvQbbzccvo.mp4
@@ -31,58 +31,58 @@
 											 Hirn: https://v.ftcdn.net/01/52/35/91/700_F_152359191_OFHjf9RvfUFh8OuzGxuyfknyT5DJrEZ5.mp4
 										-->
 				</l:BlockLayoutCell>
-				<l:BlockLayoutCell title="Vorgehenshistorie" width="25%">
-				<List binding="{/vorgehenshistorie}">
-					<items>
-						<StandardListItem title="Datum" description="Notiz" info="Anwesende Ärzte"/>
-					</items>
-				</List>
-			</l:BlockLayoutCell>
-		</l:BlockLayoutRow>
-		<l:BlockLayoutRow>
-			<l:BlockLayoutCell title="Krankheitsverlauf" width="80%">
-				<viz:VizFrame id="vizKrankheitsverlauf" width="100%" busy="false" busyIndicatorDelay="1000" visible="true"
-					uiConfig="{ 'applicationSet': 'fiori' }" vizType="dual_line" legendVisible="true">
-					<viz:dataset>
-						<viz.data:FlattenedDataset data="{/krankheitsverlauf}">
-							<viz.data:dimensions>
-								<viz.data:DimensionDefinition name="Monat" value="{Monat}"/>
-							</viz.data:dimensions>
-							<viz.data:measures>
-								<viz.data:MeasureDefinition name="Gesundheitsscore" value="{Gesundheitsscore}"/>
-								<viz.data:MeasureDefinition name="Medikamentendosis" value="{Medikamentendosis}"/>
-							</viz.data:measures>
-						</viz.data:FlattenedDataset>
-					</viz:dataset>
-					<!-- sap.viz.ui5.data.Dataset -->
-					<viz:feeds>
-						<viz.feeds:FeedItem id="value1" uid="valueAxis" type="Measure" values="Gesundheitsscore"/>
-						<viz.feeds:FeedItem id="value2" uid="valueAxis2" type="Measure" values="Medikamentendosis"/>
-						<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Monat"/>
-					</viz:feeds>
-				</viz:VizFrame>
-			</l:BlockLayoutCell>
-			<l:BlockLayoutCell title="Gesundheitsscore" width="30%">
-				<GenericTile header="Gesundheitsscore" press="press">
-					<tileContent>
-						<TileContent>
-							<content>
-								<NumericContent icon="sap-icon://stethoscope" id="score"/>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-			</l:BlockLayoutCell>
-		</l:BlockLayoutRow>
-	</l:BlockLayout>
-	<!-- Footer mit Vorgehen festhalten + LogOut Buttons -->
-	<footer>
-		<OverflowToolbar>
-			<Button id="studien" text="Zu den Studienergebnissen" press="onStudien" icon="sap-icon://electronic-medical-record" type="Emphasized"/>
-			<ToolbarSpacer/>
-			<Button id="vorgehenFesthalten" text="Vorgehen festhalten" press="onSaveAction" icon="sap-icon://request" type="Accept"/>
-			<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Default"/>
-		</OverflowToolbar>
-	</footer>
-</Page>
+				<l:BlockLayoutCell title="Gesundheitsscore" width="25%">
+					<GenericTile header="Gesundheitsscore" press="press">
+						<tileContent>
+							<TileContent>
+								<content>
+									<NumericContent icon="sap-icon://stethoscope" id="score"/>
+								</content>
+							</TileContent>
+						</tileContent>
+					</GenericTile>
+				</l:BlockLayoutCell>
+			</l:BlockLayoutRow>
+			<l:BlockLayoutRow>
+				<l:BlockLayoutCell title="Krankheitsverlauf" width="70%">
+					<viz:VizFrame id="vizKrankheitsverlauf" width="100%" busy="false" busyIndicatorDelay="1000" visible="true"
+						uiConfig="{ 'applicationSet': 'fiori' }" vizType="dual_line" legendVisible="true">
+						<viz:dataset>
+							<viz.data:FlattenedDataset data="{/krankheitsverlauf}">
+								<viz.data:dimensions>
+									<viz.data:DimensionDefinition name="Monat" value="{Monat}"/>
+								</viz.data:dimensions>
+								<viz.data:measures>
+									<viz.data:MeasureDefinition name="Gesundheitsscore" value="{Gesundheitsscore}"/>
+									<viz.data:MeasureDefinition name="Medikamentendosis" value="{Medikamentendosis}"/>
+								</viz.data:measures>
+							</viz.data:FlattenedDataset>
+						</viz:dataset>
+						<!-- sap.viz.ui5.data.Dataset -->
+						<viz:feeds>
+							<viz.feeds:FeedItem id="value1" uid="valueAxis" type="Measure" values="Gesundheitsscore"/>
+							<viz.feeds:FeedItem id="value2" uid="valueAxis2" type="Measure" values="Medikamentendosis"/>
+							<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Monat"/>
+						</viz:feeds>
+					</viz:VizFrame>
+				</l:BlockLayoutCell>
+				<l:BlockLayoutCell title="Vorgehenshistorie" width="30%">
+					<List binding="{/vorgehenshistorie}">
+						<items>
+							<StandardListItem title="Datum" description="Notiz" info="Anwesende Ärzte"/>
+						</items>
+					</List>
+				</l:BlockLayoutCell>
+			</l:BlockLayoutRow>
+		</l:BlockLayout>
+		<!-- Footer mit Vorgehen festhalten + LogOut Buttons -->
+		<footer>
+			<OverflowToolbar>
+				<Button id="studien" text="Zu den Studienergebnissen" press="onStudien" icon="sap-icon://electronic-medical-record" type="Emphasized"/>
+				<ToolbarSpacer/>
+				<Button id="vorgehenFesthalten" text="Vorgehen festhalten" press="onSaveAction" icon="sap-icon://request" type="Accept"/>
+				<Button id="logout" text="Logout" press="onLogout" icon="sap-icon://log" type="Default"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
 </View>
