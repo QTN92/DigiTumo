@@ -5,9 +5,21 @@
 		<l:BlockLayout id="BlockLayout" background="Dashboard">
 			<l:BlockLayoutRow>
 				<l:BlockLayoutCell title="Datenblatt" width="50%">
-					<List binding="{/datenblatt}">
+					<List items="{/datenblatt}">
 						<items>
-							<DisplayListItem label="Name" value="{vorname} {nachname}" id="showName"/>
+							<ObjectListItem title="{vorname} {nachname}">
+								<attributes>
+									<ObjectAttribute title="Geschlecht " text="{geschlecht}"/>
+									<ObjectAttribute title="Geburtstag" text="{geburtsdatum}"/>
+									<ObjectAttribute title="Raucher" text="{raucher}"/>
+									<ObjectAttribute title="Krankenkasse" text="{versicherung}"/>
+									<ObjectAttribute title="Tumor" text="{tumor}"/>
+									<ObjectAttribute title="Datum der Diagnose" text="{diagnosedatum}"/>
+									<ObjectAttribute title="Tumorstadium" text="{stadium} ({letztesStadium})"/>
+									<ObjectAttribute title="Weitere Krankheiten" text="{weitere_krankheiten}"/>
+								</attributes>
+							</ObjectListItem>
+							<!--<DisplayListItem label="Name" value="{vorname} {nachname}" id="showName"/>
 							<DisplayListItem label="Geburtsdatum" value="{geburtsdatum}" id="showGeburtsdatum"/>
 							<DisplayListItem label="Geschlecht" value="{geschlecht}" id="showGeschlecht"/>
 							<DisplayListItem label="Raucher" value="{raucher}" id="showRaucher"/>
@@ -15,7 +27,7 @@
 							<DisplayListItem label="Tumor" value="{tumor}" id="showTumor"/>
 							<DisplayListItem label="Datum der Diagnose" value="{diagnosedatum}" id="showDiagnosedatum"/>
 							<DisplayListItem label="Tumorstadium" value="{stadium} ({letztesStadium})" id="showTumorstadium"/>
-							<DisplayListItem label="Weitere Krankheiten" value="{weitere_krankheiten}" id="showWeitereKrankheiten"/>
+							<DisplayListItem label="Weitere Krankheiten" value="{weitere_krankheiten}" id="showWeitereKrankheiten"/>-->
 						</items>
 					</List>
 				</l:BlockLayoutCell>
