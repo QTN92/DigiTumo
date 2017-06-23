@@ -56,7 +56,7 @@
 				</l:BlockLayoutCell>
 			</l:BlockLayoutRow>
 			<l:BlockLayoutRow>
-				<l:BlockLayoutCell title="Krankheitsverlauf" width="70%">
+				<l:BlockLayoutCell title="Krankheitsverlauf" width="66,5%">
 					<viz:VizFrame id="vizKrankheitsverlauf" width="100%" busy="false" busyIndicatorDelay="1000" visible="true"
 						uiConfig="{ 'applicationSet': 'fiori' }" vizType="dual_line" legendVisible="true">
 						<viz:dataset>
@@ -78,7 +78,7 @@
 						</viz:feeds>
 					</viz:VizFrame>
 				</l:BlockLayoutCell>
-				<l:BlockLayoutCell title="Vorgehenshistorie" width="30%">
+				<l:BlockLayoutCell title="Vorgehenshistorie" width="33,5%">
 					<List binding="{/vorgehenshistorie}">
 						<items>
 							<StandardListItem title="Datum" description="Notiz" info="Anwesende Ärzte"/>
