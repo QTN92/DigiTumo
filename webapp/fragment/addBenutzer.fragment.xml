@@ -11,13 +11,13 @@
 				<Label text="Passwort" width="100%"/>
 				<Input id="passwort" text=""/>
 				<Label text="Berechtigungsstatus" width="100%"/>
-			<ComboBox width="100%" id="berechtigungsstatus">
-				<items>
-					<core:Item key="arzt" text="Arzt"/>
-					<core:Item key="admin" text="Administrator"/>
-					<core:Item key="newspflege" text="Newspflege"/>
-				</items>
-			</ComboBox>
+				<ComboBox width="100%" id="berechtigungsstatus">
+					<items>
+						<core:Item text="Arzt"/>
+						<core:Item text="Administrator"/>
+						<core:Item text="Newspflege"/>
+					</items>
+				</ComboBox>
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
