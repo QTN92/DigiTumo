@@ -15,14 +15,14 @@ sap.ui.define([
 				this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.None);
 
 				// Auslesen des Inputs für User und PW
-				var userStrng = this.getView().byId("-user").getValue();
-				var pwStrng = this.getView().byId("passwort").getValue();
+				var userId = this.getView().byId("user").getValue();
+				var passwort = this.getView().byId("passwort").getValue();
 
 				// Auswertung des Inputs
 				// Handling, falls min. ein Input fehlt
-				if (userStrng === "" || pwStrng === "") {
+				if (userId === "" || passwort === "") {
 					// Unterscheidung, ob beides oder nur eines nicht eingegeben wurde inkl. Handling
-					if (userStrng === "" && pwStrng === "") {
+					if (userId === "" && passwort === "") {
 						// Inputfelder kennzeichnen, um fehlende Werte hervorzuheben
 						this.getView().byId("user").setValueState(sap.ui.core.ValueState.Error);
 						this.getView().byId("user").setShowValueStateMessage(false);
@@ -32,7 +32,7 @@ sap.ui.define([
 						MessageBox.error("Bitte Nutzernamen und Passwort eingeben!");
 					}
 					// Handling, wenn nur Username fehlt; Handling äquivalent
-					else if (userStrng === "") {
+					else if (userId === "") {
 						this.getView().byId("user").setValueState(sap.ui.core.ValueState.Error);
 						this.getView().byId("user").setShowValueStateMessage(false);
 						MessageBox.error("Bitte Nutzernamen eingeben!");
@@ -50,8 +50,8 @@ sap.ui.define([
 					$.ajax({
 						url: "php/login/login.php",
 						data: {
-							"user": userStrng,
-							"passwort": pwStrng
+							"userId": userId,
+							"passwort": passwort
 						},
 						type: "POST",
 						context: this,
@@ -93,7 +93,7 @@ sap.ui.define([
 				$.ajax({
 					url: "php/login/getUserRole.php",
 					data: {
-						"user": this.getView().byId("user").getValue()
+						"userId": this.getView().byId("user").getValue()
 					},	
 					type: "POST",
 					context: this,
@@ -130,24 +130,6 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
 			
-//			//Error Handling um leere Liste zu vermeiden
-//			onSelectionChange: function() {
-//				this.getView().byId("anwSave").setVisible(true);
-//			},
-//			
-//			onSpeichern: function() {
-//				this.oView = this.getView().byId("arzteliste");
-//				var listLength = this.oView.mAggregations.items.length;
-//				for (var i = 0; i < listLength; i++) {
-//					if (this.oView.mAggregations.items[i].mProperties.selected === true){
-//						var oArzt = this.oView.mAggregations.items[i].mProperties.title;
-//						//TO DO: In Array speichern und an DB übergeben
-//						MessageBox.success(oArzt);
-//					}
-//				}
-//				this.getOwnerComponent().getTargets().display("patienten");
-//			},
-				
 			//Testen von Views
 			
 			onAdmin: function() {

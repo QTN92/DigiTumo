@@ -147,10 +147,10 @@ sap.ui.define([
 					i--;
 				};
 				id = parseInt(id);
-				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[0];
+				var patientId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[0];
 				this.getOwnerComponent().getTargets().display("dashboard");
 //				this.getView().oController.onLoad(patientenid);
-				sap.ui.getCore().byId("__xmlview3").getController().onLoad(patientenid);
+				sap.ui.getCore().byId("__xmlview3").getController().onLoad(patientId);
 			},
 
 			//Nur zum DashboardView testen
@@ -160,7 +160,7 @@ sap.ui.define([
 
 			onLogout: function() {
 				$.ajax({
-					url: "php/clearHilfstabelle.php",
+					url: "php/dashboard/clearHilfstabelle.php",
 					context: this,
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");

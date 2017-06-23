@@ -81,7 +81,7 @@
 				<l:BlockLayoutCell title="Vorgehenshistorie" width="33,5%">
 					<List binding="{/vorgehenshistorie}">
 						<items>
-							<StandardListItem title="Datum" description="Notiz" info="Anwesende Ärzte"/>
+							<StandardListItem title="{datum}" description="{vorgehen}: {notiz}" info="{anwesendeExperten}"/>
 						</items>
 					</List>
 				</l:BlockLayoutCell>

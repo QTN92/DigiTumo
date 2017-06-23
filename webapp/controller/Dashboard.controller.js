@@ -76,13 +76,13 @@ sap.ui.define([
 				oVizFrame.setModel(oModel);
 			},
 
-			onLoad: function(patientenid) {
+			onLoad: function(patientId) {
 				// Patientendaten
 				// Abfrage von Detailinformationen zum Patienten
 				$.ajax({
 					url: "php/dashboard/getDashboardPatientendaten.php",
 					data: {
-						"patientenid": patientenid
+						"patientId": patientId
 					},
 					type: "POST",
 					context: this,
@@ -99,7 +99,7 @@ sap.ui.define([
 				$.ajax({
 					url: "php/dashboard/getGesundheitsscore.php",
 					data: {
-						"patientenid": patientenid
+						"patientId": patientId
 					},
 					type: "POST",
 					context: this,
@@ -118,6 +118,20 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+				$.ajax({
+					url: "php/dashboard/getWeiteresVorgehen.php",
+					data: {
+						"patientId": patientId
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				})
 			},
 
 			onSaveAction: function(oEvent) {
@@ -145,7 +159,7 @@ sap.ui.define([
 			},
 
 			onSave: function() {
-				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
+				var patientId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
 				var datum = this.getView().byId("datum").getText();
 				var vorgehen = this.getView().byId("vorgehen").getText();
 				var notiz = this.getView().byId("notiz").getValue();
@@ -153,7 +167,7 @@ sap.ui.define([
 				$.ajax({
 					url: "php/dashboard/setWeiteresVorgehen.php",
 					data: {
-						"patientenid": patientenid,
+						"patientId": patientId,
 						"vorgehen": vorgehen,
 						"notiz": notiz,
 						"anwesendeExperten": anwesendeExperten
@@ -192,7 +206,7 @@ sap.ui.define([
 
 			onLogout: function() {
 				$.ajax({
-					url: "php/clearHilfstabelle.php",
+					url: "php/dashboard/clearHilfstabelle.php",
 					context: this,
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");

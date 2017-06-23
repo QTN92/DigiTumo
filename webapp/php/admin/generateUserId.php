@@ -34,8 +34,16 @@
 			$userId = substr($userId, 0, strlen($userId)-2);
 			$marker = 1;
 		};
-		$sql = "SELECT COUNT(*) FROM user WHERE userId = '$userId'";
-		$result = substr(json_encode(sql($sql)), 14, -3);
+		$sql = "
+			SELECT 
+				COUNT(*) 
+			FROM 
+				user 
+			WHERE 
+				userId = '$userId'
+		";
+		$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
+		$result = substr($sqlResult, 14, -3)
 		if($result == 0) {
 			$ok = 0;	
 		}
