@@ -32,7 +32,7 @@ sap.ui.define([
 					success: function handleSuccess(response) {
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
-						this.getView().byId("__xmlview2--filter").setModel(oModel);
+						this.getView().byId("filter").setModel(oModel);
 					}
 				});
 			},
@@ -51,7 +51,7 @@ sap.ui.define([
 					success: function handleSuccess(response) {
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
-						sap.ui.getCore().byId("__xmlview2--anwesenheitsdialog").setModel(oModel);
+						this.getView().byId("anwesenheitsdialog").setModel(oModel);
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
@@ -62,13 +62,13 @@ sap.ui.define([
 
 			// Methoden für das Vermerken der Anwesenheit
 			onAnwesenheitSpeichern: function() {
-				var alleAerzte = sap.ui.getCore().byId("__xmlview2--anwesenheitsdialog").getModel().getProperty("/anwesenheit");
+				var alleAerzte = this.getView().byId("anwesenheitsdialog").getModel().getProperty("/anwesenheit");
 				var anzahlAerzte = alleAerzte.length;
-				var id = "__item2-__xmlview2--anwesenheitsliste-";
+				var id = "anwesenheitsliste-";
 				var anwesendeAerzte = "";
 				for (var i = 0; i < anzahlAerzte; i++) {
 					id = id + i;
-					if (sap.ui.getCore().byId(id).isSelected()) {
+					if (this.getView().byId(id).isSelected()) {
 						var arzt = Object.values(alleAerzte[i]);
 						var tmp = arzt[0] + " " + arzt[1];
 						if (anwesendeAerzte != "") {
@@ -102,7 +102,7 @@ sap.ui.define([
 			},
 
 			onFilter: function() {
-				var key = this.getView().byId("__xmlview2--filter").getSelectedKey();
+				var key = this.getView().byId("filter").getSelectedKey();
 				if (key != "") {
 					$.ajax({
 						url: "php/patienten/getFilterGesetzt.php",
@@ -149,7 +149,8 @@ sap.ui.define([
 				id = parseInt(id);
 				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[0];
 				this.getOwnerComponent().getTargets().display("dashboard");
-				sap.ui.getCore().byId("__xmlview3").oController.onLoad(patientenid);
+//				this.getView().oController.onLoad(patientenid);
+				sap.ui.getCore().byId("__xmlview3").getController().onLoad(patientenid);
 			},
 
 			//Nur zum DashboardView testen

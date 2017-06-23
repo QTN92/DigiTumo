@@ -104,14 +104,14 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
-						this.byId("__xmlview3--score").setValue(response);
+						this.getView().byId("score").setValue(response);
 						// Abhängig vom Score wird dieser entsprechend gefärbt
 						if (response <= 3) {
-							this.byId("__xmlview3--score").setValueColor("Error");
+							this.getView().byId("score").setValueColor("Error");
 						} else if (response > 3 && response <= 7) {
-							this.byId("__xmlview3--score").setValueColor("Critical");
+							this.getView().byId("score").setValueColor("Critical");
 						} else {
-							this.byId("__xmlview3--score").setValueColor("Good");
+							this.getView().byId("score").setValueColor("Good");
 						}
 					},
 					error: function handleError() {
@@ -140,15 +140,15 @@ sap.ui.define([
 					monat = "0" + monat;
 				};
 				datum = tag + "." + monat + "." + jahr;
-				this.byId("__xmlview3--datum").setText(datum);
+				this.getView().byId("datum").setText(datum);
 				oDialog.open();
 			},
 
 			onSave: function() {
 				var patientenid = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
-				var datum = this.byId("__xmlview3--datum").getText();
-				var vorgehen = this.byId("__xmlview3--vorgehen").getText();
-				var notiz = this.byId("__xmlview3--notiz").getValue();
+				var datum = this.getView().byId("datum").getText();
+				var vorgehen = this.getView().byId("vorgehen").getText();
+				var notiz = this.getView().byId("notiz").getValue();
 				var anwesendeExperten = "";
 				$.ajax({
 					url: "php/dashboard/setWeiteresVorgehen.php",

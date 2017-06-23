@@ -58,53 +58,53 @@ sap.ui.define([
 			handleDateChange: function(oEvent) {
 				var valid = oEvent.getParameter("valid");
 				if (!valid) {
-					this.byId("__xmlview2--geburtsdatum").setValueState(sap.ui.core.ValueState.Error);
-					this.byId("__xmlview2--geburtsdatum").setShowValueStateMessage(false);
+					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);
+					this.getView().byId("geburtsdatum").setShowValueStateMessage(false);
 				}
 				else {
-					this.byId("__xmlview2--geburtsdatum").setValueState(sap.ui.core.ValueState.None);
+					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.None);
 				};
 			},
 			
 			onUserSave: function() {
-				var vorname = this.byId("__xmlview2--vorname").getValue();
+				var vorname = this.getView().byId("vorname").getValue();
 				var validVorname = false;
 				if(vorname == "") {
-					this.byId("__xmlview2--vorname").setValueState(sap.ui.core.ValueState.Error);
-					this.byId("__xmlview2--vorname").setShowValueStateMessage(false);
+					this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);
+					this.getView().byId("vorname").setShowValueStateMessage(false);
 					MessageBox.error("Bitte einen Vornamen eingeben.");
 				}
 				else {
 					if(vorname.search(/^[a-zA-Z ]+$/) == -1) {
-						this.byId("__xmlview2--vorname").setValueState(sap.ui.core.ValueState.Error);
-						this.byId("__xmlview2--vorname").setShowValueStateMessage(false);
+						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("vorname").setShowValueStateMessage(false);
 						MessageBox.error("Der Vorname darf nur Buchstaben enthalten.");
-						this.byId("__xmlview2--vorname").setValue("");
+						this.getView().byId("vorname").setValue("");
 					}
 					else {
-						this.byId("__xmlview2--vorname").setValueState(sap.ui.core.ValueState.None);
+						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.None);
 						vorname = vorname.trim();
 						vorname = vorname[0].toUpperCase() + vorname.substring(1, vorname.length);
 						validVorname = true;
 					};
 				};
 				if(validVorname) {
-					var nachname = this.getView().byId("__xmlview2--nachname").getValue();
+					var nachname = this.getView().byId("nachname").getValue();
 					var validNachname = false;
 					if(nachname == "") {
-						this.byId("__xmlview2--nachname").setValueState(sap.ui.core.ValueState.Error);
-						this.byId("__xmlview2--nachname").setShowValueStateMessage(false);
+						this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("nachname").setShowValueStateMessage(false);
 						MessageBox.error("Bitte einen Nachnamen eingeben.");
 					}
 					else {
 						if(nachname.search(/^[a-zA-Z ]+$/) == -1) {
-							this.byId("__xmlview2--nachname").setValueState(sap.ui.core.ValueState.Error);
-							this.byId("__xmlview2--nachname").setShowValueStateMessage(false);
+							this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);
+							this.getView().byId("nachname").setShowValueStateMessage(false);
 							MessageBox.error("Der Nachname darf nur Buchstaben enthalten.");
-							this.byId("__xmlview2--nachname").setValue("");
+							this.getView().byId("nachname").setValue("");
 						}
 						else {
-							this.byId("__xmlview2--nachname").setValueState(sap.ui.core.ValueState.None);
+							this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.None);
 							nachname = nachname.trim();
 							nachname = nachname[0].toUpperCase() + nachname.substring(1, nachname.length);
 							validNachname = true;
@@ -112,25 +112,25 @@ sap.ui.define([
 					};
 				};
 				if(validVorname && validNachname) {
-					var geburtsdatum = this.getView().byId("__xmlview2--geburtsdatum").getValue();
+					var geburtsdatum = this.getView().byId("geburtsdatum").getValue();
 					var validGeburtsdatum = false;
 					if(geburtsdatum == "") {
-						this.getView().byId("__xmlview2--geburtsdatum").setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("__xmlview2--geburtsdatum").setShowValueStateMessage(false);
+						this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("geburtsdatum").setShowValueStateMessage(false);
 						MessageBox.error("Bitte ein Geburtsdatum eingeben.");
 					}
 					else {
-						if(this.getView().byId("__xmlview2--geburtsdatum").getValueState() == "None") {
+						if(this.getView().byId("geburtsdatum").getValueState() == "None") {
 							validGeburtsdatum = true;
 						};
 					};
 				};
 				if(validVorname && validNachname && validGeburtsdatum) {
-					var passwort = this.getView().byId("__xmlview2--passwort").getValue();
+					var passwort = this.getView().byId("passwort").getValue();
 					var validPasswort = false;
 					if(passwort.length < 8) {
-						this.byId("__xmlview2--passwort").setValueState(sap.ui.core.ValueState.Error);
-						this.byId("__xmlview2--passwort").setShowValueStateMessage(false);
+						this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("passwort").setShowValueStateMessage(false);
 						MessageBox.error("Das Passwort muss aus min. acht Zeichen bestehen.");
 					} 
 					else {
@@ -141,31 +141,31 @@ sap.ui.define([
 							};
 						};
 						if(!zahl) {
-							this.byId("__xmlview2--passwort").setValueState(sap.ui.core.ValueState.Error);
-							this.byId("__xmlview2--passwort").setShowValueStateMessage(false);
+							this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.Error);
+							this.getView().byId("passwort").setShowValueStateMessage(false);
 							MessageBox.error("Das Passwort muss min. eine Zahl enthalten.");
 						}
 						else {
-							this.byId("__xmlview2--passwort").setValueState(sap.ui.core.ValueState.None);
+							this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.None);
 							validPasswort = true;
 						};
 					};
 				};
 				if(validVorname && validNachname && validGeburtsdatum && validPasswort) {
-					var berechtigungsstatus = this.getView().byId("__xmlview2--berechtigungsstatus").getValue();
+					var berechtigungsstatus = this.getView().byId("berechtigungsstatus").getValue();
 					var validBerechtigungsstatus = false;
 					if(berechtigungsstatus == "") {
-						this.getView().byId("__xmlview2--berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);
-						this.byId("__xmlview2--berechtigungsstatus").setShowValueStateMessage(false);
+						this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("berechtigungsstatus").setShowValueStateMessage(false);
 						MessageBox.error("Bitte einen Berechtigungsstatus auswählen.");
 					}
 					else if(berechtigungsstatus !== "Arzt" && berechtigungsstatus !== "Administrator" && berechtigungsstatus !== "Newspflege") {
-						this.getView().byId("__xmlview2--berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);
-						this.byId("__xmlview2--berechtigungsstatus").setShowValueStateMessage(false);
+						this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("berechtigungsstatus").setShowValueStateMessage(false);
 						MessageBox.error("Bitte einen gültigen Berechtigungsstatus auswählen.");
 					}
 					else {
-						this.getView().byId("__xmlview2--berechtigungsstatus").setValueState(sap.ui.core.ValueState.None);
+						this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.None);
 						validBerechtigungsstatus = true;
 					}
 				};
