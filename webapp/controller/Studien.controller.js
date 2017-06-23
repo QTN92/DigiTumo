@@ -59,7 +59,7 @@ sap.ui.define([
 			
 			onLogout: function() {
 				$.ajax({
-					url: "php/clearHilfstabelle.php",
+					url: "php/dashboard/clearHilfstabelle.php",
 					context: this,
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");

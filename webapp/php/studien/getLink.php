@@ -4,10 +4,20 @@
 	$autorVorname = $_POST['autorVorname'];
 	$autorNachname = $_POST['autorNachname'];
 	$titel = $_POST['titel'];
-	$sql = "SELECT verweis FROM newsfeed WHERE autorVorname = '$autorVorname' AND autorNachname = '$autorNachname' AND titel = '$titel'";
-	$result = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
-	$result = stripslashes($result);
-	$start = 13;
-	$result = substr($result, $start, strlen($result)-16);
+
+	$sql = "
+		SELECT 
+			verweis 
+		FROM 
+			newsfeed 
+		WHERE 
+			autorVorname = '$autorVorname' 
+			AND 
+				autorNachname = '$autorNachname' 
+			AND 	titel = '$titel'
+	";
+	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
+	$result = stripslashes($sqlResult);
+	$result = substr($result, 13, strlen($result)-16);
 	echo $result;
 ?>

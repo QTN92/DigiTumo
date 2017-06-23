@@ -1,12 +1,19 @@
 <?php
 	include_once '../db.php';
 
-	$user = $_POST['user'];
-	$sql = "SELECT rolle_bezeichnung FROM user_besitzt_rolle WHERE user_userId = '$user'";
-	$result = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
-	$start = 23;
-	$str = substr($result, $start, -3);
-	switch($str) {
+	$userId = $_POST['userId'];
+	$sql = "
+		SELECT 
+			rolle_bezeichnung 
+		FROM 
+			user_besitzt_rolle 
+		WHERE 
+			user_userId = '$user'
+	";
+	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
+	$rolle = substr($sqlResult, 23, -3);
+	
+	switch($rolle) {
 		case 'Administrator':
 			echo '0';
 			break;
