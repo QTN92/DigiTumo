@@ -35,13 +35,13 @@ sap.ui.define([
 			},
 			
 			onStudieSave: function() {
-				var vorname = this.byId("__xmlview2--vorname").getValue();
-				var nachname = this.getView().byId("__xmlview2--nachname").getValue();
-				var titel = this.getView().byId("__xmlview2--titel").getValue();
-				var jahr = this.getView().byId("__xmlview2--jahr").getValue();
-				var medium = this.getView().byId("__xmlview2--medium").getValue();
-				var abstract = this.getView().byId("__xmlview2--abstract").getValue();
-				var verweis = this.getView().byId("__xmlview2--verweis").getValue();
+				var vorname = this.getView().byId("vorname").getValue();
+				var nachname = this.getView().byId("nachname").getValue();
+				var titel = this.getView().byId("titel").getValue();
+				var jahr = this.getView().byId("jahr").getValue();
+				var medium = this.getView().byId("medium").getValue();
+				var abstract = this.getView().byId("abstract").getValue();
+				var verweis = this.getView().byId("verweis").getValue();
 				$.ajax({
 					url: "",
 					data: {
