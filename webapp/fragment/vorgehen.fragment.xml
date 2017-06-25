@@ -5,8 +5,8 @@
 			<Label text="Datum" labelFor="datum" width="100%"/>
 			<Text id="datum" text=""/>
 			<Label text="Vorgehen" width="100%"/>
-			<ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }" width="100%">
-				<core:Item key="{ProductId}" text="{Name}" id="vorgehen"/>
+			<ComboBox items="{/vorgehen}" width="100%" id="vorgehen">
+				<core:Item key="{entscheidung}" text="{entscheidung}"/>
 			</ComboBox>
 			<Label text="Notiz" labelFor="notiz" width="100%"/>
 			<TextArea growing="true" width="100%" id="notiz"/>

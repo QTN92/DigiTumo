@@ -16,7 +16,7 @@
 
 	$sql = "
 		SELECT 
-			datum, 
+			DATE_FORMAT(datum, '%d.%m.%y') AS datum, 
 			vorgehen, 
 			notiz, 
 			anwesendeExperten 
@@ -26,6 +26,6 @@
 			krankenakte_krankenakteId = '$krankenakteId'
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
-
-	echo $sqlResult;
+	$result = '{"vorgehenshistorie": ' . $sqlResult . '}';
+	echo $result;
 ?>

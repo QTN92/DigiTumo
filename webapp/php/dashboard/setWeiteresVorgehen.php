@@ -2,7 +2,9 @@
 	include_once '../db.php';
 
 	$patientId = $_POST['patientId'];
-
+	
+	
+	
 	$sql = "
 		SELECT 
 			krankenakteId 
@@ -20,6 +22,7 @@
 	else {
 		$vorgehen = $_POST['vorgehen'];
 		$notiz = $_POST['notiz'];
+		
 		$sql = "
 			SELECT 
 				MAX(datum) 
@@ -28,7 +31,6 @@
 		";
 		$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 		$datum = substr($sqlResult, 16, -3);
-
 		$sql = "
 			SELECT 
 				anwesendeAerzte 
@@ -57,5 +59,6 @@
 			)
 		";
 		sql($sql);
+		echo $patientId;
 	};	
 ?>

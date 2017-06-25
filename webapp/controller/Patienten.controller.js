@@ -149,8 +149,61 @@ sap.ui.define([
 				id = parseInt(id);
 				var patientId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[0];
 				this.getOwnerComponent().getTargets().display("dashboard");
-//				this.getView().oController.onLoad(patientenid);
-				sap.ui.getCore().byId("__xmlview3").getController().onLoad(patientId);
+				$.ajax({
+					url: "php/dashboard/getPatientendaten.php",
+					data: {
+						"patientId": patientId
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						sap.ui.getCore().byId("__xmlview3--patienteninformation").setModel(oModel);
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+				$.ajax({
+					url: "php/dashboard/getGesundheitsscore.php",
+					data: {
+						"patientId": patientId
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						sap.ui.getCore().byId("__xmlview3--score").setValue(response);
+						// Abhängig vom Score wird dieser entsprechend gefärbt
+						if (response <= 3) {
+							sap.ui.getCore().byId("__xmlview3--score").setValueColor("Error");
+						} else if (response > 3 && response <= 7) {
+							sap.ui.getCore().byId("__xmlview3--score").setValueColor("Critical");
+						} else {
+							sap.ui.getCore().byId("__xmlview3--score").setValueColor("Good");
+						}
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+				$.ajax({
+					url: "php/dashboard/getWeiteresVorgehen.php",
+					data: {
+						"patientId": patientId
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						sap.ui.getCore().byId("__xmlview3--vorgehenshistorie").setModel(oModel);
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 
 			//Nur zum DashboardView testen

@@ -9,7 +9,7 @@
 		FROM 
 			krankenakte 
 		WHERE 
-			patient_patientId = '$patientenid'
+			patient_patientId = '$patientId'
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 	$krankenakteid = substr($sqlResult, 19, -3);
@@ -40,7 +40,8 @@
 			stadium, 
 			DATE_FORMAT(datum, '%d.%m.%Y') AS letztesStadium, 
 			DATE_FORMAT(diagnosedatum, '%d.%m.%Y') AS diagnosedatum, 
-			krankheiten_bezeichnung AS weitere_krankheiten 
+			krankheiten_bezeichnung AS weitere_krankheiten,
+			gesundheitsscore
 		FROM 
 			patient 
 			JOIN 

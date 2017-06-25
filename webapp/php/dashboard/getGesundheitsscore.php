@@ -9,7 +9,7 @@
 		FROM 
 			krankenakte 
 		WHERE 
-			patient_patientId = '$patientenid'
+			patient_patientId = '$patientId'
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 	$krankenakteid = substr($sqlResult, 19, -3);
