@@ -219,7 +219,7 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
-			}
+			},
 
 			// TEST-BUTTON
 			onPress: function() {
