@@ -8,7 +8,7 @@
 		FROM 
 			user_besitzt_rolle 
 		WHERE 
-			user_userId = '$user'
+			user_userId = '$userId'
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 	$rolle = substr($sqlResult, 23, -3);
@@ -21,7 +21,7 @@
 			echo '1';
 			break;
 		case 'Arzt':
-			echo 2;
+			echo '2';
 			break;
 	}
 ?>
