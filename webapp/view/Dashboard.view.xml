@@ -80,9 +80,13 @@
 				</l:BlockLayoutCell>
 				<l:BlockLayoutCell title="Vorgehenshistorie" width="33,5%">
 					<List items="{/vorgehenshistorie}" id="vorgehenshistorie">
-						<items>
-							<StandardListItem title="{datum}" description="{vorgehen}: {notiz}" info="{anwesendeExperten}"/>
-						</items>
+						<CustomListItem>
+							<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+								<Title level="H2" text="{datum}"/>
+								<Label text="{anwesendeExperten}"/>
+								<Text text="{vorgehen}: {notiz}"/>
+							</VBox>
+						</CustomListItem>
 					</List>
 				</l:BlockLayoutCell>
 			</l:BlockLayoutRow>
