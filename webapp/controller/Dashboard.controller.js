@@ -8,7 +8,7 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
-
+			
 			onAfterRendering: function() {
 				var oModel = new sap.ui.model.json.JSONModel({
 					krankheitsverlauf: [{
@@ -49,7 +49,6 @@ sap.ui.define([
 						"Medikamentendosis": 350
 					}]
 				});
-				this.getView().setModel(oModel);
 
 				var oVizFrame = this.getView().byId("vizKrankheitsverlauf");
 
@@ -76,64 +75,6 @@ sap.ui.define([
 				oVizFrame.setModel(oModel);
 			},
 
-			onLoad: function(patientId) {
-				// Patientendaten
-				// Abfrage von Detailinformationen zum Patienten
-				$.ajax({
-					url: "php/dashboard/getDashboardPatientendaten.php",
-					data: {
-						"patientId": patientId
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						var oModel = new JSONModel();
-						oModel.setJSON(response);
-						this.getView().setModel(oModel);
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-					}
-				});
-				// Abfrage vom Gesundheitsscore des Patienten
-				$.ajax({
-					url: "php/dashboard/getGesundheitsscore.php",
-					data: {
-						"patientId": patientId
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						this.getView().byId("score").setValue(response);
-						// Abhängig vom Score wird dieser entsprechend gefärbt
-						if (response <= 3) {
-							this.getView().byId("score").setValueColor("Error");
-						} else if (response > 3 && response <= 7) {
-							this.getView().byId("score").setValueColor("Critical");
-						} else {
-							this.getView().byId("score").setValueColor("Good");
-						}
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-					}
-				});
-				$.ajax({
-					url: "php/dashboard/getWeiteresVorgehen.php",
-					data: {
-						"patientId": patientId
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-					}
-				})
-			},
-
 			onSaveAction: function(oEvent) {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
@@ -141,6 +82,8 @@ sap.ui.define([
 				if (!oDialog) {
 					// Dialog über fragment factory erstellen
 					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.vorgehen", this);
+					var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model","/vorgehen.json"));
+					this.getView().byId("vorgehen").setModel(oModel);
 					oView.addDependent(oDialog);
 				};
 				var datum = new Date();
@@ -159,41 +102,59 @@ sap.ui.define([
 			},
 
 			onSave: function() {
-				var patientId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[0])[0];
-				var datum = this.getView().byId("datum").getText();
-				var vorgehen = this.getView().byId("vorgehen").getText();
+				var patientId = Object.values(Object.values(Object.values(this.getView().byId("patienteninformation").getModel().getData())[0])[0])[0];
+				var vorgehen = this.getView().byId("vorgehen").getSelectedKey();
 				var notiz = this.getView().byId("notiz").getValue();
 				var anwesendeExperten = "";
-				$.ajax({
-					url: "php/dashboard/setWeiteresVorgehen.php",
-					data: {
-						"patientId": patientId,
-						"vorgehen": vorgehen,
-						"notiz": notiz,
-						"anwesendeExperten": anwesendeExperten
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						if (response === "fehler") {
+				if(vorgehen == "") {
+					MessageBox.error("Bitte eine Entscheidung über das weitere Vorgehen eingeben.");
+				}
+				else {
+					$.ajax({
+						url: "php/dashboard/setWeiteresVorgehen.php",
+						data: {
+							"patientId": patientId,
+							"vorgehen": vorgehen,
+							"notiz": notiz,
+							"anwesendeExperten": anwesendeExperten
+						},
+						type: "POST",
+						context: this,
+						success: function handleSuccess(response) {
+							if (response === "fehler") {
+								MessageBox.error("Speichern fehlgeschlagen.");
+							} else {
+								MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
+								this.getView().byId("vorgehendialog").close();
+								this.getView().byId("vorgehendialog").destroy();
+								$.ajax({
+									url: "php/dashboard/getWeiteresVorgehen.php",
+									data: {
+										"patientId": response 
+									},
+									type: "POST",
+									context: this,
+									success: function handleSuccess(response) {
+										var oModel = new JSONModel();
+										oModel.setJSON(response);
+										this.getView().byId("vorgehenshistorie").setModel(oModel);
+									},
+									error: function handleError() {
+										MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+									}
+								})
+							};
+						},
+						error: function handleError() {
 							MessageBox.error("Speichern fehlgeschlagen.");
-						} else {
-							MessageBox.success("Das weitere Vorgehen wurde gespeichert.");
-							this.getView().byId("vorgehendialog").close();
-							this.getView().byId("vorgehendialog").destroy();
-
-						};
-					},
-					error: function handleError() {
-						MessageBox.error("Speichern fehlgeschlagen.");
-					}
-				});
+						}
+					});
+				}
 			},
 
 			onClose: function() {
 				this.getView().byId("vorgehendialog").close();
 				this.getView().byId("vorgehendialog").destroy();
-
 			},
 
 			onStudien: function() {

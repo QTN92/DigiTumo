@@ -5,7 +5,7 @@
 		<l:BlockLayout id="BlockLayout" background="Dashboard">
 			<l:BlockLayoutRow>
 				<l:BlockLayoutCell title="Datenblatt" width="25%">
-					<List items="{/datenblatt}">
+					<List items="{/datenblatt}" id="patienteninformation">
 						<items>
 							<ObjectListItem title="{vorname} {nachname}">
 								<attributes>
@@ -44,7 +44,7 @@
 										-->
 				</l:BlockLayoutCell>
 				<l:BlockLayoutCell title="Gesundheitsscore" width="25%">
-					<GenericTile header="Gesundheitsscore" press="press">
+					<GenericTile header="Gesundheitsscore">
 						<tileContent>
 							<TileContent>
 								<content>
@@ -79,7 +79,7 @@
 					</viz:VizFrame>
 				</l:BlockLayoutCell>
 				<l:BlockLayoutCell title="Vorgehenshistorie" width="33,5%">
-					<List binding="{/vorgehenshistorie}">
+					<List items="{/vorgehenshistorie}" id="vorgehenshistorie">
 						<items>
 							<StandardListItem title="{datum}" description="{vorgehen}: {notiz}" info="{anwesendeExperten}"/>
 						</items>
