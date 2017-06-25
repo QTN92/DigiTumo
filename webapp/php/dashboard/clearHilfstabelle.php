@@ -4,7 +4,7 @@
 	$sql = "
 		DELETE 
 		FROM 
-			hilfstabelle
+			tmp
 	";
 	sql($sql);
 ?>

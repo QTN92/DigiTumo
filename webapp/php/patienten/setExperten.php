@@ -6,7 +6,7 @@
 	$sql = "
 		INSERT 
 		INTO 
-			hilfstabelle (
+			tmp (
 				anwesendeAerzte
 			) 
 		VALUES (

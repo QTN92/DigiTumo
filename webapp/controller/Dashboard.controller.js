@@ -105,7 +105,6 @@ sap.ui.define([
 				var patientId = Object.values(Object.values(Object.values(this.getView().byId("patienteninformation").getModel().getData())[0])[0])[0];
 				var vorgehen = this.getView().byId("vorgehen").getSelectedKey();
 				var notiz = this.getView().byId("notiz").getValue();
-				var anwesendeExperten = "";
 				if(vorgehen == "") {
 					MessageBox.error("Bitte eine Entscheidung über das weitere Vorgehen eingeben.");
 				}
@@ -116,7 +115,6 @@ sap.ui.define([
 							"patientId": patientId,
 							"vorgehen": vorgehen,
 							"notiz": notiz,
-							"anwesendeExperten": anwesendeExperten
 						},
 						type: "POST",
 						context: this,
@@ -169,11 +167,14 @@ sap.ui.define([
 				$.ajax({
 					url: "php/dashboard/clearHilfstabelle.php",
 					context: this,
+					success: function handleSuccess() {
+						this.getOwnerComponent().getTargets().display("login");
+						MessageBox.information("Sie haben sich erfolgreich ausgeloggt.");
+					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
-				this.getOwnerComponent().getTargets().display("login");
 			}
 		});
 	});
