@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- Metainformationen --> 
 		<meta http-equiv="X-UA-Compatible" content="IE-edge"/>
+		<!-- Festlegen des Zeichensatzes -->
 		<meta charset="UTF-8">
-
+		
+		<!-- Bootstrap von SAPUI5 -->
 		<script src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
 				id="sap-ui-bootstrap"
 				data-sap-ui-libs="sap.m"
@@ -13,15 +16,19 @@
 				sap-ui-xx-componentPreload=off
 				data-sap-ui-resourceroots='{"DigiTumo": "./"}'>
 		</script>
+		
+		<!-- Erstellen des Containers "DigiTumo"-->
 		<script>
          sap.ui.getCore().attachInit(function() {
 			new sap.ui.core.ComponentContainer({
-				height : "100%",
+				height : "100%",					// 100% füllt den gesamten Bildschirm 
 				name : "DigiTumo"
-			}).placeAt("content");
+			}).placeAt("content");					// Platzierung im Body mit der ID "Content"
 		});
 		</script>
 	</head>
+	
+	<!-- Der HTML Body erhält die Klasse "sapUiBody" und die ID "content" -->
 	<body class="sapUiBody" role="application" id="content">
 	</body>
 </html>
