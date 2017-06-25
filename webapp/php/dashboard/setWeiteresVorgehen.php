@@ -27,7 +27,7 @@
 			SELECT 
 				MAX(datum) 
 			FROM 
-				hilfstabelle
+				tmp
 		";
 		$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 		$datum = substr($sqlResult, 16, -3);
@@ -35,7 +35,7 @@
 			SELECT 
 				anwesendeAerzte 
 			FROM 
-				hilfstabelle 
+				tmp 
 			WHERE 
 				datum = '$datum'
 		";

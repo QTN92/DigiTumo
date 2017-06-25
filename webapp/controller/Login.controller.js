@@ -128,12 +128,10 @@ sap.ui.define([
 				this.byId("user").setValueState(sap.ui.core.ValueState.none);
 			},
 				
+			// TEST-BUTTON
 			onPatienten: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
-			
-			//Testen von Views
-			
 			onAdmin: function() {
 				this.getOwnerComponent().getTargets().display("admin");
 			},

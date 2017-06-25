@@ -8,7 +8,7 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Patienten", {
-
+			
 			onInit: function() {
 				// Binding der Patienten- und Krankenakteninformationen
 				$.ajax({
@@ -62,21 +62,20 @@ sap.ui.define([
 
 			// Methoden für das Vermerken der Anwesenheit
 			onAnwesenheitSpeichern: function() {
-				var alleAerzte = this.getView().byId("anwesenheitsdialog").getModel().getProperty("/anwesenheit");
-				var anzahlAerzte = alleAerzte.length;
-				var id = "anwesenheitsliste-";
+				var alleAerzte = this.getView().byId("anwesenheitsdialog").getModel().getJSON();
+				var anzahlAerzte = (alleAerzte.match(/vorname/g) || []).length;
 				var anwesendeAerzte = "";
+				var id = "__item2-__xmlview2--anwesenheitsliste-";
 				for (var i = 0; i < anzahlAerzte; i++) {
-					id = id + i;
-					if (this.getView().byId(id).isSelected()) {
-						var arzt = Object.values(alleAerzte[i]);
-						var tmp = arzt[0] + " " + arzt[1];
-						if (anwesendeAerzte != "") {
+					id = id.substring(0, 38) + i;
+					if(sap.ui.getCore().byId(id).getSelected()) {
+						if(anwesendeAerzte != "") {
 							anwesendeAerzte = anwesendeAerzte + ", ";
-						};
-						anwesendeAerzte = anwesendeAerzte + tmp;
+						}
+						anwesendeAerzte = anwesendeAerzte + sap.ui.getCore().byId(id).getTitle();
 					};
 				};
+				console.log(anwesendeAerzte);
 				$.ajax({
 					url: "php/patienten/setExperten.php",
 					data: {
@@ -206,22 +205,26 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 
-			//Nur zum DashboardView testen
-			onPress: function() {
-				this.getOwnerComponent().getTargets().display("dashboard");
-			},
+
 
 			onLogout: function() {
 				$.ajax({
 					url: "php/dashboard/clearHilfstabelle.php",
 					context: this,
+					success: function handleSuccess() {
+						this.getOwnerComponent().getTargets().display("login");
+						MessageBox.information("Sie haben sich erfolgreich ausgeloggt.");
+					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
-				this.getOwnerComponent().getTargets().display("login");
-			},
+			}
 
+			// TEST-BUTTON
+			onPress: function() {
+				this.getOwnerComponent().getTargets().display("dashboard");
+			},
 			onDashboard: function() {
 				this.getOwnerComponent().getTargets().display("dashboard");
 			}

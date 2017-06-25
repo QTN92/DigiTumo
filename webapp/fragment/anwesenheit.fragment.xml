@@ -3,7 +3,7 @@
 		<content>
 			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
 				<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="true">
-					<List items="{/experten}" id="anwesenheitsliste" mode="MultiSelect" selectionChange="onSelectionChange">
+					<List items="{/experten}" id="anwesenheitsliste" mode="MultiSelect">
 						<StandardListItem title="{vorname} {nachname}" info="{rang} {fachgebiet}"/>
 					</List>
 				</ScrollContainer>
