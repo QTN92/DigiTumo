@@ -98,6 +98,8 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
+						console.log(response);
+
 						// Rollenabhängige Navigation
 						switch(response) {
 						// 0: User ist Admin
