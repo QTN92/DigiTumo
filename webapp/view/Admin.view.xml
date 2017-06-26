@@ -44,7 +44,6 @@
 								<Input id="Geburtsdatum" value="{geburtsdatum}" editable="false"/>
 								<Input id="Benutzerkennung" value="{userId}" editable="false"/>
 								<Input id="Passwort" value="{passwort}"/>
-								<Input id="Berechtigungsstatus" value="{rolle}"/>
 								<ComboBox items="{/user}" width="100%" id="benutzerrolle">
 									<core:Item key="{rolle}" text="{rolle}"/>
 								</ComboBox>
