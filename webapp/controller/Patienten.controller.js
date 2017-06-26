@@ -210,23 +210,24 @@ sap.ui.define([
 					success: function handleSuccess(response) {
 						var oVizFrame = sap.ui.getCore().byId("__xmlview3--vizKrankheitsverlauf");
 						oVizFrame.setVizProperties({
-							plotArea: {
-								dataShape: {
-									primaryAxis: ["line", "bar", "bar"],
-									secondaryAxis: ["line", "bar", "bar", "bar"]
-								},
-								dataLabel: {
-									visible: true,
-									formatString: "u"
-								}
+							dataLabel: {
+								visible: true,
+								formatString: "u"
 							},
 							valueAxis: {
-								label: {
-									formatString: "u"
+								visible: true,
+								title: {
+									visible: true
 								}
 							},
-							title: {
-								visible: false
+							valueAxis2: {
+								visible: true,
+								title: {
+									visible: true
+								}
+							},
+							interaction: {
+								syncValueAxis: false
 							}
 						});
 						var oModel = new JSONModel();
