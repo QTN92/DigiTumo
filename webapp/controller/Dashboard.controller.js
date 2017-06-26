@@ -9,7 +9,7 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
 
-			onAfterRendering: function() {
+      onAfterRendering: function() {
 
 				$.ajax({
 					url: "php/dashboard/getKrankheitsverlauf.php",
