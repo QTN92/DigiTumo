@@ -19,11 +19,31 @@ sap.ui.define([
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
 						this.getView().setModel(oModel);
+						$.ajax({
+							url: "php/admin/getUserRollen.php",
+							type: "GET",
+							context: this,
+							success: function handleSuccess(response) {
+								var oModel = new JSONModel();
+								oModel.setJSON(response);
+								var i = 0;
+								var id = "Benutzerrolle-" + this.getView().getId() + "--BenutzerTab-";
+								while(Object.values(oModel.getData())[i] != undefined) {
+									id = id.substring(0, 38) + i;
+									this.getView().byId(id).setSelectedKey(Object.values(Object.values(oModel.getData())[i])[1]);
+									i++;
+								};
+							},
+							error: function handleError() {
+								MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
+							} 
+						});
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
 					}
 				});
+			
 			},
 			
 			// Funktion wird beim ersten Aufruf des Views ausgeführt
@@ -83,7 +103,7 @@ sap.ui.define([
 					if(vorname.search(/^[a-zA-Z ]+$/) == -1) {																// Abfangen von Sonderzeichen und Zahlen 
 						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);							// Ändert den Status auf "Error"
 						this.getView().byId("vorname").setShowValueStateMessage(false);
-						MessageBox.error("Der Vorname darf nur Buchstaben enthalten.");										// Ausgabe einer Messagebox des Typs "Error"
+						MessageBox.error("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");		// Ausgabe einer Messagebox des Typs "Error"
 						this.getView().byId("vorname").setValue("");														// Entfernen der falschen Eingabe
 					}
 					else {
@@ -197,7 +217,7 @@ sap.ui.define([
 								},
 								type: "POST",
 								context: this,
-								success: function handleSuccess(response) {
+								success: function handleSuccess() {
 									this.loadData();
 									this.oDialog.destroy();
 									this.oDialog.close();
@@ -222,14 +242,19 @@ sap.ui.define([
 			
 			// Funktion wird beim Klick auf den Button "save" ausgeführt
 			onSave: function() {
-				var i = 0;
+				var id = new Array(5);
+				id[0] = "Vorname-" + this.getView().getId() + "--BenutzerTab-";
+				id[1] = "Nachname-" + this.getView().getId() + "--BenutzerTab-";
+				id[2] = "Benutzerkennung-" + this.getView().getId() + "--BenutzerTab-";
+				id[3] = "Passwort-" + this.getView().getId() + "--BenutzerTab-";
+				id[4] = "Benutzerrolle-" + this.getView().getId() + "--BenutzerTab-";
 				var userListe = new Array();
-				var tmpObject = Object.values(this.getView().getModel().getData())[0];
-				while (Object.values(tmpObject)[i] != null) {
-					userListe[i] = new Array(6);
-					for (var j = 0; j < userListe[i].length; j++) {
-						userListe[i][j] = Object.values(Object.values(tmpObject)[i])[j];
-					};
+				var i = 0;
+				while(this.getView().byId(id[0]+i) != undefined) {
+					userListe[i] = new Array(5);
+					for(var j = 0; j < 5; j++) {
+						userListe[i][j] = this.getView().byId(id[j]+i).getValue();
+					}
 					i++;
 				};
 				$.ajax({																									// Aufruf eines AJAX-Calls
@@ -239,8 +264,14 @@ sap.ui.define([
 					},
 					type: "POST",
 					context: this,
-					success: function handleSuccess() {
-						MessageBox.success("Speichern erfolgreich.");														// Ausgabe einer Messagebox des Typs "Success"
+					success: function handleSuccess(response) {
+						if(response === "0") {
+							MessageBox.error("Die Rolle des einzigen Administrators kann nicht geändert werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie die Rolle dieses Nutzers ändern.");
+						}
+						else {
+							MessageBox.success("Speichern erfolgreich.");														// Ausgabe einer Messagebox des Typs "Success"
+						};
+						this.loadData();
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
@@ -278,8 +309,13 @@ sap.ui.define([
 								},
 								type: "POST",
 								context: this,
-								success: function handleSuccess() {
-									pointer.loadData();
+								success: function handleSuccess(response) {
+									if(response === "0") {
+										MessageBox.error("Der einzige Administrator kann nicht gelöscht werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie diesen Nutzer löschen.");
+									}
+									else {
+										pointer.loadData();
+									};
 								},
 								error: function handleError() {
 									MessageBox.error("Die Verbindung ist fehlgeschlagen.");									// Ausgabe einer Messagebox des Typs "Error"
