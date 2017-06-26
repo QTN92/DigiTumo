@@ -8,7 +8,49 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
-	
+
+      onAfterRendering: function() {
+
+				$.ajax({
+					url: "php/dashboard/getKrankheitsverlauf.php",
+					data: {
+						"patientId": 3
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						var oVizFrame = this.getView().byId("vizKrankheitsverlauf");
+						oVizFrame.setVizProperties({
+							dataLabel: {
+								visible: true,
+								formatString: "u"
+							},
+							valueAxis: {
+								visible: true,
+								title: {
+									visible: true
+								}
+							},
+							valueAxis2: {
+								visible: true,
+								title: {
+									visible: true
+								}
+							},
+							interaction: {
+								syncValueAxis: false
+							}
+						});
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						oVizFrame.setModel(oModel);
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+			},
+
 			onSaveAction: function(oEvent) {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
@@ -16,7 +58,7 @@ sap.ui.define([
 				if (!oDialog) {
 					// Dialog über fragment factory erstellen
 					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.vorgehen", this);
-					var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model","/vorgehen.json"));
+					var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/vorgehen.json"));
 					this.getView().byId("vorgehen").setModel(oModel);
 					oView.addDependent(oDialog);
 				};
@@ -36,13 +78,13 @@ sap.ui.define([
 			},
 
 			onSave: function() {
-				var patientId = Object.values(Object.values(Object.values(this.getView().byId("patienteninformation").getModel().getData())[0])[0])[0];
+				var patientId = Object.values(Object.values(Object.values(this.getView().byId("patienteninformation").getModel().getData())[0])[0])[
+					0];
 				var vorgehen = this.getView().byId("vorgehen").getSelectedKey();
 				var notiz = this.getView().byId("notiz").getValue();
-				if(vorgehen == "") {
+				if (vorgehen == "") {
 					MessageBox.error("Bitte eine Entscheidung über das weitere Vorgehen eingeben.");
-				}
-				else {
+				} else {
 					$.ajax({
 						url: "php/dashboard/setWeiteresVorgehen.php",
 						data: {
@@ -62,7 +104,7 @@ sap.ui.define([
 								$.ajax({
 									url: "php/dashboard/getWeiteresVorgehen.php",
 									data: {
-										"patientId": response 
+										"patientId": response
 									},
 									type: "POST",
 									context: this,
