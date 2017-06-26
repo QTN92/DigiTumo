@@ -48,8 +48,7 @@
 			</l:BlockLayoutRow>
 			<l:BlockLayoutRow>
 				<l:BlockLayoutCell title="Krankheitsverlauf" width="66,5%">
-					<viz:VizFrame id="vizKrankheitsverlauf" width="100%" busy="false" busyIndicatorDelay="1000" visible="true"
-						uiConfig="{ 'applicationSet': 'fiori' }" vizType="dual_line" legendVisible="true">
+					<viz:VizFrame id="vizKrankheitsverlauf" uiConfig="{applicationSet:'fiori'}" height="100%" width="100%" vizType='dual_combination'>
 						<viz:dataset>
 							<viz.data:FlattenedDataset data="{/krankheitsverlauf}">
 								<viz.data:dimensions>
@@ -61,11 +60,12 @@
 								</viz.data:measures>
 							</viz.data:FlattenedDataset>
 						</viz:dataset>
-						<!-- sap.viz.ui5.data.Dataset -->
 						<viz:feeds>
-							<viz.feeds:FeedItem id="value1" uid="valueAxis" type="Measure" values="Gesundheitsscore"/>
-							<viz.feeds:FeedItem id="value2" uid="valueAxis2" type="Measure" values="Medikamentendosis"/>
+
+							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Medikamentendosis"/>
+							<viz.feeds:FeedItem uid="valueAxis2" type="Measure" values="Gesundheitsscore"/>
 							<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Datum"/>
+
 						</viz:feeds>
 					</viz:VizFrame>
 				</l:BlockLayoutCell>
