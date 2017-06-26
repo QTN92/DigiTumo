@@ -19,15 +19,6 @@
 									<ObjectAttribute title="Weitere Krankheiten" text="{weitere_krankheiten}"/>
 								</attributes>
 							</ObjectListItem>
-							<!--<DisplayListItem label="Name" value="{vorname} {nachname}" id="showName"/>
-							<DisplayListItem label="Geburtsdatum" value="{geburtsdatum}" id="showGeburtsdatum"/>
-							<DisplayListItem label="Geschlecht" value="{geschlecht}" id="showGeschlecht"/>
-							<DisplayListItem label="Raucher" value="{raucher}" id="showRaucher"/>
-							<DisplayListItem label="Krankenkasse" value="{versicherung}" id="showKrankenkasse"/>
-							<DisplayListItem label="Tumor" value="{tumor}" id="showTumor"/>
-							<DisplayListItem label="Datum der Diagnose" value="{diagnosedatum}" id="showDiagnosedatum"/>
-							<DisplayListItem label="Tumorstadium" value="{stadium} ({letztesStadium})" id="showTumorstadium"/>
-							<DisplayListItem label="Weitere Krankheiten" value="{weitere_krankheiten}" id="showWeitereKrankheiten"/>-->
 						</items>
 					</List>
 				</l:BlockLayoutCell>
@@ -62,11 +53,11 @@
 						<viz:dataset>
 							<viz.data:FlattenedDataset data="{/krankheitsverlauf}">
 								<viz.data:dimensions>
-									<viz.data:DimensionDefinition name="Monat" value="{Monat}"/>
+									<viz.data:DimensionDefinition name="Datum" value="{datum}"/>
 								</viz.data:dimensions>
 								<viz.data:measures>
-									<viz.data:MeasureDefinition name="Gesundheitsscore" value="{Gesundheitsscore}"/>
-									<viz.data:MeasureDefinition name="Medikamentendosis" value="{Medikamentendosis}"/>
+									<viz.data:MeasureDefinition name="Gesundheitsscore" value="{gesundheitsscore}"/>
+									<viz.data:MeasureDefinition name="Medikamentendosis" value="{dosis}"/>
 								</viz.data:measures>
 							</viz.data:FlattenedDataset>
 						</viz:dataset>
@@ -74,7 +65,7 @@
 						<viz:feeds>
 							<viz.feeds:FeedItem id="value1" uid="valueAxis" type="Measure" values="Gesundheitsscore"/>
 							<viz.feeds:FeedItem id="value2" uid="valueAxis2" type="Measure" values="Medikamentendosis"/>
-							<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Monat"/>
+							<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Datum"/>
 						</viz:feeds>
 					</viz:VizFrame>
 				</l:BlockLayoutCell>

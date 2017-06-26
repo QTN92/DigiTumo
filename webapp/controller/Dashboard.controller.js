@@ -10,69 +10,43 @@ sap.ui.define([
 		return Controller.extend("DigiTumo.controller.Dashboard", {
 			
 			onAfterRendering: function() {
-				var oModel = new sap.ui.model.json.JSONModel({
-					krankheitsverlauf: [{
-						"Monat": "Januar",
-						"Gesundheitsscore": 5,
-						"Medikamentendosis": 504
-					}, {
-						"Monat": "Februar",
-						"Gesundheitsscore": 3,
-						"Medikamentendosis": 100
-					}, {
-						"Monat": "Maerz",
-						"Gesundheitsscore": 6,
-						"Medikamentendosis": 350
-					}, {
-						"Monat": "April",
-						"Gesundheitsscore": 5,
-						"Medikamentendosis": 504
-					}, {
-						"Monat": "Mai",
-						"Gesundheitsscore": 7,
-						"Medikamentendosis": 420
-					}, {
-						"Monat": "Juni",
-						"Gesundheitsscore": 5,
-						"Medikamentendosis": 400
-					}, {
-						"Monat": "Juli",
-						"Gesundheitsscore": 5,
-						"Medikamentendosis": 400
-					}, {
-						"Monat": "August",
-						"Gesundheitsscore": 8,
-						"Medikamentendosis": 350
-					}, {
-						"Monat": "September",
-						"Gesundheitsscore": 7,
-						"Medikamentendosis": 350
-					}]
-				});
-
-				var oVizFrame = this.getView().byId("vizKrankheitsverlauf");
-
-				oVizFrame.setVizProperties({
-					plotArea: {
-						dataShape: {
-							primaryAxis: ["line", "bar", "bar"],
-							secondaryAxis: ["line", "bar", "bar", "bar"]
-						},
-						dataLabel: {
-							visible: true,
-							formatString: "u"
-						}
+				$.ajax({
+					url: "php/dashboard/getKrankheitsverlauf.php",
+					data: {
+						"patientId": 3
 					},
-					valueAxis: {
-						label: {
-							formatString: "u"
-						}
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						var oVizFrame = this.getView().byId("vizKrankheitsverlauf");
+						oVizFrame.setVizProperties({
+							plotArea: {
+								dataShape: {
+									primaryAxis: ["line", "bar", "bar"],
+									secondaryAxis: ["line", "bar", "bar", "bar"]
+								},
+								dataLabel: {
+									visible: true,
+									formatString: "u"
+								}
+							},
+							valueAxis: {
+								label: {
+									formatString: "u"
+								}
+							},
+							title: {
+								visible: false
+							}
+						});
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						oVizFrame.setModel(oModel);
 					},
-					title: {
-						visible: false
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
-				oVizFrame.setModel(oModel);
 			},
 
 			onSaveAction: function(oEvent) {

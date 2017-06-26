@@ -75,7 +75,6 @@ sap.ui.define([
 						anwesendeAerzte = anwesendeAerzte + sap.ui.getCore().byId(id).getTitle();
 					};
 				};
-				console.log(anwesendeAerzte);
 				$.ajax({
 					url: "php/patienten/setExperten.php",
 					data: {
