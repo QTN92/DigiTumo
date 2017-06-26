@@ -4,7 +4,7 @@
 	<Page responsive="true" title="Dashboard" showNavButton="true" navButtonPress="onBack" showHeader="true" enableScrolling="true">
 		<l:BlockLayout id="BlockLayout" background="Dashboard">
 			<l:BlockLayoutRow>
-				<l:BlockLayoutCell title="Datenblatt" width="25%">
+				<l:BlockLayoutCell title="Datenblatt" width="33,5%">
 					<List items="{/datenblatt}" id="patienteninformation">
 						<items>
 							<ObjectListItem title="{vorname} {nachname}">
@@ -22,6 +22,28 @@
 						</items>
 					</List>
 				</l:BlockLayoutCell>
+				<l:BlockLayoutCell title="Krankheitsverlauf" width="66,5%">
+					<viz:VizFrame id="vizKrankheitsverlauf" uiConfig="{applicationSet:'fiori'}" height="100%" width="100%" vizType='dual_combination'>
+						<viz:dataset>
+							<viz.data:FlattenedDataset data="{/krankheitsverlauf}">
+								<viz.data:dimensions>
+									<viz.data:DimensionDefinition name="Datum" value="{datum}"/>
+								</viz.data:dimensions>
+								<viz.data:measures>
+									<viz.data:MeasureDefinition name="Gesundheitsscore" value="{gesundheitsscore}"/>
+									<viz.data:MeasureDefinition name="Medikamentendosis" value="{dosis}"/>
+								</viz.data:measures>
+							</viz.data:FlattenedDataset>
+						</viz:dataset>
+						<viz:feeds>
+							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Medikamentendosis"/>
+							<viz.feeds:FeedItem uid="valueAxis2" type="Measure" values="Gesundheitsscore"/>
+							<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Datum"/>
+						</viz:feeds>
+					</viz:VizFrame>
+				</l:BlockLayoutCell>
+			</l:BlockLayoutRow>
+			<l:BlockLayoutRow>
 				<l:BlockLayoutCell title="Ultraschall" width="25%">
 					<core:HTML
 						content="&lt;video width=&apos;100%&apos; height=&apos;100%&apos; autoplay=&apos;true&apos; loop=&apos;true&apos;&gt; &lt;source src=&apos;https://v.ftcdn.net/01/56/16/91/700_F_156169178_g8yH413jkVr8AuaP6UTVbmTZ1GryqZ8N.mp4&apos; type=&apos;video/mp4&apos;&gt; &lt;/video&gt;"></core:HTML>
@@ -45,31 +67,7 @@
 						</tileContent>
 					</GenericTile>
 				</l:BlockLayoutCell>
-			</l:BlockLayoutRow>
-			<l:BlockLayoutRow>
-				<l:BlockLayoutCell title="Krankheitsverlauf" width="66,5%">
-					<viz:VizFrame id="vizKrankheitsverlauf" uiConfig="{applicationSet:'fiori'}" height="100%" width="100%" vizType='dual_combination'>
-						<viz:dataset>
-							<viz.data:FlattenedDataset data="{/krankheitsverlauf}">
-								<viz.data:dimensions>
-									<viz.data:DimensionDefinition name="Datum" value="{datum}"/>
-								</viz.data:dimensions>
-								<viz.data:measures>
-									<viz.data:MeasureDefinition name="Gesundheitsscore" value="{gesundheitsscore}"/>
-									<viz.data:MeasureDefinition name="Medikamentendosis" value="{dosis}"/>
-								</viz.data:measures>
-							</viz.data:FlattenedDataset>
-						</viz:dataset>
-						<viz:feeds>
-
-							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Medikamentendosis"/>
-							<viz.feeds:FeedItem uid="valueAxis2" type="Measure" values="Gesundheitsscore"/>
-							<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Datum"/>
-
-						</viz:feeds>
-					</viz:VizFrame>
-				</l:BlockLayoutCell>
-				<l:BlockLayoutCell title="Vorgehenshistorie" width="33,5%">
+				<l:BlockLayoutCell title="Vorgehenshistorie" width="25%">
 					<List items="{/vorgehenshistorie}" id="vorgehenshistorie">
 						<CustomListItem>
 							<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
