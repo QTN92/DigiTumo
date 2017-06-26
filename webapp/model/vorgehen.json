@@ -3,5 +3,11 @@
 		"entscheidung": "OP"
 	}, {
 		"entscheidung": "keine OP"
+	}, {
+		"entscheidung": "Änderung der Medikamentation"
+	}, {
+		"entscheidung": "Patientengespräch"
+	}, {
+		"entscheidung": "Sonstiges (s. Notiz)"
 	}]
 }
