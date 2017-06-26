@@ -13,12 +13,12 @@
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 	$krankenakteId = substr($sqlResult, 19, -3);
-	
+
 	$sql = "
 		SELECT 
 			DATE_FORMAT(krankheitsverlauf.datum, '%d.%m.%Y') AS datum,
 			gesundheitsscore,
-			dosis
+			dosis 
 		FROM
 			krankheitsverlauf
 			JOIN
@@ -27,6 +27,10 @@
 				(krankheitsverlauf.datum = medikamentation.datum)
 		WHERE
 			krankheitsverlauf.krankenakte_krankenakteId = '$krankenakteId'
+			AND
+				medikamentation.krankenakte_krankenakteId = '$krankenakteId'
+		ORDER BY
+			krankheitsverlauf.datum; 
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 	$result = '{"krankheitsverlauf": ' . $sqlResult . '}';
