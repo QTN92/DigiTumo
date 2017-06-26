@@ -2,31 +2,63 @@
 	include_once '../db.php';
 
 	$userListe = $_POST['userListe'];
+	$letzterAdmin = 1;
 	for ($i = 0; $i < count($userListe); $i++) {
-		$aktuellerUser = $userListe[$i][3];
+		$aktuellerUser = $userListe[$i][2];
 		$vorname = $userListe[$i][0];
 		$nachname = $userListe[$i][1];
-		$passwort = $userListe[$i][4];
-		$rolle = $userListe[$i][5];
+		$passwort = $userListe[$i][3];
+		$rolle = $userListe[$i][4];
+		
 		$sql = "
-			UPDATE 
-				user 
-			SET 
-				vorname = '$vorname', 
-				nachname = '$nachname', 
-				passwort = '$passwort' 
-			WHERE 
-				userId = '$aktuellerUser'
-		";
-		sql($sql);
-		$sql = "
-			UPDATE 
-				user_besitzt_rolle 
-			SET 
-				rolle_bezeichnung = '$rolle' 
-			WHERE 
+			SELECT
+				rolle_bezeichnung
+			FROM
+				user_besitzt_rolle
+			WHERE
 				user_userId = '$aktuellerUser'
 		";
-		sql($sql);
+		$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
+		$aktuelleRolle = substr($sqlResult, 23, -3);
+ 
+		$sql = "
+			SELECT
+				COUNT(*) AS anzahl
+			FROM
+				user_besitzt_rolle
+			WHERE
+				rolle_bezeichnung = 'Administrator'
+		";
+		$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
+		$anzahlAdmins = substr($sqlResult, 12, -3);
+
+		if($aktuelleRolle == 'Administrator' AND $rolle != 'Administrator' AND $anzahlAdmins == '1') {
+			// Rückgabe eines Fehlercodes, sofern die Rolle des letzten Administrators geändert werden würde
+			$letzterAdmin = 0; 
+		}
+		else {
+			$sql = "
+				UPDATE 
+					user 
+				SET 
+					vorname = '$vorname', 
+					nachname = '$nachname', 
+					passwort = '$passwort' 
+				WHERE 
+					userId = '$aktuellerUser'
+			";
+			sql($sql);
+			$sql = "
+				UPDATE 
+					user_besitzt_rolle 
+				SET 
+					rolle_bezeichnung = '$rolle' 
+				WHERE 
+					user_userId = '$aktuellerUser'
+			";
+			sql($sql);
+		};
 	};
+
+	echo $letzterAdmin;
 ?>

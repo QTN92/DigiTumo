@@ -4,7 +4,7 @@
 	$vorname = $_POST['vorname'];
 	$nachname = $_POST['nachname'];
 	$tmpGeburtsdatum = $_POST['geburtsdatum'];
-	$geburtsdatum = substr($tmpGeburtsdatum, 6, 4) . "-" . substr($tmp, 3, 2) . "-" . substr($tmp, 0, 2);
+	$geburtsdatum = substr($tmpGeburtsdatum, 6, 4) . "-" . substr($tmpGeburtsdatum, 3, 2) . "-" . substr($tmpGeburtsdatum, 0, 2);
 	$passwort = $_POST['passwort'];
 	$rolle = $_POST['berechtigungsstatus'];
 	$userId = $_POST['userId'];

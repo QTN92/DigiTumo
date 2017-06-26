@@ -43,7 +43,7 @@
 				userId = '$userId'
 		";
 		$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
-		$result = substr($sqlResult, 14, -3)
+		$result = substr($sqlResult, 14, -3);
 		if($result == 0) {
 			$ok = 0;	
 		}
