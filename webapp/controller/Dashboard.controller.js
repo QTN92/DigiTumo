@@ -21,25 +21,25 @@ sap.ui.define([
 					success: function handleSuccess(response) {
 						var oVizFrame = this.getView().byId("vizKrankheitsverlauf");
 						oVizFrame.setVizProperties({
-								dataLabel: {
-									visible: true,
-									formatString: "u"
-								}
+							dataLabel: {
+								visible: true,
+								formatString: "u"
 							},
 							valueAxis: {
-						visible: true,
-						title: {
-							visible: true
-						}
-					},
-					valueAxis2: {
-						visible: true,
-						title: {
-							visible: true
-						},
-						interaction: {
-							syncValueAxis: false
-						}
+								visible: true,
+								title: {
+									visible: true
+								}
+							},
+							valueAxis2: {
+								visible: true,
+								title: {
+									visible: true
+								}
+							},
+							interaction: {
+								syncValueAxis: false
+							}
 						});
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
