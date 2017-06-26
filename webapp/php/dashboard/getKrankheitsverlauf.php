@@ -1,8 +1,7 @@
 <?php
 	include_once '../db.php';
 
-	//$patientId = $_POST['patientId'];
-	$patientId = '3';
+	$patientId = $_POST['patientId'];
 
 	$sql = "
 		SELECT

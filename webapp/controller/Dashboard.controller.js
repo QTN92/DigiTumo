@@ -8,47 +8,7 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
-			
-			onAfterRendering: function() {
-				$.ajax({
-					url: "php/dashboard/getKrankheitsverlauf.php",
-					data: {
-						"patientId": 3
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						var oVizFrame = this.getView().byId("vizKrankheitsverlauf");
-						oVizFrame.setVizProperties({
-							plotArea: {
-								dataShape: {
-									primaryAxis: ["line", "bar", "bar"],
-									secondaryAxis: ["line", "bar", "bar", "bar"]
-								},
-								dataLabel: {
-									visible: true,
-									formatString: "u"
-								}
-							},
-							valueAxis: {
-								label: {
-									formatString: "u"
-								}
-							},
-							title: {
-								visible: false
-							}
-						});
-						var oModel = new JSONModel();
-						oModel.setJSON(response);
-						oVizFrame.setModel(oModel);
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-					}
-				});
-			},
-
+	
 			onSaveAction: function(oEvent) {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
