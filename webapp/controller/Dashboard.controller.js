@@ -9,48 +9,6 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
 
-      onAfterRendering: function() {
-
-				$.ajax({
-					url: "php/dashboard/getKrankheitsverlauf.php",
-					data: {
-						"patientId": 3
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						var oVizFrame = this.getView().byId("vizKrankheitsverlauf");
-						oVizFrame.setVizProperties({
-							dataLabel: {
-								visible: true,
-								formatString: "u"
-							},
-							valueAxis: {
-								visible: true,
-								title: {
-									visible: true
-								}
-							},
-							valueAxis2: {
-								visible: true,
-								title: {
-									visible: true
-								}
-							},
-							interaction: {
-								syncValueAxis: false
-							}
-						});
-						var oModel = new JSONModel();
-						oModel.setJSON(response);
-						oVizFrame.setModel(oModel);
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-					}
-				});
-			},
-
 			onSaveAction: function(oEvent) {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
