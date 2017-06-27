@@ -125,7 +125,7 @@ sap.ui.define([
 						if(nachname.search(/^[a-zA-Z ]+$/) == -1) {															// Abfangen von Sonderzeichen und Zahlen
 							this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
 							this.getView().byId("nachname").setShowValueStateMessage(false);
-							MessageBox.error("Der Nachname darf nur Buchstaben enthalten.");								// Ausgabe einer Messagebox des Typs "Error"
+							MessageBox.error("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");								// Ausgabe einer Messagebox des Typs "Error"
 							this.getView().byId("nachname").setValue("");													// Entfernen der falschen Eingabe
 						}
 						else {
@@ -239,8 +239,7 @@ sap.ui.define([
 				this.oDialog.destroy();																						// Zerstören des Dialogs
 				this.oDialog.close();																						// Schließen des Dialogs
 			},
-			
-			// Funktion wird beim Klick auf den Button "save" ausgeführt
+	
 			onSave: function() {
 				var id = new Array(5);
 				id[0] = "Vorname-" + this.getView().getId() + "--BenutzerTab-";
@@ -257,26 +256,108 @@ sap.ui.define([
 					}
 					i++;
 				};
-				$.ajax({																									// Aufruf eines AJAX-Calls
-					url: "php/admin/updateUser.php",
-					data: {
-						"userListe": userListe
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						if(response === "0") {
-							MessageBox.error("Die Rolle des einzigen Administrators kann nicht geändert werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie die Rolle dieses Nutzers ändern.");
+				
+				var validVorname = true;
+				var validNachname = true;
+				var validPasswort = true;
+				var validBenutzerrolle = true;
+				var id = this.getView().getId() + "--BenutzerTab-";
+				for(var i = 0; i < userListe.length; i++) {
+					var id = id.substring(0, 24) + i;
+					if(userListe[i][0] == "") {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Vorname-"+id).setValueStateText("Bitte einen Vornamen eingeben.");
+						validVorname = false;
+					} 
+					else if(userListe[i][0].search(/^[a-zA-Z ]+$/) == -1) {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Vorname-"+id).setValueStateText("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+						validVorname = false;
+					}
+					else {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.None);
+						userListe[i][0] = userListe[i][0].trim();
+						userListe[i][0] = userListe[i][0][0].toUpperCase() + userListe[i][0].substring(1, userListe[i][0].length);
+					};
+					
+					if(userListe[i][1] == "") {
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Nachname-"+id).setValueStateText("Bitte einen Nachnamen eingeben.");
+						validNachname = false;
+					}
+					else if(userListe[i][1].search(/^[a-zA-Z ]+$/) == -1) {
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Nachname-"+id).setValueStateText("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+						validNachname = false;
+					}
+					else {
+						userListe[i][1] = userListe[i][1].trim();
+						userListe[i][1] = userListe[i][1][0].toUpperCase() + userListe[i][1].substring(1, userListe[i][1].length);
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.None);
+					};
+					
+					if(userListe[i][3].length < 8) {
+						this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Passwort-"+id).setValueStateText("Das Passwort muss aus min. acht Zeichen bestehen.");
+						validPasswort = false;
+					}
+					else {
+						var zahl = false;																					
+						for(var j = 0; j < userListe[i][3].length; j++) {															
+							if(!isNaN(userListe[i][3][j])) {																		
+								zahl = true;																				
+							};
+						};
+						if(!zahl) {
+							this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.Error);					
+							this.getView().byId("Passwort-"+id).setValueStateText("Das Passwort muss min. eine Zahl enthalten.");	
+							validPasswort = false;
 						}
 						else {
-							MessageBox.success("Speichern erfolgreich.");														// Ausgabe einer Messagebox des Typs "Success"
+							this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.None);						
 						};
-						this.loadData();
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
+					};
+					
+					if(userListe[i][4] == "") {
+						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Benutzerrolle-"+id).setValueStateText("Bitte einen Berechtigungsstatus auswählen.");
+						validBenutzerrolle = false;
 					}
-				});
+					else if(userListe[i][4] != "Arzt" && userListe[i][4] != "Administrator" && userListe[i][4] != "Newspflege") {
+						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Benutzerrolle-"+id).setValueStateText("Bitte einen gültigen Berechtigungsstatus auswählen.");
+						validBenutzerrolle = false;
+					}
+					else {
+						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.None);
+					};
+				};
+				
+				if(validVorname && validNachname && validPasswort && validBenutzerrolle) {
+					$.ajax({																									// Aufruf eines AJAX-Calls
+						url: "php/admin/updateUser.php",
+						data: {
+							"userListe": userListe
+						},
+						type: "POST",
+						context: this,
+						success: function handleSuccess(response) {
+							if(response === "0") {
+								MessageBox.error("Die Rolle des einzigen Administrators kann nicht geändert werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie die Rolle dieses Nutzers ändern.");
+							}
+							else {
+								MessageBox.success("Speichern erfolgreich.");														// Ausgabe einer Messagebox des Typs "Success"
+							};
+							this.loadData();
+						},
+						error: function handleError() {
+							MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
+						}
+					});
+				}
+				else {
+					MessageBox.error("Bitte die Eingaben überprüfen!");
+				};
 			},
 
 			// Funktion wird beim Klick auf den Button "cancel" ausgeführt
