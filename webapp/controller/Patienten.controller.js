@@ -146,7 +146,6 @@ sap.ui.define([
 				};
 				id = parseInt(id);
 				var patientId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[0];
-				this.getOwnerComponent().getTargets().display("dashboard");
 				$.ajax({
 					url: "php/dashboard/getPatientendaten.php",
 					data: {
@@ -201,10 +200,46 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+				$.ajax({
+					url: "php/dashboard/getKrankheitsverlauf.php",
+					data: {
+						"patientId": patientId
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						var oVizFrame = sap.ui.getCore().byId("__xmlview3--vizKrankheitsverlauf");
+						oVizFrame.setVizProperties({
+							dataLabel: {
+								visible: true,
+								formatString: "u"
+							},
+							valueAxis: {
+								visible: true,
+								title: {
+									visible: true
+								}
+							},
+							valueAxis2: {
+								visible: true,
+								title: {
+									visible: true
+								}
+							},
+							interaction: {
+								syncValueAxis: false
+							}
+						});
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						oVizFrame.setModel(oModel);
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});					
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
-
-
 
 			onLogout: function() {
 				$.ajax({

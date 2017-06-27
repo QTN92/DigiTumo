@@ -19,11 +19,31 @@ sap.ui.define([
 						var oModel = new JSONModel();
 						oModel.setJSON(response);
 						this.getView().setModel(oModel);
+						$.ajax({
+							url: "php/admin/getUserRollen.php",
+							type: "GET",
+							context: this,
+							success: function handleSuccess(response) {
+								var oModel = new JSONModel();
+								oModel.setJSON(response);
+								var i = 0;
+								var id = "Benutzerrolle-" + this.getView().getId() + "--BenutzerTab-";
+								while(Object.values(oModel.getData())[i] != undefined) {
+									id = id.substring(0, 38) + i;
+									this.getView().byId(id).setSelectedKey(Object.values(Object.values(oModel.getData())[i])[1]);
+									i++;
+								};
+							},
+							error: function handleError() {
+								MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
+							} 
+						});
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
 					}
 				});
+			
 			},
 			
 			// Funktion wird beim ersten Aufruf des Views ausgeführt
@@ -83,7 +103,7 @@ sap.ui.define([
 					if(vorname.search(/^[a-zA-Z ]+$/) == -1) {																// Abfangen von Sonderzeichen und Zahlen 
 						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);							// Ändert den Status auf "Error"
 						this.getView().byId("vorname").setShowValueStateMessage(false);
-						MessageBox.error("Der Vorname darf nur Buchstaben enthalten.");										// Ausgabe einer Messagebox des Typs "Error"
+						MessageBox.error("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");		// Ausgabe einer Messagebox des Typs "Error"
 						this.getView().byId("vorname").setValue("");														// Entfernen der falschen Eingabe
 					}
 					else {
@@ -105,7 +125,7 @@ sap.ui.define([
 						if(nachname.search(/^[a-zA-Z ]+$/) == -1) {															// Abfangen von Sonderzeichen und Zahlen
 							this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
 							this.getView().byId("nachname").setShowValueStateMessage(false);
-							MessageBox.error("Der Nachname darf nur Buchstaben enthalten.");								// Ausgabe einer Messagebox des Typs "Error"
+							MessageBox.error("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");								// Ausgabe einer Messagebox des Typs "Error"
 							this.getView().byId("nachname").setValue("");													// Entfernen der falschen Eingabe
 						}
 						else {
@@ -197,7 +217,7 @@ sap.ui.define([
 								},
 								type: "POST",
 								context: this,
-								success: function handleSuccess(response) {
+								success: function handleSuccess() {
 									this.loadData();
 									this.oDialog.destroy();
 									this.oDialog.close();
@@ -219,33 +239,125 @@ sap.ui.define([
 				this.oDialog.destroy();																						// Zerstören des Dialogs
 				this.oDialog.close();																						// Schließen des Dialogs
 			},
-			
-			// Funktion wird beim Klick auf den Button "save" ausgeführt
+	
 			onSave: function() {
-				var i = 0;
+				var id = new Array(5);
+				id[0] = "Vorname-" + this.getView().getId() + "--BenutzerTab-";
+				id[1] = "Nachname-" + this.getView().getId() + "--BenutzerTab-";
+				id[2] = "Benutzerkennung-" + this.getView().getId() + "--BenutzerTab-";
+				id[3] = "Passwort-" + this.getView().getId() + "--BenutzerTab-";
+				id[4] = "Benutzerrolle-" + this.getView().getId() + "--BenutzerTab-";
 				var userListe = new Array();
-				var tmpObject = Object.values(this.getView().getModel().getData())[0];
-				while (Object.values(tmpObject)[i] != null) {
-					userListe[i] = new Array(6);
-					for (var j = 0; j < userListe[i].length; j++) {
-						userListe[i][j] = Object.values(Object.values(tmpObject)[i])[j];
-					};
+				var i = 0;
+				while(this.getView().byId(id[0]+i) != undefined) {
+					userListe[i] = new Array(5);
+					for(var j = 0; j < 5; j++) {
+						userListe[i][j] = this.getView().byId(id[j]+i).getValue();
+					}
 					i++;
 				};
-				$.ajax({																									// Aufruf eines AJAX-Calls
-					url: "php/admin/updateUser.php",
-					data: {
-						"userListe": userListe
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess() {
-						MessageBox.success("Speichern erfolgreich.");														// Ausgabe einer Messagebox des Typs "Success"
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
+				
+				var validVorname = true;
+				var validNachname = true;
+				var validPasswort = true;
+				var validBenutzerrolle = true;
+				var id = this.getView().getId() + "--BenutzerTab-";
+				for(var i = 0; i < userListe.length; i++) {
+					var id = id.substring(0, 24) + i;
+					if(userListe[i][0] == "") {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Vorname-"+id).setValueStateText("Bitte einen Vornamen eingeben.");
+						validVorname = false;
+					} 
+					else if(userListe[i][0].search(/^[a-zA-Z ]+$/) == -1) {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Vorname-"+id).setValueStateText("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+						validVorname = false;
 					}
-				});
+					else {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.None);
+						userListe[i][0] = userListe[i][0].trim();
+						userListe[i][0] = userListe[i][0][0].toUpperCase() + userListe[i][0].substring(1, userListe[i][0].length);
+					};
+					
+					if(userListe[i][1] == "") {
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Nachname-"+id).setValueStateText("Bitte einen Nachnamen eingeben.");
+						validNachname = false;
+					}
+					else if(userListe[i][1].search(/^[a-zA-Z ]+$/) == -1) {
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Nachname-"+id).setValueStateText("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+						validNachname = false;
+					}
+					else {
+						userListe[i][1] = userListe[i][1].trim();
+						userListe[i][1] = userListe[i][1][0].toUpperCase() + userListe[i][1].substring(1, userListe[i][1].length);
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.None);
+					};
+					
+					if(userListe[i][3].length < 8) {
+						this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Passwort-"+id).setValueStateText("Das Passwort muss aus min. acht Zeichen bestehen.");
+						validPasswort = false;
+					}
+					else {
+						var zahl = false;																					
+						for(var j = 0; j < userListe[i][3].length; j++) {															
+							if(!isNaN(userListe[i][3][j])) {																		
+								zahl = true;																				
+							};
+						};
+						if(!zahl) {
+							this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.Error);					
+							this.getView().byId("Passwort-"+id).setValueStateText("Das Passwort muss min. eine Zahl enthalten.");	
+							validPasswort = false;
+						}
+						else {
+							this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.None);						
+						};
+					};
+					
+					if(userListe[i][4] == "") {
+						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Benutzerrolle-"+id).setValueStateText("Bitte einen Berechtigungsstatus auswählen.");
+						validBenutzerrolle = false;
+					}
+					else if(userListe[i][4] != "Arzt" && userListe[i][4] != "Administrator" && userListe[i][4] != "Newspflege") {
+						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Benutzerrolle-"+id).setValueStateText("Bitte einen gültigen Berechtigungsstatus auswählen.");
+						validBenutzerrolle = false;
+					}
+					else {
+						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.None);
+					};
+				};
+				
+				if(validVorname && validNachname && validPasswort && validBenutzerrolle) {
+					$.ajax({																									// Aufruf eines AJAX-Calls
+						url: "php/admin/updateUser.php",
+						data: {
+							"userListe": userListe
+						},
+						type: "POST",
+						context: this,
+						success: function handleSuccess(response) {
+							if(response === "0") {
+								MessageBox.error("Die Rolle des einzigen Administrators kann nicht geändert werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie die Rolle dieses Nutzers ändern.");
+							}
+							else {
+								MessageBox.success("Speichern erfolgreich.");														// Ausgabe einer Messagebox des Typs "Success"
+							};
+							this.loadData();
+						},
+						error: function handleError() {
+							MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
+						}
+					});
+				}
+				else {
+					MessageBox.error("Bitte die Eingaben überprüfen!");
+				};
 			},
 
 			// Funktion wird beim Klick auf den Button "cancel" ausgeführt
@@ -278,8 +390,13 @@ sap.ui.define([
 								},
 								type: "POST",
 								context: this,
-								success: function handleSuccess() {
-									pointer.loadData();
+								success: function handleSuccess(response) {
+									if(response === "0") {
+										MessageBox.error("Der einzige Administrator kann nicht gelöscht werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie diesen Nutzer löschen.");
+									}
+									else {
+										pointer.loadData();
+									};
 								},
 								error: function handleError() {
 									MessageBox.error("Die Verbindung ist fehlgeschlagen.");									// Ausgabe einer Messagebox des Typs "Error"
