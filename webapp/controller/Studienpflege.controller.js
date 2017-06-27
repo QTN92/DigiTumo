@@ -7,7 +7,7 @@ sap.ui.define([
 	function(Controller, MessageBox, JSONModel) {
 		"use strict";
 
-		return Controller.extend("DigiTumo.controller.Newspflege", {
+		return Controller.extend("DigiTumo.controller.Studienpflege", {
 
 			loadData: function() {
 				$.ajax({

@@ -1,4 +1,4 @@
-<View id="newspflege" controllerName="DigiTumo.controller.Newspflege" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+<View id="newspflege" controllerName="DigiTumo.controller.Studienpflege" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
 	xmlns:u="sap.ui.unified" height="100%">
 	<Shell>
 		<Page responsive="true" title="Studienverwaltung" showHeader="true" enableScrolling="true" enableBusyIndicator="true"
