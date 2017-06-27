@@ -423,7 +423,7 @@ sap.ui.define([
 			// Funktion wird beim Klick auf den Button "logout" ausgeführt
 			onLogout: function() {		
 				var pointer = this;
-				MessageBox.confirm("Möchten Sie sich wirklich abmelden?", {
+				MessageBox.confirm("Möchten Sie sich wirklich abmelden? Nicht gespeicherte Änderungen gehen verloren.", {
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
 						if(sResult == "YES") {
