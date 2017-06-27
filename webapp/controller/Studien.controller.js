@@ -58,14 +58,19 @@ sap.ui.define([
 			},
 			
 			onLogout: function() {
-				$.ajax({
-					url: "php/dashboard/clearHilfstabelle.php",
-					context: this,
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+				var pointer = this;
+				MessageBox.confirm("Möchten Sie sich ausloggen?", {
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+					onClose: function(sResult) {
+						if(sResult == "YES") {
+							$.ajax({
+								url: "php/dashboard/clearHilfstabelle.php",
+								context: this
+							});
+							pointer.getOwnerComponent().getTargets().display("login");
+						};
 					}
 				});
-				this.getOwnerComponent().getTargets().display("login");
 			},
 			
 			onBack: function() {
