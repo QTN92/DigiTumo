@@ -147,7 +147,7 @@ sap.ui.define([
 				
 				if(validVorname && validNachname && validTitel && validMedium && validAbstract && validVerweis) {
 					$.ajax({
-						url: "",
+						url: "php/studien/setNewStudie.php",
 						data: {
 							"vorname": vorname,
 							"nachname": nachname,
@@ -160,6 +160,7 @@ sap.ui.define([
 						type: "POST",
 						context: this,
 						success: function handleSuccess() {
+							this.loadData();
 						},
 						error: function handleError() {
 							MessageBox.error("Die Verbindung ist fehlgeschlagen.");
@@ -201,14 +202,39 @@ sap.ui.define([
 			},
 			
 			onDeleteStudie: function(oEvent) {
-
+				var pointer = this;
+				var tmp = Object.values(oEvent.getParameters()).toString();
+				var id = parseInt(tmp.substring(48, tmp.length));
+				var tmp = Object.values(Object.values(this.getView().getModel().getData())[0])[id];
+				MessageBox.confirm("Möchten Sie diesen Artikel wirklich löschen?", {							
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],									
+					onClose: function(sResult) {
+						if(sResult == "YES") {		
+							$.ajax({																					
+								url: "php/studien/deleteStudie.php",
+								data: {
+									"vorname": Object.values(tmp)[1],
+									"nachname": Object.values(tmp)[0],
+									"titel": Object.values(tmp)[2],
+									"jahr": Object.values(tmp)[3]
+								},
+								type: "POST",
+								context: this,
+								success: function handleSuccess() {
+									pointer.loadData();
+								},
+								error: function handleError() {
+									MessageBox.error("Die Verbindung ist fehlgeschlagen.");								
+								}
+							})
+						};
+					}
+				});
 			},
 
 			onSave: function() {
 				
 			},
-			
-
 			
 			onCancel: function() {
 				var pointer = this;
@@ -224,7 +250,7 @@ sap.ui.define([
 
 			onLogout: function() {		
 				var pointer = this;
-				MessageBox.confirm("Möchten Sie sich wirklich abmelden? Alle nicht gespeicherten Änderungen gehen verloren.", {
+				MessageBox.confirm("Möchten Sie sich wirklich abmelden? Nicht gespeicherte Änderungen gehen verloren.", {
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
 						if(sResult == "YES") {
