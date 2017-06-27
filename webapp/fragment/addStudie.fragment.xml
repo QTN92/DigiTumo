@@ -13,7 +13,7 @@
 				<Label text="Medium" width="100%"/>
 				<Input id="medium" text=""/>
 				<Label text="Abstract" width="100%"/>
-				<TextArea id="abstract" text=""/>
+				<TextArea id="abstract" text="" width="100%"/>
 				<Label text="Verweis" width="100%"/>
 				<Input id="verweis" text=""/>
 			</l:VerticalLayout>

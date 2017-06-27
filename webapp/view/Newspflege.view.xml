@@ -35,6 +35,9 @@
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
 							<Text text="Verweis"/>
 						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+							<Text text="Aktion"/>
+						</Column>
 					</columns>
 					<items>
 						<ColumnListItem>
