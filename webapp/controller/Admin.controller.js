@@ -91,111 +91,100 @@ sap.ui.define([
 			},
 			
 			// Funktion wird beim Klick auf den Button mit dem Diskettensymbol im Dialog "benutzerdialog" ausgeführt
-			onUserSave: function() {
+			onSaveNewUser: function() {
 				var vorname = this.getView().byId("vorname").getValue();													// Auslesen des Wertes "Vorname"
-				var validVorname = false;																					// Variable "validVorname" initial falsch setzen
+				var validVorname = true;																					// Variable "validVorname" initial falsch setzen
 				if(vorname == "") {																							// Abfangen von leerer Eingabe
 					this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);								// Ändert den Status auf "Error"
-					this.getView().byId("vorname").setShowValueStateMessage(false);
-					MessageBox.error("Bitte einen Vornamen eingeben.");														// Ausgabe einer Messagebox des Typs "Error"
+					this.getView().byId("vorname").setValueStateText("Bitte einen Vornamen eingeben.");														// Ausgabe einer Messagebox des Typs "Error"
+					validVorname = false;
 				}
 				else {
 					if(vorname.search(/^[a-zA-Z ]+$/) == -1) {																// Abfangen von Sonderzeichen und Zahlen 
 						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);							// Ändert den Status auf "Error"
-						this.getView().byId("vorname").setShowValueStateMessage(false);
-						MessageBox.error("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");		// Ausgabe einer Messagebox des Typs "Error"
-						this.getView().byId("vorname").setValue("");														// Entfernen der falschen Eingabe
+						this.getView().byId("vorname").setValueStateText("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");		// Ausgabe einer Messagebox des Typs "Error"
+						validVorname = false;
 					}
 					else {
 						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.None);							// Ändert den Status auf "None"
 						vorname = vorname.trim();
 						vorname = vorname[0].toUpperCase() + vorname.substring(1, vorname.length);
-						validVorname = true;																				// Variable "validVorname" auf wahr setzen
 					};
 				};
-				if(validVorname) {																							// Falls Variable Variable "validVorname" wahr ist
-					var nachname = this.getView().byId("nachname").getValue();												// Auslesen des Wertes "Vorname"
-					var validNachname = false;																				// Variable "validNachname" initial falsch setzen
-					if(nachname == "") {																					// Abfangen von leerer Eingabe
-						this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);						// Ändert den Status auf "Error"
-						this.getView().byId("nachname").setShowValueStateMessage(false);									
-						MessageBox.error("Bitte einen Nachnamen eingeben.");												// Ausgabe einer Messagebox des Typs "Error"
-					}
-					else {
-						if(nachname.search(/^[a-zA-Z ]+$/) == -1) {															// Abfangen von Sonderzeichen und Zahlen
-							this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
-							this.getView().byId("nachname").setShowValueStateMessage(false);
-							MessageBox.error("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");								// Ausgabe einer Messagebox des Typs "Error"
-							this.getView().byId("nachname").setValue("");													// Entfernen der falschen Eingabe
-						}
-						else {
-							this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.None);						// Ändert den Status auf "None"
-							nachname = nachname.trim();
-							nachname = nachname[0].toUpperCase() + nachname.substring(1, nachname.length);
-							validNachname = true;																			// Variable "validNachname" auf wahr setzen
-						};
-					};
+					
+				var nachname = this.getView().byId("nachname").getValue();												// Auslesen des Wertes "Vorname"
+				var validNachname = true;																				// Variable "validNachname" initial falsch setzen
+				if(nachname == "") {																					// Abfangen von leerer Eingabe
+					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);						// Ändert den Status auf "Error"
+					this.getView().byId("nachname").setValueStateText("Bitte einen Nachnamen eingeben.");									
+					validNachname = false;
+				}
+				else if(nachname.search(/^[a-zA-Z ]+$/) == -1) {															// Abfangen von Sonderzeichen und Zahlen
+					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
+					this.getView().byId("nachname").setValueStateText("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+					validNachname = false;
+				}
+				else {
+					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.None);						// Ändert den Status auf "None"
+					nachname = nachname.trim();
+					nachname = nachname[0].toUpperCase() + nachname.substring(1, nachname.length);
 				};
-				if(validVorname && validNachname) {																			// Falls Variable "validVorname" und "validNachname" wahr sind
-					var geburtsdatum = this.getView().byId("geburtsdatum").getValue();										// Auslesen des Wertes "geburtsdatum"
-					var validGeburtsdatum = false;																			// Variable "validGeburtsdatum" initial falsch setzen
-					if(geburtsdatum == "") {																				// Abfangen von leerer Eingabe
-						this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
-						this.getView().byId("geburtsdatum").setShowValueStateMessage(false);
-						MessageBox.error("Bitte ein Geburtsdatum eingeben.");												// Ausgabe einer Messagebox des Typs "Error"
-					}
-					else {
-						if(this.getView().byId("geburtsdatum").getValueState() == "None") {									// Falls Status "None"
-							validGeburtsdatum = true;																		// Variable "validGeburtsdatum" auf wahr setzen
-						};
+
+				var geburtsdatum = this.getView().byId("geburtsdatum").getValue();										// Auslesen des Wertes "geburtsdatum"
+				var validGeburtsdatum = true;																			// Variable "validGeburtsdatum" initial falsch setzen
+				if(geburtsdatum == "") {																				// Abfangen von leerer Eingabe
+					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
+					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein Geburtsdatum eingeben.");
+					validGeburtsdatum = false	
+				}
+				else {
+					if(this.getView().byId("geburtsdatum").getValueState() == "Error") {								// Falls Status "None"
+						this.getView().byId("geburtsdatum").setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
+						validGeburtsdatum = false;																		// Variable "validGeburtsdatum" auf wahr setzen
 					};
-				};
-				if(validVorname && validNachname && validGeburtsdatum) {													// Falls Variable "validVorname", "validNachname" und "validGeburtsdatum" wahr sind
-					var passwort = this.getView().byId("passwort").getValue();												// Auslesen des Wertes "passwort"	
-					var validPasswort = false;																				// Variable "validPasswort" initial falsch setzen
-					if(passwort.length < 8) {																				// Abfangen eines Passworts unter 8 Zeichen
-						this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.Error);						// Ändert den Status auf "Error"
-						this.getView().byId("passwort").setShowValueStateMessage(false);
-						MessageBox.error("Das Passwort muss aus min. acht Zeichen bestehen.");								// Ausgabe einer Messagebox des Typs "Error"
-					} 
-					else {
-						var zahl = false;																					// Variable "zahl" initial falsch setzen
-						for(var i = 0; i < passwort.length; i++) {															// Schleife mit Anzahl der Durchläufe gleich Länge des Passworts in einzelnen Buchtaben
-							if(!isNaN(passwort[i])) {																		// isNaN --> is not a number
-								zahl = true;																				// Variable "validGeburtsdatum" auf wahr setzen
-							};
-						};
-						if(!zahl) {
-							this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
-							this.getView().byId("passwort").setShowValueStateMessage(false);
-							MessageBox.error("Das Passwort muss min. eine Zahl enthalten.");								// Ausgabe einer Messagebox des Typs "Error"
-						}
-						else {
-							this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.None);						// Ändert den Status auf "None"
-							validPasswort = true;																			// Variable "validPasswort" auf wahr setzen
-						};
-					};
-				};
-				if(validVorname && validNachname && validGeburtsdatum && validPasswort) {									// Falls Variable "validVorname", "validNachname", "validGeburtsdatum" und "validPasswort" wahr sind
-					var berechtigungsstatus = this.getView().byId("berechtigungsstatus").getValue();						// Auslesen des Wertes "berechtigungsstatus"
-					var validBerechtigungsstatus = false;																	// Variable "validBerechtigungsstatus" initial falsch setzen
-					if(berechtigungsstatus == "") {																			// Abfangen von leerer Eingabe
-						this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);				// Ändert den Status auf "Error"
-						this.getView().byId("berechtigungsstatus").setShowValueStateMessage(false);
-						MessageBox.error("Bitte einen Berechtigungsstatus auswählen.");										// Ausgabe einer Messagebox des Typs "Error"
-					}
-					else if(berechtigungsstatus !== "Arzt" && berechtigungsstatus !== "Administrator" && berechtigungsstatus !== "Newspflege") {			// Abfangen von unbekannter Eingabe
-						this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);				// Ändert den Status auf "Error"
-						this.getView().byId("berechtigungsstatus").setShowValueStateMessage(false);
-						MessageBox.error("Bitte einen gültigen Berechtigungsstatus auswählen.");							// Ausgabe einer Messagebox des Typs "Error"
-					}
-					else {
-						this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.None);				// Ändert den Status auf "None"
-						validBerechtigungsstatus = true;																	// Variable "validBerechtigungsstatus" auf wahr setzen
-					}
 				};
 				
-				if(validVorname && validNachname && validGeburtsdatum && validPasswort && validBerechtigungsstatus) {		// Falls Variable "validVorname", "validNachname", "validGeburtsdatum", "validPasswort" und "validBerechtigungsstatus" wahr sind
+				var passwort = this.getView().byId("passwort").getValue();												// Auslesen des Wertes "passwort"	
+				var validPasswort = true;																				// Variable "validPasswort" initial falsch setzen
+				if(passwort.length < 8) {																				// Abfangen eines Passworts unter 8 Zeichen
+					this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.Error);						// Ändert den Status auf "Error"
+					this.getView().byId("passwort").setValueStateText("Das Passwort muss aus min. acht Zeichen bestehen.");								// Ausgabe einer Messagebox des Typs "Error"
+					validPasswort = false;
+				} 
+				else {
+					var zahl = false;																					// Variable "zahl" initial falsch setzen
+					for(var i = 0; i < passwort.length; i++) {															// Schleife mit Anzahl der Durchläufe gleich Länge des Passworts in einzelnen Buchtaben
+						if(!isNaN(passwort[i])) {																		// isNaN --> is not a number
+							zahl = true;																				// Variable "validGeburtsdatum" auf wahr setzen
+						};
+					};
+					if(!zahl) {
+						this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
+						this.getView().byId("passwort").setValueStateText("Das Passwort muss min. eine Zahl enthalten.");								// Ausgabe einer Messagebox des Typs "Error"
+						validPasswort = false;
+					}
+					else {
+						this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.None);						// Ändert den Status auf "None"
+					};
+				};
+
+				var berechtigungsstatus = this.getView().byId("berechtigungsstatus").getValue();						// Auslesen des Wertes "berechtigungsstatus"
+				var validBerechtigungsstatus = true;																	// Variable "validBerechtigungsstatus" initial falsch setzen
+				if(berechtigungsstatus == "") {																			// Abfangen von leerer Eingabe
+					this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);				// Ändert den Status auf "Error"
+					this.getView().byId("berechtigungsstatus").setValueStateText("Bitte einen Berechtigungsstatus auswählen.");										// Ausgabe einer Messagebox des Typs "Error"
+					validBerechtigungsstatus = false;	
+				}
+				else if(berechtigungsstatus !== "Arzt" && berechtigungsstatus !== "Administrator" && berechtigungsstatus !== "Newspflege") {			// Abfangen von unbekannter Eingabe
+					this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);				// Ändert den Status auf "Error"
+					this.getView().byId("berechtigungsstatus").setValueStateText("Bitte einen gültigen Berechtigungsstatus auswählen.");							// Ausgabe einer Messagebox des Typs "Error"
+					validBerechtigungsstatus = false;	
+				}
+				else {
+					this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.None);				// Ändert den Status auf "None"
+				};
+				
+				if(validVorname && validNachname && validGeburtsdatum && validPasswort && validBerechtigungsstatus) {
 					$.ajax({																								// Aufruf eines AJAX-Calls
 						url: "php/admin/generateUserId.php",
 						data: {
@@ -231,15 +220,72 @@ sap.ui.define([
 							MessageBox.error("Die Verbindung ist fehlgeschlagen.");											// Ausgabe einer Messagebox des Typs "Error"
 						}
 					});
+				}
+				else {
+					MessageBox.error("Bitte die Eingaben überprüfen!");
 				};
 			},
 			
 			// Funktion wird beim Klick auf den Button mit dem roten X im Dialog "benutzerdialog" ausgeführt
-			onClose: function() {
-				this.oDialog.destroy();																						// Zerstören des Dialogs
-				this.oDialog.close();																						// Schließen des Dialogs
+			onCancelNewUser: function() {
+				var pointer = this;
+				if(
+					this.getView().byId("vorname").getValue() != "" ||
+					this.getView().byId("nachname").getValue() != "" ||
+					this.getView().byId("geburtsdatum").getValue() != "" ||
+					this.getView().byId("passwort").getValue() != "" ||
+					this.getView().byId("berechtigungsstatus").getValue() != ""
+				) {
+					MessageBox.confirm("Möchten Sie wirklich alle Änderungen verwerfen?", {										
+						actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],										
+						onClose: function(sResult) {
+							if(sResult == "YES") {																				
+								pointer.oDialog.destroy();
+								pointer.oDialog.close();
+							};
+						}
+					});
+				}
+				else {
+					this.oDialog.destroy();																						// Zerstören des Dialogs
+					this.oDialog.close();																						// Schließen des Dialogs
+				};
 			},
-	
+				
+			// Funktion wird beim Klick auf den Button "DeleteUser" ausgeführt
+			onDeleteUser: function(oEvent) {
+				var tmp = Object.values(oEvent.getParameters())[0];
+				var id = tmp.substring(47, tmp.length);
+				var userId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[3];
+				var pointer = this;
+				MessageBox.confirm("Möchten Sie den Benutzer " + userId + " wirklich löschen?", {							// Ausgabe einer Messagebox des Typs "Confirm"
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],										// Definieren der Aktionen
+					onClose: function(sResult) {
+						if(sResult == "YES") {																				// Falls Aktion "YES"
+							$.ajax({																						// Aufruf eines AJAX-Calls
+								url: "php/admin/deleteUser.php",
+								data: {
+									"userId": userId
+								},
+								type: "POST",
+								context: this,
+								success: function handleSuccess(response) {
+									if(response === "0") {
+										MessageBox.error("Der einzige Administrator kann nicht gelöscht werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie diesen Nutzer löschen.");
+									}
+									else {
+										pointer.loadData();
+									};
+								},
+								error: function handleError() {
+									MessageBox.error("Die Verbindung ist fehlgeschlagen.");									// Ausgabe einer Messagebox des Typs "Error"
+								}
+							})
+						};
+					}
+				});
+			},
+			
 			onSave: function() {
 				var id = new Array(5);
 				id[0] = "Vorname-" + this.getView().getId() + "--BenutzerTab-";
@@ -326,6 +372,7 @@ sap.ui.define([
 					else if(userListe[i][4] != "Arzt" && userListe[i][4] != "Administrator" && userListe[i][4] != "Newspflege") {
 						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.Error);
 						this.getView().byId("Benutzerrolle-"+id).setValueStateText("Bitte einen gültigen Berechtigungsstatus auswählen.");
+						this.getView().byId("Benutzerrolle-"+id).setValue("");
 						validBenutzerrolle = false;
 					}
 					else {
@@ -359,7 +406,7 @@ sap.ui.define([
 					MessageBox.error("Bitte die Eingaben überprüfen!");
 				};
 			},
-
+			
 			// Funktion wird beim Klick auf den Button "cancel" ausgeführt
 			onCancel: function() {
 				var pointer = this;
@@ -372,44 +419,19 @@ sap.ui.define([
 					}
 				});
 			},
-
-			// Funktion wird beim Klick auf den Button "DeleteUser" ausgeführt
-			onDeleteUser: function(oEvent) {
-				var tmp = Object.values(oEvent.getParameters())[0];
-				var id = tmp.substring(47, tmp.length);
-				var userId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[3];
+			
+			// Funktion wird beim Klick auf den Button "logout" ausgeführt
+			onLogout: function() {		
 				var pointer = this;
-				MessageBox.confirm("Möchten Sie den Benutzer " + userId + " wirklich löschen?", {							// Ausgabe einer Messagebox des Typs "Confirm"
-					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],										// Definieren der Aktionen
+				MessageBox.confirm("Möchten Sie sich wirklich abmelden?", {
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
-						if(sResult == "YES") {																				// Falls Aktion "YES"
-							$.ajax({																						// Aufruf eines AJAX-Calls
-								url: "php/admin/deleteUser.php",
-								data: {
-									"userId": userId
-								},
-								type: "POST",
-								context: this,
-								success: function handleSuccess(response) {
-									if(response === "0") {
-										MessageBox.error("Der einzige Administrator kann nicht gelöscht werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie diesen Nutzer löschen.");
-									}
-									else {
-										pointer.loadData();
-									};
-								},
-								error: function handleError() {
-									MessageBox.error("Die Verbindung ist fehlgeschlagen.");									// Ausgabe einer Messagebox des Typs "Error"
-								}
-							})
-						};
+						if(sResult == "YES") {
+							pointer.getOwnerComponent().getTargets().display("login");							
+						}
 					}
 				});
 			},
 			
-			// Funktion wird beim Klick auf den Button "logout" ausgeführt
-			onLogout: function() {												 
-				this.getOwnerComponent().getTargets().display("login");														// Anzeigen des Views "Login" 
-			}
 		});
 	});

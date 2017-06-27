@@ -21,10 +21,10 @@
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
-			<Button icon="sap-icon://save" press="onUserSave" type="Accept"/>
+			<Button icon="sap-icon://save" press="onSaveNewUser" type="Accept"/>
 		</beginButton>
 		<endButton>
-			<Button icon="sap-icon://sys-cancel" press="onClose" type="Reject"/>
+			<Button icon="sap-icon://sys-cancel" press="onCancelNewUser" type="Reject"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

@@ -36,6 +36,10 @@ sap.ui.define([
 					}
 				});
 			},
+			
+			onBeforeRendering: function() {
+				this.onAnwesenheitVermerken();
+			},
 
 			onAnwesenheitVermerken: function() {
 				// Dialog für Vermerken der Anwesenheit
@@ -242,15 +246,17 @@ sap.ui.define([
 			},
 
 			onLogout: function() {
-				$.ajax({
-					url: "php/dashboard/clearHilfstabelle.php",
-					context: this,
-					success: function handleSuccess() {
-						this.getOwnerComponent().getTargets().display("login");
-						MessageBox.information("Sie haben sich erfolgreich ausgeloggt.");
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+				var pointer = this;
+				MessageBox.confirm("Möchten Sie sich ausloggen?", {
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+					onClose: function(sResult) {
+						if(sResult == "YES") {
+							$.ajax({
+								url: "php/dashboard/clearHilfstabelle.php",
+								context: this
+							});
+							pointer.getOwnerComponent().getTargets().display("login");
+						};
 					}
 				});
 			},
