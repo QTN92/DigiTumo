@@ -15,16 +15,16 @@
 					<items>
 						<core:Item text="Arzt"/>
 						<core:Item text="Administrator"/>
-						<core:Item text="Newspflege"/>
+						<core:Item text="Studienpflege"/>
 					</items>
 				</ComboBox>
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
-			<Button icon="sap-icon://save" press="onSaveNewUser" type="Accept"/>
+			<Button icon="sap-icon://save" press="onSaveNeuerBenutzer" type="Accept"/>
 		</beginButton>
 		<endButton>
-			<Button icon="sap-icon://sys-cancel" press="onCancelNewUser" type="Reject"/>
+			<Button icon="sap-icon://sys-cancel" press="onCancelNeuerBenutzer" type="Reject"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

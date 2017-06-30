@@ -15,7 +15,7 @@ sap.ui.define([
 				// Dialog laden
 				if (!oDialog) {
 					// Dialog über fragment factory erstellen
-					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.vorgehen", this);
+					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.setVorgehen", this);
 					var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/vorgehen.json"));
 					this.getView().byId("vorgehen").setModel(oModel);
 					oView.addDependent(oDialog);

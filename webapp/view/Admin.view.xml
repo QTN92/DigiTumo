@@ -47,7 +47,7 @@
 								<ComboBox width="100%" id="Benutzerrolle">
 									<core:Item key="Arzt" text="Arzt"/>
 									<core:Item key="Administrator" text="Administrator"/>
-									<core:Item key="Newspflege" text="Newspflege"/>
+									<core:Item key="Studienpflege" text="Newspflege"/>
 								</ComboBox>
 								<Button id="DeleteUser" press="onDeleteUser" icon="sap-icon://delete"/>
 							</cells>

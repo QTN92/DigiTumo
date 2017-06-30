@@ -45,7 +45,7 @@ sap.ui.define([
 				// Dialog für Vermerken der Anwesenheit
 				var oDialog = this.getView().byId("anwesenheitsdialog");
 				if (!oDialog) {
-					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.anwesenheit", this);
+					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.setAnwesenheit", this);
 					this.getView().addDependent(oDialog);
 				};
 				$.ajax({

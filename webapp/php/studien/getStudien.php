@@ -8,9 +8,9 @@
 			titel, 
 			abstract 
 		FROM 
-			newsfeed
+			studien
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
-	$result = '{"news": ' . $sqlResult . '}';
+	$result = '{"studien": ' . $sqlResult . '}';
 	echo $result;
 ?>

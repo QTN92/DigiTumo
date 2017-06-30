@@ -9,7 +9,7 @@
 	$sql = "
 		DELETE
 		FROM
-			newsfeed
+			studien
 		WHERE
 			autorVorname = '$vorname'
 			AND
