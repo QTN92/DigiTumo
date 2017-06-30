@@ -189,6 +189,20 @@ sap.ui.define([
 					}
 				});
 				$.ajax({
+					url: "php/dashboard/getMedikamentation.php",
+					data: {
+						"patientId": patientId
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						//QUYNH
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+				$.ajax({
 					url: "php/dashboard/getWeiteresVorgehen.php",
 					data: {
 						"patientId": patientId
