@@ -254,10 +254,10 @@ sap.ui.define([
 				
 			// Funktion wird beim Klick auf den Button "DeleteUser" ausgeführt
 			onDeleteUser: function(oEvent) {
+				var pointer = this;
 				var tmp = Object.values(oEvent.getParameters())[0];
 				var id = tmp.substring(47, tmp.length);
 				var userId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[3];
-				var pointer = this;
 				MessageBox.confirm("Möchten Sie den Benutzer " + userId + " wirklich löschen?", {							// Ausgabe einer Messagebox des Typs "Confirm"
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],										// Definieren der Aktionen
 					onClose: function(sResult) {
@@ -297,9 +297,9 @@ sap.ui.define([
 				var i = 0;
 				while(this.getView().byId(id[0]+i) != undefined) {
 					userListe[i] = new Array(5);
-					for(var j = 0; j < 5; j++) {
+					for(var j = 0; j < userListe[i].length; j++) {
 						userListe[i][j] = this.getView().byId(id[j]+i).getValue();
-					}
+					};
 					i++;
 				};
 				

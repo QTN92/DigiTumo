@@ -89,6 +89,7 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("titel").setValueState(sap.ui.core.ValueState.None);
+					titel = titel[0].toUpperCase() + titel.substring(1, titel.length);
 				};
 
 				var validJahr = true;
@@ -103,7 +104,7 @@ sap.ui.define([
 					this.getView().byId("jahr").setValueStateText("Bitte ein gültiges Jahr eingeben.");
 					validJahr = false;
 				}
-				else if(parseInt(jahr) > new Date().getFullYear()){
+				else if(parseInt(jahr) > new Date().getFullYear() || parseInt(jahr) < parseInt(new Date().getFullYear())-10) {
 					this.getView().byId("jahr").setValueState(sap.ui.core.ValueState.Error);					
 					this.getView().byId("jahr").setValueStateText("Bitte ein gültiges Jahr eingeben.");
 					validJahr = false;
@@ -121,6 +122,8 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("medium").setValueState(sap.ui.core.ValueState.None);
+					medium = medium.trim();
+					medium = medium[0].toUpperCase() + medium.substring(1, medium.length);
 				};
 				
 				var abstract = this.getView().byId("abstract").getValue();
@@ -132,6 +135,8 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("abstract").setValueState(sap.ui.core.ValueState.None);
+					abstract = abstract.trim();
+					abstract = abstract[0].toUpperCase() + abstract.substring(1, abstract.length);
 				};
 				
 				var verweis = this.getView().byId("verweis").getValue();
@@ -233,7 +238,148 @@ sap.ui.define([
 			},
 
 			onSave: function() {
+				var id = new Array(7);
+				id[0] = "Vorname-" + this.getView().getId() + "--StudienTab-";
+				id[1] = "Nachname-" + this.getView().getId() + "--StudienTab-";
+				id[2] = "Titel-" + this.getView().getId() + "--StudienTab-";
+				id[3] = "Jahr-" + this.getView().getId() + "--StudienTab-";
+				id[4] = "Medium-" + this.getView().getId() + "--StudienTab-";
+				id[5] = "Abstract-" + this.getView().getId() + "--StudienTab-";
+				id[6] = "Verweis-" + this.getView().getId() + "--StudienTab-";
+				var studienListe = new Array();
+				var i = 0;
+				while(this.getView().byId(id[0]+i) != undefined) {
+					studienListe[i] = new Array(7);
+					for(var j = 0; j < studienListe[i].length; j++) {
+						studienListe[i][j] = this.getView().byId(id[j]+i).getValue();
+					};
+					i++;
+				};
 				
+				var validVorname = true;
+				var validNachname = true;
+				var validTitel = true;
+				var validJahr = true;
+				var validMedium = true;
+				var validAbstract = true;
+				var validVerweis = true;
+				var id = this.getView().getId() + "--StudienTab-";
+				
+				for(var i = 0; i < studienListe.length; i++) {
+					var id = id.substring(0, 23) + i;
+					if(studienListe[i][0] == "") {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Vorname-"+id).setValueStateText("Bitte einen Vornamen eingeben.");
+						validVorname = false;
+					}
+					else if(studienListe[i][0].search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Vorname-"+id).setValueStateText("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+						validVorname = false;
+					}
+					else {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.None);
+						studienListe[i][0] = studienListe[i][0].trim();
+						studienListe[i][0] = studienListe[i][0][0].toUpperCase() + studienListe[i][0].substring(1, studienListe[i][0].length);
+					};
+
+					if(studienListe[i][1] == "") {
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Nachname-"+id).setValueStateText("Bitte einen Nachnamen eingeben.");
+						validNachname = false;
+					}					
+					else if(studienListe[i][1].search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Nachname-"+id).setValueStateText("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+						validNachname = false;
+					}
+					else {
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.None);
+						studienListe[i][1] = studienListe[i][1].trim();
+						studienListe[i][1] = studienListe[i][1][0].toUpperCase() + studienListe[i][1].substring(1, studienListe[i][1].length);
+					};
+				
+					if(studienListe[i][2] == "") {
+						this.getView().byId("Titel-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Titel-"+id).setValueStateText("Bitte einen Titel eingeben.");
+						validTitel = false;
+					}
+					else {
+						this.getView().byId("Titel-"+id).setValueState(sap.ui.core.ValueState.None);
+						studienListe[i][2] = studienListe[i][2].trim();
+						studienListe[i][2] = studienListe[i][2][0].toUpperCase() + studienListe[i][2].substring(1, studienListe[i][2].length)
+					};
+
+					if(studienListe[i][3] == "") {
+						this.getView().byId("Jahr-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Jahr-"+id).setValueStateText("Bitte ein Jahr eingeben.");
+						validJahr = false;
+					}
+					else if(studienListe[i][3].search(/^[0-9]+$/)){
+						this.getView().byId("Jahr-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Jahr-"+id).setValueStateText("Bitte ein gültiges Jahr eingeben.");
+						validJahr = false;
+					}
+					else if(studienListe[i][3] > new Date().getFullYear() || studienListe[i][3] < (new Date().getFullYear())-10) {
+						this.getView().byId("Jahr-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Jahr-"+id).setValueStateText("Bitte ein gültiges Jahr eingeben.");
+						validJahr = false;
+					}
+					else {
+						this.getView().byId("Jahr-"+id).setValueState(sap.ui.core.ValueState.None);
+					};
+
+					if(studienListe[i][4] == "") {
+						this.getView().byId("Medium-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Medium-"+id).setValueStateText("Bitte ein Medium eingeben.");
+						validMedium = false;
+					}
+					else {
+						this.getView().byId("Medium-"+id).setValueState(sap.ui.core.ValueState.None);
+						studienListe[i][4] = studienListe[i][4].trim();
+						studienListe[i][4] = studienListe[i][4][0].toUpperCase() + studienListe[i][4].substring(1, studienListe[i][4].length);
+					};
+
+					if(studienListe[i][5] == "") {
+						this.getView().byId("Abstract-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Abstract-"+id).setValueStateText("Bitte einen Abstract eingeben.");
+						validAbstract = false;
+					}
+					else {
+						this.getView().byId("Abstract-"+id).setValueState(sap.ui.core.ValueState.None);
+						studienListe[i][5] = studienListe[i][5].trim();
+						studienListe[i][5] = studienListe[i][5][0].toUpperCase() + studienListe[i][5].substring(1, studienListe[i][5].length);
+					};
+					
+					if(studienListe[i][6] == "") {
+						this.getView().byId("Verweis-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Verweis-"+id).setValueStateText("Bitte einen Verweis zum Original eingeben.");
+						validVerweis = false;
+					}
+					else {
+						this.getView().byId("Verweis-"+id).setValueState(sap.ui.core.ValueState.None);
+					};
+				};
+
+				if(validVorname && validNachname && validTitel && validJahr && validMedium && validAbstract && validVerweis) {
+					$.ajax({
+						url: "php/studien/updateStudien.php",
+						data: {
+							"studienListe": studienListe
+						},
+						type: "POST",
+						context: this,
+						success: function handleSuccess() {
+							this.loadData();
+						},
+						error: function handleError() {
+							MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+						}
+					});
+				}
+				else {
+					MessageBox.error("Bitte die Eingaben überprüfen!");		
+				};
 			},
 			
 			onCancel: function() {
