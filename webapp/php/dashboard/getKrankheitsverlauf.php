@@ -18,6 +18,7 @@
 		SELECT 
 			DATE_FORMAT(krankheitsverlauf.datum, '%d.%m.%Y') AS datum,
 			gesundheitsscore,
+			medikament,
 			dosis 
 		FROM
 			krankheitsverlauf
