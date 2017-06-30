@@ -23,7 +23,7 @@
 					</List>
 				</l:BlockLayoutCell>
 				<l:BlockLayoutCell title="Krankheitsverlauf" width="60%">
-					<viz:VizFrame id="vizKrankheitsverlauf" uiConfig="{applicationSet:'fiori'}" height="100%" width="100%" vizType='dual_combination'>
+					<viz:VizFrame id="vizKrankheitsverlauf" uiConfig="{applicationSet:'fiori'}" height="100%" width="100%" vizType='dual_stacked_combination'>
 						<viz:dataset>
 							<viz.data:FlattenedDataset data="{/krankheitsverlauf}">
 								<viz.data:dimensions>

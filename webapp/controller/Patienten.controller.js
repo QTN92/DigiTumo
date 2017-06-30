@@ -204,6 +204,9 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+				
+				//Funktion zum Einbinden zusätzlicher Medikamenten
+				
 				$.ajax({
 					url: "php/dashboard/getKrankheitsverlauf.php",
 					data: {
