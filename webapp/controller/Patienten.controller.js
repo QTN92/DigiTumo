@@ -235,6 +235,9 @@ sap.ui.define([
 							},
 							interaction: {
 								syncValueAxis: false
+							},
+							title: {
+								visible: false
 							}
 						});
 						var oModel = new JSONModel();
