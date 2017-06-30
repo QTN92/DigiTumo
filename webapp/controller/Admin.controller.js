@@ -20,7 +20,7 @@ sap.ui.define([
 						oModel.setJSON(response);
 						this.getView().setModel(oModel);
 						$.ajax({
-							url: "php/admin/getUserRollen.php",
+							url: "php/admin/getUserrollen.php",
 							type: "GET",
 							context: this,
 							success: function handleSuccess(response) {
@@ -72,7 +72,7 @@ sap.ui.define([
 			onAddUser: function() {																						
 				var oDialog = this.getView().byId("benutzerdialog");
 				if (!oDialog) { 
-					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addBenutzer", this);		// Aufruf des Fragments "addBenutzer"
+					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addUser", this);		// Aufruf des Fragments "addBenutzer"
 					this.getView().addDependent(oDialog);
 				};
 				this.oDialog.open();																						// Öffnen des Dialogs
@@ -175,7 +175,7 @@ sap.ui.define([
 					this.getView().byId("berechtigungsstatus").setValueStateText("Bitte einen Berechtigungsstatus auswählen.");										// Ausgabe einer Messagebox des Typs "Error"
 					validBerechtigungsstatus = false;	
 				}
-				else if(berechtigungsstatus !== "Arzt" && berechtigungsstatus !== "Administrator" && berechtigungsstatus !== "Newspflege") {			// Abfangen von unbekannter Eingabe
+				else if(berechtigungsstatus !== "Arzt" && berechtigungsstatus !== "Administrator" && berechtigungsstatus !== "Studienpflege") {			// Abfangen von unbekannter Eingabe
 					this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.Error);				// Ändert den Status auf "Error"
 					this.getView().byId("berechtigungsstatus").setValueStateText("Bitte einen gültigen Berechtigungsstatus auswählen.");							// Ausgabe einer Messagebox des Typs "Error"
 					validBerechtigungsstatus = false;	
@@ -195,7 +195,7 @@ sap.ui.define([
 						context: this,
 						success: function handleSuccess(userId) {
 							$.ajax({
-								url: "php/admin/setNewUser.php",
+								url: "php/admin/setNeuenUser.php",
 								data: {
 									"vorname": vorname,
 									"nachname": nachname,
@@ -369,7 +369,7 @@ sap.ui.define([
 						this.getView().byId("Benutzerrolle-"+id).setValueStateText("Bitte einen Berechtigungsstatus auswählen.");
 						validBenutzerrolle = false;
 					}
-					else if(userListe[i][4] != "Arzt" && userListe[i][4] != "Administrator" && userListe[i][4] != "Newspflege") {
+					else if(userListe[i][4] != "Arzt" && userListe[i][4] != "Administrator" && userListe[i][4] != "Studienpflege") {
 						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.Error);
 						this.getView().byId("Benutzerrolle-"+id).setValueStateText("Bitte einen gültigen Berechtigungsstatus auswählen.");
 						this.getView().byId("Benutzerrolle-"+id).setValue("");

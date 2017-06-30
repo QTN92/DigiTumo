@@ -11,7 +11,7 @@ sap.ui.define([
 
 			loadData: function() {
 				$.ajax({
-					url: "php/newspflege/getNews.php",
+					url: "php/studienpflege/getStudien.php",
 					type: "GET",
 					context: this,
 					success: function handleSuccess(response) {
@@ -38,7 +38,7 @@ sap.ui.define([
 				this.oDialog.open();
 			},
 			
-			onSaveNewNews: function() {
+			onSaveNeueStudie: function() {
 				var vorname = this.getView().byId("vorname").getValue();
 				var validVorname = true;																					
 				if(vorname == "") {																					
@@ -147,7 +147,7 @@ sap.ui.define([
 				
 				if(validVorname && validNachname && validTitel && validMedium && validAbstract && validVerweis) {
 					$.ajax({
-						url: "php/studien/setNewStudie.php",
+						url: "php/studien/setNeueStudie.php",
 						data: {
 							"vorname": vorname,
 							"nachname": nachname,
@@ -174,7 +174,7 @@ sap.ui.define([
 				};
 			},
 			
-			onCancelNewNews: function() {
+			onCancelNeueStudie: function() {
 				var pointer = this;
 				if(
 					this.getView().byId("vorname").getValue() != "" ||

@@ -9,7 +9,7 @@
 		SELECT 
 			verweis 
 		FROM 
-			newsfeed 
+			studien 
 		WHERE 
 			autorVorname = '$autorVorname' 
 			AND 

@@ -91,7 +91,7 @@ sap.ui.define([
 			onLoginSuccessful: function() {
 				// Rolle des angemeldeten Nutzers abrufen
 				$.ajax({
-					url: "php/login/getUserRole.php",
+					url: "php/login/getUserrolle.php",
 					data: {
 						"userId": this.getView().byId("user").getValue()
 					},	
@@ -106,8 +106,8 @@ sap.ui.define([
 							break;
 						// 1: User kann Nachrichten pflegen
 						case '1':
-							// TODO: Navigation Newspflege 
-							MessageBox.show("Anmeldung zur Pflege von News erfolgreich");
+							// TODO: Navigation Studienpflege 
+							this.getOwnerComponent().getTargets().display("studienpflege");
 							break;
 						// 2: User ist Arzt
 						case '2':
@@ -133,8 +133,8 @@ sap.ui.define([
 			onAdmin: function() {
 				this.getOwnerComponent().getTargets().display("admin");
 			},
-			onNewspflege: function() {
-				this.getOwnerComponent().getTargets().display("newspflege");
+			onStudienpflege: function() {
+				this.getOwnerComponent().getTargets().display("studienpflege");
 			}
 		});
 	});

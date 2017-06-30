@@ -12,7 +12,7 @@ sap.ui.define([
 			onInit: function() {
 				// Binding der Patienten- und Krankenakteninformationen
 				$.ajax({
-					url: "php/studien/getNews.php",
+					url: "php/studien/getStudien.php",
 					type: "GET",
 					context: this, 
 					success: function handleSuccess(response) {
@@ -35,12 +35,12 @@ sap.ui.define([
 					i--;
 				};
 				id = parseInt(id);
-				var news = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id]);
-				var autorVorname = news[0];
-				var autorNachname = news[1];
-				var titel = news[2];
+				var studien = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id]);
+				var autorVorname = studien[0];
+				var autorNachname = studien[1];
+				var titel = studien[2];
 				$.ajax({
-					url: "php/studien/getLink.php",
+					url: "php/studien/getVerweis.php",
 					data: {
 						"autorVorname": autorVorname,
 						"autorNachname": autorNachname,
