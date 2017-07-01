@@ -11,6 +11,19 @@ sap.ui.define([
 			
 			// Auslagern des AJAX-Call als eigene Funktion
 			loadData: function() {
+				$.ajax({
+					url: "php/admin/getRollen.php",
+					type: "GET",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						this.getView().byId("Benutzerrolle").setModel(oModel);
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
+					}
+				});
 				$.ajax({																									// Aufruf eines AJAX-Calls
 					url: "php/admin/getUser.php",
 					type: "GET",
@@ -91,7 +104,7 @@ sap.ui.define([
 			},
 			
 			// Funktion wird beim Klick auf den Button mit dem Diskettensymbol im Dialog "benutzerdialog" ausgeführt
-			onSaveNewUser: function() {
+			onSaveNeuerUser: function() {
 				var vorname = this.getView().byId("vorname").getValue();													// Auslesen des Wertes "Vorname"
 				var validVorname = true;																					// Variable "validVorname" initial falsch setzen
 				if(vorname == "") {																							// Abfangen von leerer Eingabe
@@ -100,9 +113,9 @@ sap.ui.define([
 					validVorname = false;
 				}
 				else {
-					if(vorname.search(/^[a-zA-Z ]+$/) == -1) {																// Abfangen von Sonderzeichen und Zahlen 
+					if(vorname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {																// Abfangen von Sonderzeichen und Zahlen 
 						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);							// Ändert den Status auf "Error"
-						this.getView().byId("vorname").setValueStateText("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");		// Ausgabe einer Messagebox des Typs "Error"
+						this.getView().byId("vorname").setValueStateText("Der Vorname darf nur Buchstaben enthalten.");		// Ausgabe einer Messagebox des Typs "Error"
 						validVorname = false;
 					}
 					else {
@@ -119,9 +132,9 @@ sap.ui.define([
 					this.getView().byId("nachname").setValueStateText("Bitte einen Nachnamen eingeben.");									
 					validNachname = false;
 				}
-				else if(nachname.search(/^[a-zA-Z ]+$/) == -1) {															// Abfangen von Sonderzeichen und Zahlen
+				else if(nachname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {															// Abfangen von Sonderzeichen und Zahlen
 					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
-					this.getView().byId("nachname").setValueStateText("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+					this.getView().byId("nachname").setValueStateText("Der Nachname darf nur Buchstaben enthalten.");
 					validNachname = false;
 				}
 				else {
@@ -227,7 +240,7 @@ sap.ui.define([
 			},
 			
 			// Funktion wird beim Klick auf den Button mit dem roten X im Dialog "benutzerdialog" ausgeführt
-			onCancelNewUser: function() {
+			onCancelNeuerUser: function() {
 				var pointer = this;
 				if(
 					this.getView().byId("vorname").getValue() != "" ||
@@ -296,10 +309,10 @@ sap.ui.define([
 				var userListe = new Array();
 				var i = 0;
 				while(this.getView().byId(id[0]+i) != undefined) {
-					userListe[i] = new Array(5);
-					for(var j = 0; j < 5; j++) {
+					userListe[i] = new Array(id.length);
+					for(var j = 0; j < studienListe[i].length; j++) {
 						userListe[i][j] = this.getView().byId(id[j]+i).getValue();
-					}
+					};
 					i++;
 				};
 				
@@ -315,9 +328,9 @@ sap.ui.define([
 						this.getView().byId("Vorname-"+id).setValueStateText("Bitte einen Vornamen eingeben.");
 						validVorname = false;
 					} 
-					else if(userListe[i][0].search(/^[a-zA-Z ]+$/) == -1) {
+					else if(userListe[i][0].search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {
 						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("Vorname-"+id).setValueStateText("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+						this.getView().byId("Vorname-"+id).setValueStateText("Der Vorname darf nur Buchstaben enthalten.");
 						validVorname = false;
 					}
 					else {
@@ -331,9 +344,9 @@ sap.ui.define([
 						this.getView().byId("Nachname-"+id).setValueStateText("Bitte einen Nachnamen eingeben.");
 						validNachname = false;
 					}
-					else if(userListe[i][1].search(/^[a-zA-Z ]+$/) == -1) {
+					else if(userListe[i][1].search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {
 						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("Nachname-"+id).setValueStateText("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");
+						this.getView().byId("Nachname-"+id).setValueStateText("Der Nachname darf nur Buchstaben enthalten.");
 						validNachname = false;
 					}
 					else {

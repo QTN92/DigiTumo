@@ -17,7 +17,7 @@
 		case 'Administrator':
 			echo '0';
 			break;
-		case 'Newspflege':
+		case 'Studienpflege':
 			echo '1';
 			break;
 		case 'Arzt':
