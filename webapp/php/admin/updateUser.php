@@ -3,8 +3,9 @@
 
 	$userListe = $_POST['userListe'];
 	$letzterAdmin = 1;
+	
 	for ($i = 0; $i < count($userListe); $i++) {
-		$aktuellerUser = $userListe[$i][2];
+		$user = $userListe[$i][2];
 		$vorname = $userListe[$i][0];
 		$nachname = $userListe[$i][1];
 		$passwort = $userListe[$i][3];
@@ -16,7 +17,7 @@
 			FROM
 				user_besitzt_rolle
 			WHERE
-				user_userId = '$aktuellerUser'
+				user_userId = '$user'
 		";
 		$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 		$aktuelleRolle = substr($sqlResult, 23, -3);
@@ -45,7 +46,7 @@
 					nachname = '$nachname', 
 					passwort = '$passwort' 
 				WHERE 
-					userId = '$aktuellerUser'
+					userId = '$user'
 			";
 			sql($sql);
 			$sql = "
@@ -54,7 +55,7 @@
 				SET 
 					rolle_bezeichnung = '$rolle' 
 				WHERE 
-					user_userId = '$aktuellerUser'
+					user_userId = '$user'
 			";
 			sql($sql);
 		};

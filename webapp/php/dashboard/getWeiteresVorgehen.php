@@ -24,6 +24,8 @@
 			vorgehenshistorie 
 		WHERE 
 			krankenakte_krankenakteId = '$krankenakteId'
+		ORDER BY
+			datum DESC
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 	$result = '{"vorgehenshistorie": ' . $sqlResult . '}';

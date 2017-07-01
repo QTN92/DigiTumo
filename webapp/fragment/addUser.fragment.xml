@@ -21,7 +21,7 @@
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
-			<Button icon="sap-icon://save" press="onSaveNeuerBenutzer" type="Accept"/>
+			<Button icon="sap-icon://save" press="onSaveNeuerUser" type="Accept"/>
 		</beginButton>
 		<endButton>
 			<Button icon="sap-icon://sys-cancel" press="onCancelNeuerBenutzer" type="Reject"/>

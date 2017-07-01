@@ -16,8 +16,6 @@ sap.ui.define([
 				if (!oDialog) {
 					// Dialog über fragment factory erstellen
 					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.setVorgehen", this);
-					var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/vorgehen.json"));
-					this.getView().byId("vorgehen").setModel(oModel);
 					oView.addDependent(oDialog);
 				};
 				var datum = new Date();
@@ -31,6 +29,8 @@ sap.ui.define([
 					monat = "0" + monat;
 				};
 				datum = tag + "." + monat + "." + jahr;
+				var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/vorgehen.json"));
+				this.getView().byId("vorgehen").setModel(oModel);
 				this.getView().byId("datum").setText(datum);
 				oDialog.open();
 			},
