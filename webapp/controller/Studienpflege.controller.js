@@ -211,7 +211,7 @@ sap.ui.define([
 					onClose: function(sResult) {
 						if(sResult == "YES") {		
 							$.ajax({																					
-								url: "php/studien/deleteStudie.php",
+								url: "php/studienpflege/deleteStudie.php",
 								data: {
 									"vorname": Object.values(tmp)[1],
 									"nachname": Object.values(tmp)[0],
@@ -294,6 +294,7 @@ sap.ui.define([
 						type: "POST",
 						context: this,
 						success: function handleSuccess(response) {
+							MessageBox.success("Speichern erfolgreich.");
 							this.loadData();
 						},
 						error: function handleError() {
