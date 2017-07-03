@@ -98,8 +98,17 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
-						// Rollenabhängige Navigation
-						switch(response) {
+						// Navigation kann in späterer Version erweitert werden
+						// Mögliches Szenario: Ein Nutzer hat mehrere Rollen
+						// Aktuelles Szenario: Ein Nutzer hat eine Rolle
+						// Response: Rückgabe aller Rollen eines Users
+						var rollen = new Array(response.length);
+						for(var i = 0; i < rollen.length; i++) {
+							rollen[i] = response[i];
+						};
+						// Ab hier: Navigation basierend auf aktuellem Szenario
+						// Die folgende Passage muss für die Implementation des möglichen Szenarios geändert werden
+						switch(rollen[0]) {
 						// 0: User ist Admin
 						case '0':
 							this.getOwnerComponent().getTargets().display("admin");

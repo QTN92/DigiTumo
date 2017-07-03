@@ -1,7 +1,7 @@
 <?php
 	include_once '../db.php';
-
-	$userId = $_POST['userId'];
+	$userId = 'admin';
+	//$userId = $_POST['userId'];
 	$sql = "
 		SELECT 
 			rolle_bezeichnung 
@@ -10,18 +10,23 @@
 		WHERE 
 			user_userId = '$userId'
 	";
-	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
-	$rolle = substr($sqlResult, 23, -3);
-	
-	switch($rolle) {
-		case 'Administrator':
-			echo '0';
-			break;
-		case 'Studienpflege':
-			echo '1';
-			break;
-		case 'Arzt':
-			echo '2';
-			break;
-	}
+	$sqlResult = sql($sql);
+	$anzahlRollen = count($sqlResult);
+	$rollen = "";
+	for($i = 0; $i < $anzahlRollen; $i++) {
+		$result = json_encode($sqlResult[$i], JSON_UNESCAPED_UNICODE);
+		$aktuelleRolle = substr($result, 22, -2);
+		switch($aktuelleRolle) {
+			case 'Administrator':
+				$rollen = $rollen . '0';
+				break;
+			case 'Studienpflege':
+				$rollen = $rollen . '1';
+				break;
+			case 'Arzt':
+				$rollen = $rollen . '2';
+				break;
+		};
+	};
+	echo $rollen;
 ?>
