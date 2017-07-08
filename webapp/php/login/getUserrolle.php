@@ -1,7 +1,7 @@
 <?php
 	include_once '../db.php';
-	$userId = 'admin';
-	//$userId = $_POST['userId'];
+
+	$userId = $_POST['userId'];
 	$sql = "
 		SELECT 
 			rolle_bezeichnung 
