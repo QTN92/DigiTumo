@@ -16,13 +16,12 @@
 						<Toolbar>
 							<Title text="Patientenliste"/>
 							<ToolbarSpacer/>
-							<ComboBox placeholder="Filter nach Tumor" items="{/filter}" id="filter" change="onFilter">
+							<ComboBox placeholder="Filter nach Tumor" items="{/filter}" id="filter" change="onFilter" selectionChange="onFilter">
 								<core:Item key="{bezeichnung}" text="{bezeichnung}"/>
 							</ComboBox>
 						</Toolbar>
 					</headerToolbar>
 				</List>
-				<Button id="Dashboard" text="Dashboard" press="onDashboard" width="100%"/>
 			</content>
 			<footer>
 				<OverflowToolbar>

@@ -12,8 +12,8 @@
 		<beginButton>
 			<Button icon="sap-icon://save" press="onAnwesenheitSpeichern" type="Accept"/>
 		</beginButton>
-		<endButton>
+		<!-- <endButton>
 			<Button icon="sap-icon://sys-cancel" press="onAnwesenheitNichtSpeichern" type="Reject"/>
-		</endButton>
+		</endButton> -->
 	</Dialog>
 </core:FragmentDefinition>

@@ -96,6 +96,23 @@ sap.ui.define([
 			onBack: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
+			
+			resetFilter: function() {
+				sap.ui.getCore().byId("__xmlview2--filter").setSelectedKey("");
+				$.ajax({
+					url: "php/patienten/getPatienten.php",
+					type: "GET",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						sap.ui.getCore().byId("__xmlview2").setModel(oModel);
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+			},
 
 			onLogout: function() {	
 				var pointer = this;
@@ -107,6 +124,7 @@ sap.ui.define([
 								url: "php/dashboard/clearHilfstabelle.php",
 								context: this
 							});
+							pointer.resetFilter();
 							pointer.getOwnerComponent().getTargets().display("login");
 						};
 					}
