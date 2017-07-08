@@ -95,10 +95,10 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
 
-			onAnwesenheitNichtSpeichern: function() {
+		/*	onAnwesenheitNichtSpeichern: function() {
 				this.oDialog.close();
 				this.oDialog.destroy();
-			},
+			},*/
 
 			onFilter: function() {
 				var key = this.getView().byId("filter").getValue();
