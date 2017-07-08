@@ -24,6 +24,18 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
 					}
 				});
+				var anzahlUser;
+				$.ajax({
+					url: "php/admin/getAnzahlUser.php",
+					type: "GET",
+					context: this,
+					success: function handleSuccess(response) {
+						anzahlUser = response;
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
+					} 
+				});
 				$.ajax({																									// Aufruf eines AJAX-Calls
 					url: "php/admin/getUser.php",
 					type: "GET",
@@ -39,12 +51,11 @@ sap.ui.define([
 							success: function handleSuccess(response) {
 								var oModel = new JSONModel();
 								oModel.setJSON(response);
-								var i = 0;
 								var id = "Benutzerrolle-" + this.getView().getId() + "--BenutzerTab-";
-								while(Object.values(oModel.getData())[i] != undefined) {
+								for(var i = 0; i < anzahlUser; i++) {
 									id = id.substring(0, 38) + i;
 									this.getView().byId(id).setSelectedKey(Object.values(Object.values(oModel.getData())[i])[1]);
-									i++;
+									this.getView().byId(id).setValue(Object.values(Object.values(oModel.getData())[i])[1]);
 								};
 							},
 							error: function handleError() {
@@ -56,7 +67,11 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
 					}
 				});
+			},
 			
+			loadUserRollen: function() {
+				
+				
 			},
 			
 			// Funktion wird beim ersten Aufruf des Views ausgeführt
@@ -112,17 +127,20 @@ sap.ui.define([
 					this.getView().byId("vorname").setValueStateText("Bitte einen Vornamen eingeben.");														// Ausgabe einer Messagebox des Typs "Error"
 					validVorname = false;
 				}
-				else {
-					if(vorname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {																// Abfangen von Sonderzeichen und Zahlen 
+				else if(vorname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {																// Abfangen von Sonderzeichen und Zahlen 
 						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);							// Ändert den Status auf "Error"
 						this.getView().byId("vorname").setValueStateText("Der Vorname darf nur Buchstaben enthalten.");		// Ausgabe einer Messagebox des Typs "Error"
 						validVorname = false;
-					}
-					else {
-						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.None);							// Ändert den Status auf "None"
-						vorname = vorname.trim();
-						vorname = vorname[0].toUpperCase() + vorname.substring(1, vorname.length);
-					};
+				}
+				else if(vorname.length > 40) {
+					this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);
+					this.getView().byId("vorname").setValueStateText("Der Vorname darf max. 40 Zeichen lang sein.");
+					validVorname = false;
+				}
+				else {
+					this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.None);							// Ändert den Status auf "None"
+					vorname = vorname.trim();
+					vorname = vorname[0].toUpperCase() + vorname.substring(1, vorname.length);
 				};
 					
 				var nachname = this.getView().byId("nachname").getValue();												// Auslesen des Wertes "Vorname"
@@ -135,6 +153,11 @@ sap.ui.define([
 				else if(nachname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {															// Abfangen von Sonderzeichen und Zahlen
 					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
 					this.getView().byId("nachname").setValueStateText("Der Nachname darf nur Buchstaben enthalten.");
+					validNachname = false;
+				}
+				else if(nachname.length > 40) {
+					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);
+					this.getView().byId("nachname").setValueStateText("Der Nachname darf max. 40 Zeichen lang sein.");
 					validNachname = false;
 				}
 				else {
@@ -164,6 +187,11 @@ sap.ui.define([
 					this.getView().byId("passwort").setValueStateText("Das Passwort muss aus min. acht Zeichen bestehen.");								// Ausgabe einer Messagebox des Typs "Error"
 					validPasswort = false;
 				} 
+				else if(passwort.length > 30) {
+					this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.Error);
+					this.getView().byId("passwort").setValueStateText("Das Passwort darf max. 30 Zeichen lang sein.");
+					validPasswort = false;
+				}
 				else {
 					var zahl = false;																					// Variable "zahl" initial falsch setzen
 					for(var i = 0; i < passwort.length; i++) {															// Schleife mit Anzahl der Durchläufe gleich Länge des Passworts in einzelnen Buchtaben
@@ -310,7 +338,7 @@ sap.ui.define([
 				var i = 0;
 				while(this.getView().byId(id[0]+i) != undefined) {
 					userListe[i] = new Array(id.length);
-					for(var j = 0; j < studienListe[i].length; j++) {
+					for(var j = 0; j < userListe[i].length; j++) {
 						userListe[i][j] = this.getView().byId(id[j]+i).getValue();
 					};
 					i++;
@@ -333,6 +361,11 @@ sap.ui.define([
 						this.getView().byId("Vorname-"+id).setValueStateText("Der Vorname darf nur Buchstaben enthalten.");
 						validVorname = false;
 					}
+					else if(userListe[i][0].length > 40) {
+						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Vorname-"+id).setValueStateText("Der Vorname darf max. 40 Zeichen lang sein.");
+						validVorname = false;
+					}
 					else {
 						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.None);
 						userListe[i][0] = userListe[i][0].trim();
@@ -349,6 +382,11 @@ sap.ui.define([
 						this.getView().byId("Nachname-"+id).setValueStateText("Der Nachname darf nur Buchstaben enthalten.");
 						validNachname = false;
 					}
+					else if(userListe[i][1].length > 40) {
+						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Nachname-"+id).setValueStateText("Der Nachname darf max. 40 Zeichen lang sein.");
+						validNachname = false;
+					}
 					else {
 						userListe[i][1] = userListe[i][1].trim();
 						userListe[i][1] = userListe[i][1][0].toUpperCase() + userListe[i][1].substring(1, userListe[i][1].length);
@@ -358,6 +396,11 @@ sap.ui.define([
 					if(userListe[i][3].length < 8) {
 						this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.Error);
 						this.getView().byId("Passwort-"+id).setValueStateText("Das Passwort muss aus min. acht Zeichen bestehen.");
+						validPasswort = false;
+					}
+					else if(userListe[i][3].length > 30) {
+						this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Passwort-"+id).setValueStateText("Das Passwort darf max. 30 Zeichen lang sein.");
 						validPasswort = false;
 					}
 					else {
