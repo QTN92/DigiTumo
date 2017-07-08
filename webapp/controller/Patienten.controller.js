@@ -35,9 +35,6 @@ sap.ui.define([
 						this.getView().byId("filter").setModel(oModel);
 					}
 				});
-			},
-			
-			onBeforeRendering: function() {
 				this.onAnwesenheitVermerken();
 			},
 
@@ -104,7 +101,7 @@ sap.ui.define([
 			},
 
 			onFilter: function() {
-				var key = this.getView().byId("filter").getSelectedKey();
+				var key = this.getView().byId("filter").getValue();
 				if (key != "") {
 					$.ajax({
 						url: "php/patienten/getFilterGesetzt.php",
@@ -272,18 +269,12 @@ sap.ui.define([
 								url: "php/dashboard/clearHilfstabelle.php",
 								context: this
 							});
+							pointer.getView().byId("filter").setSelectedKey("");
+							pointer.onFilter();
 							pointer.getOwnerComponent().getTargets().display("login");
 						};
 					}
 				});
 			},
-
-			// TEST-BUTTON
-			onPress: function() {
-				this.getOwnerComponent().getTargets().display("dashboard");
-			},
-			onDashboard: function() {
-				this.getOwnerComponent().getTargets().display("dashboard");
-			}
 		});
 	});

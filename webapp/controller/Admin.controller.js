@@ -26,7 +26,7 @@ sap.ui.define([
 				});
 				var anzahlUser;
 				$.ajax({
-					url: "php/admin/getAnzahlUser.php",
+					url: "php/admin/getAnzahlUserMitRolle.php",
 					type: "GET",
 					context: this,
 					success: function handleSuccess(response) {
@@ -82,7 +82,7 @@ sap.ui.define([
 						var oElement = oEvent.getParameter("value");
                         if (oElement.setValueState) {
                         	oElement.setValueState(sap.ui.core.ValueState.Error);
-    						oElement.setShowValueStateMessage(false);
+    						oElement.setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
                         }
 					}
 				);
@@ -111,7 +111,7 @@ sap.ui.define([
 				var valid = oEvent.getParameter("valid");
 				if (!valid) {
 					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);						// Ändert den Status auf "Error" (rote Umrandung)
-					this.getView().byId("geburtsdatum").setShowValueStateMessage(false);									
+					this.getView().byId("geburtsdatum").setShowValueStateMessage(true);									
 				}
 				else {
 					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.None);							// Ändert den Status auf "None"
@@ -173,11 +173,14 @@ sap.ui.define([
 					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein Geburtsdatum eingeben.");
 					validGeburtsdatum = false	
 				}
-				else {
-					if(this.getView().byId("geburtsdatum").getValueState() == "Error") {								// Falls Status "None"
-						this.getView().byId("geburtsdatum").setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
-						validGeburtsdatum = false;																		// Variable "validGeburtsdatum" auf wahr setzen
-					};
+				else if(geburtsdatum.substring(6, 10) >= new Date().getFullYear()) {
+					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);					
+					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
+					validGeburtsdatum = false	
+				}
+				else if(this.getView().byId("geburtsdatum").getValueState() == "Error") {								// Falls Status "None"
+					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
+					validGeburtsdatum = false;																		// Variable "validGeburtsdatum" auf wahr setzen
 				};
 				
 				var passwort = this.getView().byId("passwort").getValue();												// Auslesen des Wertes "passwort"	
@@ -483,6 +486,7 @@ sap.ui.define([
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
 						if(sResult == "YES") {
+							pointer.loadData();
 							pointer.getOwnerComponent().getTargets().display("login");							
 						}
 					}
