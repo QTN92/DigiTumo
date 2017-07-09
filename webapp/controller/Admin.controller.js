@@ -181,6 +181,27 @@ sap.ui.define([
 				else if(this.getView().byId("geburtsdatum").getValueState() == "Error") {								// Falls Status "None"
 					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
 					validGeburtsdatum = false;																		// Variable "validGeburtsdatum" auf wahr setzen
+				}
+				else {
+					if(geburtsdatum.substring(6, 10) > (new Date().getFullYear())-18) {									
+						this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("geburtsdatum").setValueStateText("Der User muss min. 18 Jahre alt sein.");
+						validGeburtsdatum = false;
+					}
+					else if(geburtsdatum.substring(6, 10) == (new Date().getFullYear())-18) {							
+						if(parseInt(geburtsdatum.substring(3, 5)) > (new Date().getMonth())+1) {					
+							this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);
+							this.getView().byId("geburtsdatum").setValueStateText("Der User muss min. 18 Jahre alt sein.");
+							validGeburtsdatum = false;
+						}
+						else if(parseInt(geburtsdatum.substring(3, 5)) == (new Date().getMonth())+1) {
+							if(parseInt(geburtsdatum.substring(0, 2)) > new Date().getDate()) {
+								this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);
+								this.getView().byId("geburtsdatum").setValueStateText("Der User muss min. 18 Jahre alt sein.");
+								validGeburtsdatum = false;
+							};
+						};
+					};
 				};
 				
 				var passwort = this.getView().byId("passwort").getValue();												// Auslesen des Wertes "passwort"	

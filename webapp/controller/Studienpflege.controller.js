@@ -325,7 +325,7 @@ sap.ui.define([
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
 						if(sResult == "YES") {
-							pointer,loadData();
+							pointer.loadData();
 							pointer.getOwnerComponent().getTargets().display("login");							
 						}
 					}
