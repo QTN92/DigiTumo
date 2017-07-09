@@ -45,16 +45,9 @@
 			</l:BlockLayoutRow>
 			<l:BlockLayoutRow>
 				<l:BlockLayoutCell title="Ultraschall" width="40%">
-					<core:HTML
-						content="&lt;video width=&apos;100%&apos; height=&apos;100%&apos; autoplay=&apos;true&apos; loop=&apos;true&apos;&gt; &lt;source src=&apos;https://v.ftcdn.net/01/56/16/91/700_F_156169178_g8yH413jkVr8AuaP6UTVbmTZ1GryqZ8N.mp4&apos; type=&apos;video/mp4&apos;&gt; &lt;/video&gt;"></core:HTML>
-					<!-- Nieren: https://v.ftcdn.net/01/56/16/98/700_F_156169863_M1s0SBEAlXNQxcxcfXB0f5AvQbbzccvo.mp4
-											 Lunge: https://v.ftcdn.net/01/56/17/10/700_F_156171003_BtpLMDGK2VYfvEcXpNRpuA11ixKOhAvi.mp4
-											 Darm: https://v.ftcdn.net/01/56/16/95/700_F_156169546_FXapvdgLeAZBjmKYY6Zx6Bc4OARHj1dp.mp4
-											 Organe: https://v.ftcdn.net/01/56/16/91/700_F_156169178_g8yH413jkVr8AuaP6UTVbmTZ1GryqZ8N.mp4
-											 Rücken: https://v.ftcdn.net/01/04/16/19/700_F_104161925_4kI0gO9cKNCfvTNEY6NiBqty83zaUJCO.mp4
-											 Kopf1: https://v.ftcdn.net/01/52/36/00/700_F_152360086_VovWspCtqZ6efWfO8Fyr3lzScwGrGiIb.mp4
-											 Hirn: https://v.ftcdn.net/01/52/35/91/700_F_152359191_OFHjf9RvfUFh8OuzGxuyfknyT5DJrEZ5.mp4
-										-->
+					<!-- Das Ultraschallbild ist ein MP4 Video, welches als HTML Element eingebunden wird. Je nach Geschlecht und Tumor wird es im Controller gesetzt. Im Realfall würde hier eine PACS-Software, wie GE Centricity, integriert werden-->
+					<core:HTML id="htmlvideo"
+						content="&lt;video width=&apos;100%&apos; height=&apos;100%&apos; autoplay=&apos;true&apos; loop=&apos;true&apos;&gt; &lt;source src=&apos;https://v.ftcdn.net/00/50/93/75/700_F_50937533_q8aK9X2h5mlfp5MNaHZkpbLMY4Z7pv4W.mp4&apos; type=&apos;video/mp4&apos;&gt; &lt;/video&gt;"></core:HTML>
 				</l:BlockLayoutCell>
 				<l:BlockLayoutCell title="Gesundheitsscore" width="30%">
 					<GenericTile header="Gesundheitsscore">
