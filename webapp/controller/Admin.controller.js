@@ -49,7 +49,7 @@ sap.ui.define([
 							type: "GET",
 							context: this,
 							success: function handleSuccess(response) {
-								var oModel = new JSONModel();
+								oModel = new JSONModel();
 								oModel.setJSON(response);
 								var id = "Benutzerrolle-" + this.getView().getId() + "--BenutzerTab-";
 								for(var i = 0; i < anzahlUser; i++) {
