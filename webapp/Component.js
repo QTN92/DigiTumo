@@ -38,7 +38,7 @@ sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
 						viewLevel: 3
 					},
 					
-					newspflege: {
+					studienpflege: {
 						viewName: "Studienpflege",
 						viewLevel: 1
 					}

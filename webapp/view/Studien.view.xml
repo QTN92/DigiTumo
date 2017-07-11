@@ -6,7 +6,7 @@
 				<!-- Studienfeed -->
 				<Panel headerText="Studienergebnisse" class="sapUiSmallMargin" width="100%" height="100%">
 					<content>
-						<List items="{/news}">
+						<List items="{/studien}">
 							<items>
 								<FeedListItem type="Active" sender="{autorVorname} {autorNachname}" text="{titel}" info="{abstract}" showIcon="false" press="onPress"/>
 							</items>

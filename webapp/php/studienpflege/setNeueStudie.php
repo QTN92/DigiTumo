@@ -12,7 +12,7 @@
 	$sql = "
 		INSERT 
 		INTO
-			newsfeed (
+			studien (
 				autorVorname,
 				autorNachname,
 				titel,

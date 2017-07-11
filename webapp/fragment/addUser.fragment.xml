@@ -9,22 +9,22 @@
 				<Label text="Geburtsdatum" labelFor="geburtsdatum" width="100%"/>
 				<DatePicker id="geburtsdatum" displayFormat="medium" change="handleDateChange" valueFormat="medium" strictParsing="true"/>
 				<Label text="Passwort" width="100%"/>
-				<Input id="passwort" text=""/>
+				<Input id="passwort" type="Password" text=""/>
 				<Label text="Berechtigungsstatus" width="100%"/>
 				<ComboBox width="100%" id="berechtigungsstatus">
 					<items>
 						<core:Item text="Arzt"/>
 						<core:Item text="Administrator"/>
-						<core:Item text="Newspflege"/>
+						<core:Item text="Studienpflege"/>
 					</items>
 				</ComboBox>
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
-			<Button icon="sap-icon://save" press="onSaveNewUser" type="Accept"/>
+			<Button icon="sap-icon://save" press="onSaveNeuerUser" type="Accept"/>
 		</beginButton>
 		<endButton>
-			<Button icon="sap-icon://sys-cancel" press="onCancelNewUser" type="Reject"/>
+			<Button icon="sap-icon://sys-cancel" press="onCancelNeuerUser" type="Reject"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

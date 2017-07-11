@@ -3,17 +3,17 @@
 		<content>
 			<l:VerticalLayout class="sapUiSmallMargin" width="90%">
 				<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="true">
-					<List items="{/experten}" id="anwesenheitsliste" mode="MultiSelect">
+					<List items="{/experten}" id="anwesenheitsliste" mode="MultiSelect" selectionChange="onSelectionChange">
 						<StandardListItem title="{vorname} {nachname}" info="{rang} {fachgebiet}"/>
 					</List>
 				</ScrollContainer>
 			</l:VerticalLayout>
 		</content>
 		<beginButton>
-			<Button icon="sap-icon://save" press="onAnwesenheitSpeichern" type="Accept"/>
+			<Button id="AnwSpeichern" icon="sap-icon://save" press="onAnwesenheitSpeichern" type="Accept" enabled="false"/>
 		</beginButton>
 		<endButton>
-			<Button icon="sap-icon://sys-cancel" press="onAnwesenheitNichtSpeichern" type="Reject"/>
+			<Button id="ohneAnwSpeichern" text="Ohne Speichern fortfahren" press="onAnwesenheitNichtSpeichern" type="Default"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

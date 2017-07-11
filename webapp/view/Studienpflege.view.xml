@@ -1,11 +1,11 @@
-<View id="newspflege" controllerName="DigiTumo.controller.Studienpflege" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+<View id="studienpflege" controllerName="DigiTumo.controller.Studienpflege" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
 	xmlns:u="sap.ui.unified" height="100%">
 	<Shell>
 		<Page responsive="true" title="Studienverwaltung" showHeader="true" enableScrolling="true" enableBusyIndicator="true"
 			mode="SingleSelectMaster">
 			<content>
 				<!-- Studienliste -->
-				<Table id="StudienTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/news}">
+				<Table id="StudienTab" selectionChange="selectionChange" updateFinished="updateFinished" items="{/studien}">
 					<headerToolbar>
 						<OverflowToolbar id="otbSubheader">
 							<Title text="Studien"/>
@@ -42,10 +42,10 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Input id="Vorname" value="{autorVorname}"/>
-								<Input id="Nachname" value="{autorNachname}"/>
-								<Input id="Titel" value="{titel}"/>
-								<Input id="Jahr" value="{jahr}"/>
+								<Input id="Vorname" value="{autorVorname}" editable="false"/>
+								<Input id="Nachname" value="{autorNachname}" editable="false"/>
+								<Input id="Titel" value="{titel}" editable="false"/>
+								<Input id="Jahr" value="{jahr}" editable="false"/>
 								<Input id="Medium" value="{medium}"/>
 								<Input id="Abstract" value="{abstract}"/>
 								<Input id="Verweis" value="{verweis}"/>

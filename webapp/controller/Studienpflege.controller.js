@@ -11,7 +11,7 @@ sap.ui.define([
 
 			loadData: function() {
 				$.ajax({
-					url: "php/newspflege/getNews.php",
+					url: "php/studienpflege/getStudien.php",
 					type: "GET",
 					context: this,
 					success: function handleSuccess(response) {
@@ -38,7 +38,7 @@ sap.ui.define([
 				this.oDialog.open();
 			},
 			
-			onSaveNewNews: function() {
+			onSaveNeueStudie: function() {
 				var vorname = this.getView().byId("vorname").getValue();
 				var validVorname = true;																					
 				if(vorname == "") {																					
@@ -47,9 +47,9 @@ sap.ui.define([
 					validVorname = false;
 				}
 				else {
-					if(vorname.search(/^[a-zA-Z ]+$/) == -1) {																
+					if(vorname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {																
 						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);					
-						this.getView().byId("vorname").setValueStateText("Der Vorname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");		
+						this.getView().byId("vorname").setValueStateText("Der Vorname darf nur Buchstaben enthalten.");		
 						this.getView().byId("Vorname").setValue("");													
 						validVorname = false;
 					}
@@ -68,9 +68,9 @@ sap.ui.define([
 					validNachname = false;
 				}
 				else {
-					if(nachname.search(/^[a-zA-Z ]+$/) == -1) {														
+					if(nachname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {														
 						this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					
-						this.getView().byId("nachname").setValueStateText("Der Nachname darf nur Buchstaben enthalten. Umlaute sind nicht zulässig.");					
+						this.getView().byId("nachname").setValueStateText("Der Nachname darf nur Buchstaben enthalten.");					
 						validNachname = false;
 					}
 					else {
@@ -103,7 +103,7 @@ sap.ui.define([
 					this.getView().byId("jahr").setValueStateText("Bitte ein gültiges Jahr eingeben.");
 					validJahr = false;
 				}
-				else if(parseInt(jahr) > new Date().getFullYear()){
+				else if(parseInt(jahr) > new Date().getFullYear() || parseInt(jahr) < (parseInt(new Date().getFullYear())-10)){
 					this.getView().byId("jahr").setValueState(sap.ui.core.ValueState.Error);					
 					this.getView().byId("jahr").setValueStateText("Bitte ein gültiges Jahr eingeben.");
 					validJahr = false;
@@ -147,7 +147,7 @@ sap.ui.define([
 				
 				if(validVorname && validNachname && validTitel && validMedium && validAbstract && validVerweis) {
 					$.ajax({
-						url: "php/studien/setNewStudie.php",
+						url: "php/studien/setNeueStudie.php",
 						data: {
 							"vorname": vorname,
 							"nachname": nachname,
@@ -174,7 +174,7 @@ sap.ui.define([
 				};
 			},
 			
-			onCancelNewNews: function() {
+			onCancelNeueStudie: function() {
 				var pointer = this;
 				if(
 					this.getView().byId("vorname").getValue() != "" ||
@@ -211,7 +211,7 @@ sap.ui.define([
 					onClose: function(sResult) {
 						if(sResult == "YES") {		
 							$.ajax({																					
-								url: "php/studien/deleteStudie.php",
+								url: "php/studienpflege/deleteStudie.php",
 								data: {
 									"vorname": Object.values(tmp)[1],
 									"nachname": Object.values(tmp)[0],
@@ -233,7 +233,78 @@ sap.ui.define([
 			},
 
 			onSave: function() {
+				var id = new Array(7);
+				id[0] = "Vorname-" + this.getView().getId() + "--StudienTab-";
+				id[1] = "Nachname-" + this.getView().getId() + "--StudienTab-";
+				id[2] = "Titel-" + this.getView().getId() + "--StudienTab-";
+				id[3] = "Jahr-" + this.getView().getId() + "--StudienTab-";
+				id[4] = "Medium-" + this.getView().getId() + "--StudienTab-";
+				id[5] = "Abstract-" + this.getView().getId() + "--StudienTab-";
+				id[6] = "Verweis-" + this.getView().getId() + "--StudienTab-";
+				var studienListe = new Array();
+				var i = 0;
+				while(this.getView().byId(id[0]+i) != undefined) {
+					studienListe[i] = new Array(id.length);
+					for(var j = 0; j < studienListe[i].length; j++) {
+						studienListe[i][j] = this.getView().byId(id[j]+i).getValue();
+					};
+					i++;
+				};
 				
+				var validMedium = true;
+				var validAbstract = true;
+				var validVerweis = true;
+				var id = this.getView().getId() + "--StudienTab-";
+				for(var i = 0; i < studienListe.length; i++) {
+					var id = id.substring(0, 23) + i;
+					if(studienListe[i][4] == "") {
+						this.getView().byId("Medium-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Medium-"+id).setValueStateText("Bitte ein Medium eingeben.");
+						validMedium = false;
+					}
+					else {
+						this.getView().byId("Medium-"+id).setValueState(sap.ui.core.ValueState.None);
+					};
+
+					if(studienListe[i][5] == "") {
+						this.getView().byId("Abstract-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Abstract-"+id).setValueStateText("Bitte einen Abstract eingeben.");
+						validAbstract = false;
+					}
+					else {
+						this.getView().byId("Abstract-"+id).setValueState(sap.ui.core.ValueState.None);
+					};
+					
+					if(studienListe[i][6] == "") {
+						this.getView().byId("Verweis-"+id).setValueState(sap.ui.core.ValueState.Error);
+						this.getView().byId("Verweis-"+id).setValueStateText("Bitte einen Verweis zum Original eingeben.");
+						validVerweis = false;
+					}
+					else {
+						this.getView().byId("Verweis-"+id).setValueState(sap.ui.core.ValueState.None);
+					};
+				};
+
+				if(validMedium && validAbstract && validVerweis) {
+					$.ajax({
+						url: "php/studienpflege/updateStudien.php",
+						data: {
+							"studienListe": studienListe
+						},
+						type: "POST",
+						context: this,
+						success: function handleSuccess(response) {
+							MessageBox.success("Speichern erfolgreich.");
+							this.loadData();
+						},
+						error: function handleError() {
+							MessageBox.error("Die Verbindung ist fehlgeschlagen.");												
+						}
+					});
+				}
+				else {
+					MessageBox.error("Bitte die Eingaben überprüfen!");
+				};
 			},
 			
 			onCancel: function() {
@@ -254,6 +325,7 @@ sap.ui.define([
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
 						if(sResult == "YES") {
+							pointer.loadData();
 							pointer.getOwnerComponent().getTargets().display("login");							
 						}
 					}

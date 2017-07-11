@@ -14,7 +14,7 @@
 							<!--Testbutton um Patientenview anzuzeigen-->
 							<Button id="Patienten" text="Patienten" press="onPatienten" width="100%"/>
 							<Button id="Admin" text="Admin" press="onAdmin" width="100%"/>
-							<Button id="Newspflege" text="Newspflege" press="onNewspflege" width="100%"/>
+							<Button id="Studienpflege" text="Studienpflege" press="onStudienpflege" width="100%"/>
 						</l:content>
 					</l:VerticalLayout>
 				</FlexBox>

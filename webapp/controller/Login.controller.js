@@ -91,23 +91,32 @@ sap.ui.define([
 			onLoginSuccessful: function() {
 				// Rolle des angemeldeten Nutzers abrufen
 				$.ajax({
-					url: "php/login/getUserRole.php",
+					url: "php/login/getUserrolle.php",
 					data: {
 						"userId": this.getView().byId("user").getValue()
 					},	
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
-						// Rollenabhängige Navigation
-						switch(response) {
+						// Navigation kann in späterer Version erweitert werden
+						// Mögliches Szenario: Ein Nutzer hat mehrere Rollen
+						// Aktuelles Szenario: Ein Nutzer hat eine Rolle
+						// Response: Rückgabe aller Rollen eines Users
+						var rollen = new Array(response.length);
+						for(var i = 0; i < rollen.length; i++) {
+							rollen[i] = response[i];
+						};
+						// Ab hier: Navigation basierend auf aktuellem Szenario
+						// Die folgende Passage muss für die Implementation des möglichen Szenarios geändert werden
+						switch(rollen[0]) {
 						// 0: User ist Admin
 						case '0':
 							this.getOwnerComponent().getTargets().display("admin");
 							break;
 						// 1: User kann Nachrichten pflegen
 						case '1':
-							// TODO: Navigation Newspflege 
-							MessageBox.show("Anmeldung zur Pflege von News erfolgreich");
+							// TODO: Navigation Studienpflege 
+							this.getOwnerComponent().getTargets().display("studienpflege");
 							break;
 						// 2: User ist Arzt
 						case '2':
@@ -133,8 +142,8 @@ sap.ui.define([
 			onAdmin: function() {
 				this.getOwnerComponent().getTargets().display("admin");
 			},
-			onNewspflege: function() {
-				this.getOwnerComponent().getTargets().display("newspflege");
+			onStudienpflege: function() {
+				this.getOwnerComponent().getTargets().display("studienpflege");
 			}
 		});
 	});

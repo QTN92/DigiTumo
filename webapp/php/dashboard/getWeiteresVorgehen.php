@@ -16,6 +16,7 @@
 
 	$sql = "
 		SELECT 
+			datum AS ordnungsdatum,
 			DATE_FORMAT(datum, '%d.%m.%y') AS datum, 
 			vorgehen, 
 			notiz, 
@@ -24,6 +25,8 @@
 			vorgehenshistorie 
 		WHERE 
 			krankenakte_krankenakteId = '$krankenakteId'
+		ORDER BY
+			ordnungsdatum DESC
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
 	$result = '{"vorgehenshistorie": ' . $sqlResult . '}';

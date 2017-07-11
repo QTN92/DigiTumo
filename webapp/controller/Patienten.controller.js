@@ -8,7 +8,7 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Patienten", {
-			
+
 			onInit: function() {
 				// Binding der Patienten- und Krankenakteninformationen
 				$.ajax({
@@ -35,9 +35,6 @@ sap.ui.define([
 						this.getView().byId("filter").setModel(oModel);
 					}
 				});
-			},
-			
-			onBeforeRendering: function() {
 				this.onAnwesenheitVermerken();
 			},
 
@@ -45,7 +42,7 @@ sap.ui.define([
 				// Dialog für Vermerken der Anwesenheit
 				var oDialog = this.getView().byId("anwesenheitsdialog");
 				if (!oDialog) {
-					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.anwesenheit", this);
+					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.setAnwesenheit", this);
 					this.getView().addDependent(oDialog);
 				};
 				$.ajax({
@@ -64,6 +61,20 @@ sap.ui.define([
 				this.oDialog.open();
 			},
 
+			onSelectionChange: function() {
+				var oList = this.getView().byId("__xmlview2--anwesenheitsliste");
+				var anzahlAerzte = oList.mAggregations.items.length;
+				for (var i = 0; i < anzahlAerzte; i++) {
+					if (oList.mAggregations.items[i].mProperties.selected) {
+						this.getView().byId("__xmlview2--AnwSpeichern").setEnabled(true);
+						this.getView().byId("__xmlview2--ohneAnwSpeichern").setEnabled(false);
+						break;
+					} else {
+						this.getView().byId("__xmlview2--AnwSpeichern").setEnabled(false);
+					}
+				}
+			},
+
 			// Methoden für das Vermerken der Anwesenheit
 			onAnwesenheitSpeichern: function() {
 				var alleAerzte = this.getView().byId("anwesenheitsdialog").getModel().getJSON();
@@ -72,8 +83,8 @@ sap.ui.define([
 				var id = "__item2-__xmlview2--anwesenheitsliste-";
 				for (var i = 0; i < anzahlAerzte; i++) {
 					id = id.substring(0, 38) + i;
-					if(sap.ui.getCore().byId(id).getSelected()) {
-						if(anwesendeAerzte != "") {
+					if (sap.ui.getCore().byId(id).getSelected()) {
+						if (anwesendeAerzte != "") {
 							anwesendeAerzte = anwesendeAerzte + ", ";
 						}
 						anwesendeAerzte = anwesendeAerzte + sap.ui.getCore().byId(id).getTitle();
@@ -104,7 +115,7 @@ sap.ui.define([
 			},
 
 			onFilter: function() {
-				var key = this.getView().byId("filter").getSelectedKey();
+				var key = this.getView().byId("filter").getValue();
 				if (key != "") {
 					$.ajax({
 						url: "php/patienten/getFilterGesetzt.php",
@@ -218,9 +229,9 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
-				
+
 				//Funktion zum Einbinden zusätzlicher Medikamenten
-				
+
 				$.ajax({
 					url: "php/dashboard/getKrankheitsverlauf.php",
 					data: {
@@ -261,7 +272,7 @@ sap.ui.define([
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
-				});					
+				});
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 
@@ -270,23 +281,17 @@ sap.ui.define([
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
-						if(sResult == "YES") {
+						if (sResult == "YES") {
 							$.ajax({
 								url: "php/dashboard/clearHilfstabelle.php",
 								context: this
 							});
+							pointer.getView().byId("filter").setSelectedKey("");
+							pointer.onFilter();
 							pointer.getOwnerComponent().getTargets().display("login");
 						};
 					}
 				});
 			},
-
-			// TEST-BUTTON
-			onPress: function() {
-				this.getOwnerComponent().getTargets().display("dashboard");
-			},
-			onDashboard: function() {
-				this.getOwnerComponent().getTargets().display("dashboard");
-			}
 		});
 	});

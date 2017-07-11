@@ -43,11 +43,9 @@
 								<Input id="Nachname" value="{nachname}"/>
 								<Input id="Geburtsdatum" value="{geburtsdatum}" editable="false"/>
 								<Input id="Benutzerkennung" value="{userId}" editable="false"/>
-								<Input id="Passwort" value="{passwort}"/>
-								<ComboBox width="100%" id="Benutzerrolle">
-									<core:Item key="Arzt" text="Arzt"/>
-									<core:Item key="Administrator" text="Administrator"/>
-									<core:Item key="Newspflege" text="Newspflege"/>
+								<Input id="Passwort" type="Password" value="{passwort}"/>
+								<ComboBox items="{/rollen}" width="100%" id="Benutzerrolle">
+									<core:Item key="{bezeichnung}" text="{bezeichnung}"/>
 								</ComboBox>
 								<Button id="DeleteUser" press="onDeleteUser" icon="sap-icon://delete"/>
 							</cells>
