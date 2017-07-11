@@ -61,15 +61,17 @@
 					</GenericTile>
 				</l:BlockLayoutCell>
 				<l:BlockLayoutCell title="Vorgehenshistorie" width="30%">
-					<List items="{/vorgehenshistorie}" id="vorgehenshistorie">
-						<CustomListItem>
-							<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
-								<Title level="H2" text="{datum}"/>
-								<Label text="{anwesendeExperten}"/>
-								<Text text="{vorgehen}: {notiz}"/>
-							</VBox>
-						</CustomListItem>
-					</List>
+					<ScrollContainer height="300pt" width="100%" horizontal="true" vertical="true" focusable="true">
+						<List items="{/vorgehenshistorie}" id="vorgehenshistorie">
+							<CustomListItem>
+								<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+									<Title level="H2" text="{datum}"/>
+									<Label text="{anwesendeExperten}"/>
+									<Text text="{vorgehen}: {notiz}"/>
+								</VBox>
+							</CustomListItem>
+						</List>
+					</ScrollContainer>
 				</l:BlockLayoutCell>
 			</l:BlockLayoutRow>
 		</l:BlockLayout>

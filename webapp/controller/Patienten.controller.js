@@ -249,6 +249,7 @@ sap.ui.define([
 							valueAxis: {
 								visible: true,
 								title: {
+									text: "Medikamentendosis in mg",
 									visible: true
 								}
 							},
