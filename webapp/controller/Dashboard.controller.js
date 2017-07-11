@@ -8,44 +8,6 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
-
-/**	In dem Model sind keine Daten		
-			onBeforeRendering: function() {
-				// vor der Anzeige des Dashboard Views wird das Video abhängig von Geschlecht und Tumorart ausgewählt und dem HTML-Element als content zugewiesen.
-				var oModel = this.getView().byId("patienteninformation").getModel().getData(); 
-				var geschlecht = "männdlich";//Object.values(Object.values(Object.values(oModel)[0])[0])[4];
-				var tumor = "Lungenkrebs"; //Object.values(Object.values(Object.values(oModel)[0])[0])[7];
-				var htmlcontent= "";		
-				
-				// Die Videos für Kehlkopfkrebs und Gehirntumor sind vom Geschlecht unabhängig
-				if (tumor=="Kehlkopfkrebs"){
-				htmlcontent="<video width='100%' height='100%' autoplay='true' loop='true' <source src='https://v.ftcdn.net/01/52/36/00/700_F_152360086_VovWspCtqZ6efWfO8Fyr3lzScwGrGiIb.mp4' type='video/mp4'> Your browser does not support the video tag. </video>";
-				}
-				
-				if (tumor=="Gehirntumor"){
-				htmlcontent="<video width='100%' height='100%' autoplay='true' loop='true' <source src='https://v.ftcdn.net/01/52/35/91/700_F_152359191_OFHjf9RvfUFh8OuzGxuyfknyT5DJrEZ5.mp4' type='video/mp4'> Your browser does not support the video tag. </video>";
-				}
-
-				if ((geschlecht=="weiblich") && (tumor=="Rückenmarkkrebs" || tumor=="Halswirbelsäulenkrebs")){
-				htmlcontent="<video width='100%' height='100%' autoplay='true' loop='true' <source src='https://v.ftcdn.net/01/04/16/19/700_F_104161925_4kI0gO9cKNCfvTNEY6NiBqty83zaUJCO.mp4' type='video/mp4'> Your browser does not support the video tag. </video>";
-				} 
-				
-				if ((geschlecht=="männlich") && (tumor=="Nierenzellenkrebs" || tumor=="Blasenkrebs")){
-				htmlcontent="<video width='100%' height='100%' autoplay='true' loop='true' <source src='https://v.ftcdn.net/01/56/16/98/700_F_156169863_M1s0SBEAlXNQxcxcfXB0f5AvQbbzccvo.mp4' type='video/mp4'> Your browser does not support the video tag. </video>";
-				}
-				
-				if (geschlecht=="männlich" && tumor=="Lungenkrebs"){
-				htmlcontent="<video width='100%' height='100%' autoplay='true' loop='true' <source src='https://v.ftcdn.net/01/56/17/10/700_F_156171003_BtpLMDGK2VYfvEcXpNRpuA11ixKOhAvi.mp4' type='video/mp4'> Your browser does not support the video tag. </video>";
-				}
-				
-				if ((geschlecht=="männlich") && (tumor=="Dickdarmkrebs" || tumor=="Leberkrebs" || tumor=="Magenkrebs")){
-				htmlcontent="<video width='100%' height='100%' autoplay='true' loop='true' <source src='https://v.ftcdn.net/01/56/16/95/700_F_156169546_FXapvdgLeAZBjmKYY6Zx6Bc4OARHj1dp.mp4' type='video/mp4'> Your browser does not support the video tag. </video>";
-				}
-				
-				if (htmlcontent != "") {
-				this.getView().byId("htmlvideo").setContent(htmlcontent);
-				}
-			}, */
 			
 			onSaveAction: function(oEvent) {
 				var oView = this.getView();

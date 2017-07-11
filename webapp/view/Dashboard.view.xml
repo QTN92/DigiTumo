@@ -45,9 +45,8 @@
 			</l:BlockLayoutRow>
 			<l:BlockLayoutRow>
 				<l:BlockLayoutCell title="Ultraschall" width="40%">
-					<!-- Das Ultraschallbild ist ein MP4 Video, welches als HTML Element eingebunden wird. Je nach Geschlecht und Tumor wird es im Controller gesetzt. Im Realfall würde hier eine PACS-Software, wie GE Centricity, integriert werden-->
-					<core:HTML id="htmlvideo"
-						content="&lt;video width=&apos;100%&apos; height=&apos;100%&apos; autoplay=&apos;true&apos; loop=&apos;true&apos;&gt; &lt;source src=&apos;https://v.ftcdn.net/00/50/93/75/700_F_50937533_q8aK9X2h5mlfp5MNaHZkpbLMY4Z7pv4W.mp4&apos; type=&apos;video/mp4&apos;&gt; &lt;/video&gt;"></core:HTML>
+					<!-- Das Ultraschallbild ist ein MP4 Video, welches als HTML Element eingebunden wird. Die Röntgenbilder sind für jeden Patienten individuell. Im Realfall würde hier eine PACS-Software, wie GE Centricity, integriert werden-->
+					<core:HTML id="htmlVideo"/>
 				</l:BlockLayoutCell>
 				<l:BlockLayoutCell title="Gesundheitsscore" width="30%">
 					<GenericTile header="Gesundheitsscore">
