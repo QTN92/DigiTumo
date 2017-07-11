@@ -308,7 +308,6 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
-						console.log(response);
 						if(response == "r") {
 							sap.ui.getCore().byId("__xmlview3--vorgehenFesthalten").setEnabled(false);
 						}
