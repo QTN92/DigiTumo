@@ -10,21 +10,26 @@ sap.ui.define([
 		return Controller.extend("DigiTumo.controller.Patienten", {
 
 			onInit: function() {
-				// Binding der Patienten- und Krankenakteninformationen
-				$.ajax({
-					url: "php/patienten/getPatienten.php",
-					type: "GET",
-					context: this,
-					success: function handleSuccess(response) {
-						var oModel = new JSONModel();
-						oModel.setJSON(response);
-						this.getView().setModel(oModel);
-						this.onAnwesenheitVermerken();
-					},
-					error: function handleError() {
-						sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+				this.getView().addEventDelegate({
+					onAfterShow: function () {
+						sap.ui.getCore().byId("__xmlview2").oController.onAnwesenheitVermerken();
 					}
-				});
+				}),
+					// Binding der Patienten- und Krankenakteninformationen
+					$.ajax({
+						url: "php/patienten/getPatienten.php",
+						type: "GET",
+						context: this,
+						success: function handleSuccess(response) {
+							var oModel = new JSONModel();
+							oModel.setJSON(response);
+							this.getView().setModel(oModel);
+							this.onAnwesenheitVermerken();
+						},
+						error: function handleError() {
+							sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+						}
+					});
 				$.ajax({
 					url: "php/patienten/getFilter.php",
 					type: "GET",
@@ -35,7 +40,6 @@ sap.ui.define([
 						this.getView().byId("filter").setModel(oModel);
 					}
 				});
-				this.onAnwesenheitVermerken();
 			},
 
 			onAnwesenheitVermerken: function() {
