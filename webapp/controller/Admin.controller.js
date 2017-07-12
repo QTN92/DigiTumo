@@ -178,7 +178,7 @@ sap.ui.define([
 					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
 					validGeburtsdatum = false;
 				}
-				else if(this.getView().byId("geburtsdatum").getValueState() == "Error") {								// Falls Status "None"
+				else if(this.getView().byId("geburtsdatum").getValueState() === "Error") {								// Falls Status "None"
 					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
 					validGeburtsdatum = false;																		// Variable "validGeburtsdatum" auf wahr setzen
 				}
