@@ -48,7 +48,7 @@ sap.ui.define([
 						data: {
 							"patientId": patientId,
 							"vorgehen": vorgehen,
-							"notiz": notiz,
+							"notiz": notiz
 						},
 						type: "POST",
 						context: this,
