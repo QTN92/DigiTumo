@@ -150,7 +150,7 @@ sap.ui.define([
 					this.getView().byId("nachname").setValueStateText("Bitte einen Nachnamen eingeben.");									
 					validNachname = false;
 				}
-				else if(nachname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {															// Abfangen von Sonderzeichen und Zahlen
+				else if(nachname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {															// Abfangen von Sonderzeichen und Zahlen
 					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
 					this.getView().byId("nachname").setValueStateText("Der Nachname darf nur Buchstaben enthalten.");
 					validNachname = false;
