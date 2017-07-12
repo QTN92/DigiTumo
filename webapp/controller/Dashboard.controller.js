@@ -9,7 +9,7 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
 			
-			onSaveAction: function(oEvent) {
+			onSaveAction: function() {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
 				// Dialog laden
@@ -22,10 +22,10 @@ sap.ui.define([
 				var tag = datum.getDate().toString();
 				var monat = (datum.getMonth() + 1).toString();
 				var jahr = datum.getFullYear().toString();
-				if (tag.length == 1) {
+				if (tag.length === 1) {
 					tag = "0" + tag;
 				}
-				if (monat.length == 1) {
+				if (monat.length === 1) {
 					monat = "0" + monat;
 				}
 				datum = tag + "." + monat + "." + jahr;
@@ -40,7 +40,7 @@ sap.ui.define([
 					0];
 				var vorgehen = this.getView().byId("vorgehen").getSelectedKey();
 				var notiz = this.getView().byId("notiz").getValue();
-				if (vorgehen == "") {
+				if (vorgehen === "") {
 					MessageBox.error("Bitte eine Entscheidung über das weitere Vorgehen eingeben.");
 				} else {
 					$.ajax({
@@ -119,7 +119,7 @@ sap.ui.define([
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
-						if(sResult == "YES") {
+						if(sResult === "YES") {
 							$.ajax({
 								url: "php/dashboard/clearHilfstabelle.php",
 								context: this
