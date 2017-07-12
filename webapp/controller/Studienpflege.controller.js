@@ -145,7 +145,7 @@ sap.ui.define([
 					this.getView().byId("verweis").setValueState(sap.ui.core.ValueState.None);
 				}
 				
-				if(validVorname && validNachname && validTitel && validMedium && validAbstract && validVerweis) {
+				if(validVorname && validNachname && validTitel && validJahr && validMedium && validAbstract && validVerweis) {
 					$.ajax({
 						url: "php/studien/setNeueStudie.php",
 						data: {

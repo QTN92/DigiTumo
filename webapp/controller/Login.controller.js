@@ -1,6 +1,6 @@
 sap.ui.define([
 		"sap/ui/core/mvc/Controller",
-		"sap/m/MessageBox",
+		"sap/m/MessageBox"
 	],
 
 	function(Controller, MessageBox) {
