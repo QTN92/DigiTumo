@@ -33,7 +33,7 @@ sap.ui.define([
 				while(!isNaN(parseInt(evt[i]))) {
 					id = evt[i] + id;
 					i--;
-				};
+				}
 				id = parseInt(id);
 				var studien = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id]);
 				var autorVorname = studien[0];
@@ -54,7 +54,7 @@ sap.ui.define([
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
-				})
+				});
 			},
 			
 			onLogout: function() {
@@ -68,7 +68,7 @@ sap.ui.define([
 								context: this
 							});
 							pointer.getOwnerComponent().getTargets().display("login");
-						};
+						}
 					}
 				});
 			},

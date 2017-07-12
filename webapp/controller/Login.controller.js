@@ -105,7 +105,7 @@ sap.ui.define([
 						var rollen = new Array(response.length);
 						for(var i = 0; i < rollen.length; i++) {
 							rollen[i] = response[i];
-						};
+						}
 						// Ab hier: Navigation basierend auf aktuellem Szenario
 						// Die folgende Passage muss für die Implementation des möglichen Szenarios geändert werden
 						switch(rollen[0]) {
