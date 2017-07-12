@@ -57,8 +57,8 @@ sap.ui.define([
 						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.None);							
 						vorname = vorname.trim();
 						vorname = vorname[0].toUpperCase() + vorname.substring(1, vorname.length);
-					};
-				};
+					}
+				}
 
 				var nachname = this.getView().byId("nachname").getValue();												
 				var validNachname = true;																				
@@ -77,8 +77,8 @@ sap.ui.define([
 						this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.None);						
 						nachname = nachname.trim();
 						nachname = nachname[0].toUpperCase() + nachname.substring(1, nachname.length);
-					};
-				};
+					}
+				}
 				
 				var titel = this.getView().byId("titel").getValue();
 				var validTitel = true;
@@ -89,7 +89,7 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("titel").setValueState(sap.ui.core.ValueState.None);
-				};
+				}
 
 				var validJahr = true;
 				var jahr = this.getView().byId("jahr").getValue();		
@@ -110,7 +110,7 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("jahr").setValueState(sap.ui.core.ValueState.None);
-				};
+				}
 								
 				var medium = this.getView().byId("medium").getValue();
 				var validMedium = true;
@@ -121,7 +121,7 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("medium").setValueState(sap.ui.core.ValueState.None);
-				};
+				}
 				
 				var abstract = this.getView().byId("abstract").getValue();
 				var validAbstract = true;
@@ -132,7 +132,7 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("abstract").setValueState(sap.ui.core.ValueState.None);
-				};
+				}
 				
 				var verweis = this.getView().byId("verweis").getValue();
 				var validVerweis = true;
@@ -143,7 +143,7 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("verweis").setValueState(sap.ui.core.ValueState.None);
-				};
+				}
 				
 				if(validVorname && validNachname && validTitel && validMedium && validAbstract && validVerweis) {
 					$.ajax({
@@ -171,7 +171,7 @@ sap.ui.define([
 				}
 				else {
 					MessageBox.error("Bitte die Eingaben überprüfen!");		
-				};
+				}
 			},
 			
 			onCancelNeueStudie: function() {
@@ -191,14 +191,14 @@ sap.ui.define([
 							if(sResult == "YES") {																				
 								pointer.oDialog.destroy();
 								pointer.oDialog.close();
-							};
+							}
 						}
 					});
 				}
 				else {
 					this.oDialog.destroy();
 					this.oDialog.close();
-				}; 
+				}
 			},
 			
 			onDeleteStudie: function(oEvent) {
@@ -226,8 +226,8 @@ sap.ui.define([
 								error: function handleError() {
 									MessageBox.error("Die Verbindung ist fehlgeschlagen.");								
 								}
-							})
-						};
+							});
+						}
 					}
 				});
 			},
@@ -247,9 +247,9 @@ sap.ui.define([
 					studienListe[i] = new Array(id.length);
 					for(var j = 0; j < studienListe[i].length; j++) {
 						studienListe[i][j] = this.getView().byId(id[j]+i).getValue();
-					};
+					}
 					i++;
-				};
+				}
 				
 				var validMedium = true;
 				var validAbstract = true;
@@ -264,7 +264,7 @@ sap.ui.define([
 					}
 					else {
 						this.getView().byId("Medium-"+id).setValueState(sap.ui.core.ValueState.None);
-					};
+					}
 
 					if(studienListe[i][5] == "") {
 						this.getView().byId("Abstract-"+id).setValueState(sap.ui.core.ValueState.Error);
@@ -273,7 +273,7 @@ sap.ui.define([
 					}
 					else {
 						this.getView().byId("Abstract-"+id).setValueState(sap.ui.core.ValueState.None);
-					};
+					}
 					
 					if(studienListe[i][6] == "") {
 						this.getView().byId("Verweis-"+id).setValueState(sap.ui.core.ValueState.Error);
@@ -282,8 +282,8 @@ sap.ui.define([
 					}
 					else {
 						this.getView().byId("Verweis-"+id).setValueState(sap.ui.core.ValueState.None);
-					};
-				};
+					}
+				}
 
 				if(validMedium && validAbstract && validVerweis) {
 					$.ajax({
@@ -304,7 +304,7 @@ sap.ui.define([
 				}
 				else {
 					MessageBox.error("Bitte die Eingaben überprüfen!");
-				};
+				}
 			},
 			
 			onCancel: function() {
@@ -314,7 +314,7 @@ sap.ui.define([
 					onClose: function(sResult) {
 						if(sResult == "YES") {																				
 							pointer.loadData();																				
-						};
+						}
 					}
 				});
 			},			
@@ -330,7 +330,6 @@ sap.ui.define([
 						}
 					}
 				});
-			},
-			
+			}
 		});
 	});

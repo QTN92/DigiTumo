@@ -48,7 +48,7 @@ sap.ui.define([
 				if (!oDialog) {
 					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.setAnwesenheit", this);
 					this.getView().addDependent(oDialog);
-				};
+				}
 				$.ajax({
 					url: "php/patienten/getExperten.php",
 					type: "GET",
@@ -94,8 +94,8 @@ sap.ui.define([
 							anwesendeAerzte = anwesendeAerzte + ", ";
 						}
 						anwesendeAerzte = anwesendeAerzte + sap.ui.getCore().byId(id).getTitle();
-					};
-				};
+					}
+				}
 				$.ajax({
 					url: "php/patienten/setExperten.php",
 					data: {
@@ -167,7 +167,7 @@ sap.ui.define([
 				while (!isNaN(parseInt(evt[i]))) {
 					id = evt[i] + id;
 					i--;
-				};
+				}
 				id = parseInt(id);
 				var patientId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[0];
 				// Laden der allgemeinen Patientendaten und des entsprechenden Röntgenbildes
@@ -317,12 +317,12 @@ sap.ui.define([
 						}
 						else if(response == "rw") {
 							sap.ui.getCore().byId("__xmlview3--vorgehenFesthalten").setEnabled(true);
-						};
+						}
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
-				})
+				});
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 
@@ -339,9 +339,9 @@ sap.ui.define([
 							pointer.getView().byId("filter").setSelectedKey("");
 							pointer.onFilter();
 							pointer.getOwnerComponent().getTargets().display("login");
-						};
+						}
 					}
 				});
-			},
+			}
 		});
 	});

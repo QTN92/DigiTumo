@@ -56,7 +56,7 @@ sap.ui.define([
 									id = id.substring(0, 38) + i;
 									this.getView().byId(id).setSelectedKey(Object.values(Object.values(oModel.getData())[i])[1]);
 									this.getView().byId(id).setValue(Object.values(Object.values(oModel.getData())[i])[1]);
-								};
+								}
 							},
 							error: function handleError() {
 								MessageBox.error("Die Verbindung ist fehlgeschlagen.");												// Ausgabe einer Messagebox des Typs "Error"
@@ -102,7 +102,7 @@ sap.ui.define([
 				if (!oDialog) { 
 					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addUser", this);		// Aufruf des Fragments "addBenutzer"
 					this.getView().addDependent(oDialog);
-				};
+				}
 				this.oDialog.open();																						// Öffnen des Dialogs
 			},
 
@@ -115,7 +115,7 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.None);							// Ändert den Status auf "None"
-				};
+				}
 			},
 			
 			// Funktion wird beim Klick auf den Button mit dem Diskettensymbol im Dialog "benutzerdialog" ausgeführt
@@ -141,7 +141,7 @@ sap.ui.define([
 					this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.None);							// Ändert den Status auf "None"
 					vorname = vorname.trim();
 					vorname = vorname[0].toUpperCase() + vorname.substring(1, vorname.length);
-				};
+				}
 					
 				var nachname = this.getView().byId("nachname").getValue();												// Auslesen des Wertes "Vorname"
 				var validNachname = true;																				// Variable "validNachname" initial falsch setzen
@@ -164,19 +164,19 @@ sap.ui.define([
 					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.None);						// Ändert den Status auf "None"
 					nachname = nachname.trim();
 					nachname = nachname[0].toUpperCase() + nachname.substring(1, nachname.length);
-				};
+				}	
 
 				var geburtsdatum = this.getView().byId("geburtsdatum").getValue();										// Auslesen des Wertes "geburtsdatum"
 				var validGeburtsdatum = true;																			// Variable "validGeburtsdatum" initial falsch setzen
 				if(geburtsdatum == "") {																				// Abfangen von leerer Eingabe
 					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
 					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein Geburtsdatum eingeben.");
-					validGeburtsdatum = false	
+					validGeburtsdatum = false;
 				}
 				else if(geburtsdatum.substring(6, 10) >= new Date().getFullYear()) {
 					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);					
 					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
-					validGeburtsdatum = false	
+					validGeburtsdatum = false;
 				}
 				else if(this.getView().byId("geburtsdatum").getValueState() == "Error") {								// Falls Status "None"
 					this.getView().byId("geburtsdatum").setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
@@ -199,10 +199,10 @@ sap.ui.define([
 								this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);
 								this.getView().byId("geburtsdatum").setValueStateText("Der User muss min. 18 Jahre alt sein.");
 								validGeburtsdatum = false;
-							};
-						};
-					};
-				};
+							}
+						}
+					}
+				}
 				
 				var passwort = this.getView().byId("passwort").getValue();												// Auslesen des Wertes "passwort"	
 				var validPasswort = true;																				// Variable "validPasswort" initial falsch setzen
@@ -221,8 +221,8 @@ sap.ui.define([
 					for(var i = 0; i < passwort.length; i++) {															// Schleife mit Anzahl der Durchläufe gleich Länge des Passworts in einzelnen Buchtaben
 						if(!isNaN(passwort[i])) {																		// isNaN --> is not a number
 							zahl = true;																				// Variable "validGeburtsdatum" auf wahr setzen
-						};
-					};
+						}
+					}
 					if(!zahl) {
 						this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.Error);					// Ändert den Status auf "Error"
 						this.getView().byId("passwort").setValueStateText("Das Passwort muss min. eine Zahl enthalten.");								// Ausgabe einer Messagebox des Typs "Error"
@@ -230,8 +230,8 @@ sap.ui.define([
 					}
 					else {
 						this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.None);						// Ändert den Status auf "None"
-					};
-				};
+					}
+				}
 
 				var berechtigungsstatus = this.getView().byId("berechtigungsstatus").getValue();						// Auslesen des Wertes "berechtigungsstatus"
 				var validBerechtigungsstatus = true;																	// Variable "validBerechtigungsstatus" initial falsch setzen
@@ -247,7 +247,7 @@ sap.ui.define([
 				}
 				else {
 					this.getView().byId("berechtigungsstatus").setValueState(sap.ui.core.ValueState.None);				// Ändert den Status auf "None"
-				};
+				}
 				
 				if(validVorname && validNachname && validGeburtsdatum && validPasswort && validBerechtigungsstatus) {
 					$.ajax({																								// Aufruf eines AJAX-Calls
@@ -288,7 +288,7 @@ sap.ui.define([
 				}
 				else {
 					MessageBox.error("Bitte die Eingaben überprüfen!");
-				};
+				}
 			},
 			
 			// Funktion wird beim Klick auf den Button mit dem roten X im Dialog "benutzerdialog" ausgeführt
@@ -307,14 +307,14 @@ sap.ui.define([
 							if(sResult == "YES") {																				
 								pointer.oDialog.destroy();
 								pointer.oDialog.close();
-							};
+							}
 						}
 					});
 				}
 				else {
 					this.oDialog.destroy();																						// Zerstören des Dialogs
 					this.oDialog.close();																						// Schließen des Dialogs
-				};
+				}
 			},
 				
 			// Funktion wird beim Klick auf den Button "DeleteUser" ausgeführt
@@ -340,13 +340,13 @@ sap.ui.define([
 									}
 									else {
 										pointer.loadData();
-									};
+									}
 								},
 								error: function handleError() {
 									MessageBox.error("Die Verbindung ist fehlgeschlagen.");									// Ausgabe einer Messagebox des Typs "Error"
 								}
-							})
-						};
+							});
+						}
 					}
 				});
 			},
@@ -364,9 +364,9 @@ sap.ui.define([
 					userListe[i] = new Array(id.length);
 					for(var j = 0; j < userListe[i].length; j++) {
 						userListe[i][j] = this.getView().byId(id[j]+i).getValue();
-					};
+					}
 					i++;
-				};
+				}
 				
 				var validVorname = true;
 				var validNachname = true;
@@ -394,7 +394,7 @@ sap.ui.define([
 						this.getView().byId("Vorname-"+id).setValueState(sap.ui.core.ValueState.None);
 						userListe[i][0] = userListe[i][0].trim();
 						userListe[i][0] = userListe[i][0][0].toUpperCase() + userListe[i][0].substring(1, userListe[i][0].length);
-					};
+					}
 					
 					if(userListe[i][1] == "") {
 						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.Error);
@@ -415,7 +415,7 @@ sap.ui.define([
 						userListe[i][1] = userListe[i][1].trim();
 						userListe[i][1] = userListe[i][1][0].toUpperCase() + userListe[i][1].substring(1, userListe[i][1].length);
 						this.getView().byId("Nachname-"+id).setValueState(sap.ui.core.ValueState.None);
-					};
+					}
 					
 					if(userListe[i][3].length < 8) {
 						this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.Error);
@@ -432,8 +432,8 @@ sap.ui.define([
 						for(var j = 0; j < userListe[i][3].length; j++) {															
 							if(!isNaN(userListe[i][3][j])) {																		
 								zahl = true;																				
-							};
-						};
+							}
+						}
 						if(!zahl) {
 							this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.Error);					
 							this.getView().byId("Passwort-"+id).setValueStateText("Das Passwort muss min. eine Zahl enthalten.");	
@@ -441,8 +441,8 @@ sap.ui.define([
 						}
 						else {
 							this.getView().byId("Passwort-"+id).setValueState(sap.ui.core.ValueState.None);						
-						};
-					};
+						}
+					}
 					
 					if(userListe[i][4] == "") {
 						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.Error);
@@ -457,8 +457,8 @@ sap.ui.define([
 					}
 					else {
 						this.getView().byId("Benutzerrolle-"+id).setValueState(sap.ui.core.ValueState.None);
-					};
-				};
+					}
+				}
 				
 				if(validVorname && validNachname && validPasswort && validBenutzerrolle) {
 					$.ajax({																									// Aufruf eines AJAX-Calls
@@ -474,7 +474,7 @@ sap.ui.define([
 							}
 							else {
 								MessageBox.success("Speichern erfolgreich.");														// Ausgabe einer Messagebox des Typs "Success"
-							};
+							}
 							this.loadData();
 						},
 						error: function handleError() {
@@ -484,7 +484,7 @@ sap.ui.define([
 				}
 				else {
 					MessageBox.error("Bitte die Eingaben überprüfen!");
-				};
+				}
 			},
 			
 			// Funktion wird beim Klick auf den Button "cancel" ausgeführt
@@ -495,7 +495,7 @@ sap.ui.define([
 					onClose: function(sResult) {
 						if(sResult == "YES") {																				// Falls Aktion "YES"
 							pointer.loadData();																				// Aufruf der Funktion loadData
-						};
+						}
 					}
 				});
 			},
@@ -512,7 +512,6 @@ sap.ui.define([
 						}
 					}
 				});
-			},
-			
+			}
 		});
 	});

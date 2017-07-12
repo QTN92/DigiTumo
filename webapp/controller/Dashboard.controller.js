@@ -17,17 +17,17 @@ sap.ui.define([
 					// Dialog über fragment factory erstellen
 					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.setVorgehen", this);
 					oView.addDependent(oDialog);
-				};
+				}
 				var datum = new Date();
 				var tag = datum.getDate().toString();
 				var monat = (datum.getMonth() + 1).toString();
 				var jahr = datum.getFullYear().toString();
 				if (tag.length == 1) {
 					tag = "0" + tag;
-				};
+				}
 				if (monat.length == 1) {
 					monat = "0" + monat;
-				};
+				}
 				datum = tag + "." + monat + "." + jahr;
 				var oModel = new JSONModel(jQuery.sap.getModulePath("DigiTumo.model", "/vorgehen.json"));
 				this.getView().byId("vorgehen").setModel(oModel);
@@ -74,8 +74,8 @@ sap.ui.define([
 									error: function handleError() {
 										MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 									}
-								})
-							};
+								});
+							}
 						},
 						error: function handleError() {
 							MessageBox.error("Speichern fehlgeschlagen.");
@@ -126,10 +126,9 @@ sap.ui.define([
 							});
 							pointer.resetFilter();
 							pointer.getOwnerComponent().getTargets().display("login");
-						};
+						}
 					}
 				});
-			},
-			
+			}
 		});
 	});
