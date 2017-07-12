@@ -241,7 +241,7 @@ sap.ui.define([
 				id[4] = "Medium-" + this.getView().getId() + "--StudienTab-";
 				id[5] = "Abstract-" + this.getView().getId() + "--StudienTab-";
 				id[6] = "Verweis-" + this.getView().getId() + "--StudienTab-";
-				var studienListe = new Array[];
+				var studienListe = new Array();
 				var i = 0;
 				while(this.getView().byId(id[0]+i) !== undefined) {
 					studienListe[i] = new Array(id.length);
