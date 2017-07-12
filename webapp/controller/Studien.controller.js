@@ -49,7 +49,7 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
-						window.open(response, '_blank');
+						window.open(response, "_blank");
 					},
 					error: function handleError() {
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
@@ -62,7 +62,7 @@ sap.ui.define([
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
-						if(sResult == "YES") {
+						if(sResult === "YES") {
 							$.ajax({
 								url: "php/dashboard/clearHilfstabelle.php",
 								context: this

@@ -15,21 +15,21 @@ sap.ui.define([
 						sap.ui.getCore().byId("__xmlview2").oController.onAnwesenheitVermerken();
 					}
 				}),
-					// Binding der Patienten- und Krankenakteninformationen
-					$.ajax({
-						url: "php/patienten/getPatienten.php",
-						type: "GET",
-						context: this,
-						success: function handleSuccess(response) {
-							var oModel = new JSONModel();
-							oModel.setJSON(response);
-							this.getView().setModel(oModel);
-							this.onAnwesenheitVermerken();
-						},
-						error: function handleError() {
-							sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-						}
-					});
+				// Binding der Patienten- und Krankenakteninformationen
+				$.ajax({
+					url: "php/patienten/getPatienten.php",
+					type: "GET",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						this.getView().setModel(oModel);
+						this.onAnwesenheitVermerken();
+					},
+					error: function handleError() {
+						sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
 				$.ajax({
 					url: "php/patienten/getFilter.php",
 					type: "GET",
@@ -90,7 +90,7 @@ sap.ui.define([
 				for (var i = 0; i < anzahlAerzte; i++) {
 					id = id.substring(0, 38) + i;
 					if (sap.ui.getCore().byId(id).getSelected()) {
-						if (anwesendeAerzte != "") {
+						if (anwesendeAerzte !== "") {
 							anwesendeAerzte = anwesendeAerzte + ", ";
 						}
 						anwesendeAerzte = anwesendeAerzte + sap.ui.getCore().byId(id).getTitle();
@@ -122,7 +122,7 @@ sap.ui.define([
 
 			onFilter: function() {
 				var key = this.getView().byId("filter").getValue();
-				if (key != "") {
+				if (key !== "") {
 					$.ajax({
 						url: "php/patienten/getFilterGesetzt.php",
 						data: {
@@ -312,10 +312,10 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
-						if(response == "r") {
+						if(response === "r") {
 							sap.ui.getCore().byId("__xmlview3--vorgehenFesthalten").setEnabled(false);
 						}
-						else if(response == "rw") {
+						else if(response === "rw") {
 							sap.ui.getCore().byId("__xmlview3--vorgehenFesthalten").setEnabled(true);
 						}
 					},
@@ -331,7 +331,7 @@ sap.ui.define([
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
-						if (sResult == "YES") {
+						if (sResult === "YES") {
 							$.ajax({
 								url: "php/dashboard/clearHilfstabelle.php",
 								context: this

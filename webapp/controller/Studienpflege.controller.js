@@ -41,13 +41,13 @@ sap.ui.define([
 			onSaveNeueStudie: function() {
 				var vorname = this.getView().byId("vorname").getValue();
 				var validVorname = true;																					
-				if(vorname == "") {																					
+				if(vorname === "") {																					
 					this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);								
 					this.getView().byId("vorname").setValueStateText("Bitte einen Vornamen eingeben.");														
 					validVorname = false;
 				}
 				else {
-					if(vorname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {																
+					if(vorname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {																
 						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);					
 						this.getView().byId("vorname").setValueStateText("Der Vorname darf nur Buchstaben enthalten.");		
 						this.getView().byId("Vorname").setValue("");													
@@ -62,13 +62,13 @@ sap.ui.define([
 
 				var nachname = this.getView().byId("nachname").getValue();												
 				var validNachname = true;																				
-				if(nachname == "") {																					
+				if(nachname === "") {																					
 					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);						
 					this.getView().byId("nachname").setValueStateText("Bitte einen Nachnamen eingeben.");												
 					validNachname = false;
 				}
 				else {
-					if(nachname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) == -1) {														
+					if(nachname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {														
 						this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					
 						this.getView().byId("nachname").setValueStateText("Der Nachname darf nur Buchstaben enthalten.");					
 						validNachname = false;
@@ -82,7 +82,7 @@ sap.ui.define([
 				
 				var titel = this.getView().byId("titel").getValue();
 				var validTitel = true;
-				if(titel == "") {
+				if(titel === "") {
 					this.getView().byId("titel").setValueState(sap.ui.core.ValueState.Error);					
 					this.getView().byId("titel").setValueStateText("Bitte einen Titel eingeben.");
 					validTitel = false;
@@ -93,12 +93,12 @@ sap.ui.define([
 
 				var validJahr = true;
 				var jahr = this.getView().byId("jahr").getValue();		
-				if(jahr == "") {
+				if(jahr === "") {
 					this.getView().byId("jahr").setValueState(sap.ui.core.ValueState.Error);					
 					this.getView().byId("jahr").setValueStateText("Bitte ein Jahr eingeben.");
 					validJahr = false;
 				}
-				else if(jahr.search(/^[0-9]+$/) == -1) {
+				else if(jahr.search(/^[0-9]+$/) === -1) {
 					this.getView().byId("jahr").setValueState(sap.ui.core.ValueState.Error);					
 					this.getView().byId("jahr").setValueStateText("Bitte ein gültiges Jahr eingeben.");
 					validJahr = false;
@@ -114,7 +114,7 @@ sap.ui.define([
 								
 				var medium = this.getView().byId("medium").getValue();
 				var validMedium = true;
-				if(medium == "") {
+				if(medium === "") {
 					this.getView().byId("medium").setValueState(sap.ui.core.ValueState.Error);
 					this.getView().byId("medium").setValueStateText("Bitte ein Medium eingeben.");
 					validMedium = false;
@@ -125,7 +125,7 @@ sap.ui.define([
 				
 				var abstract = this.getView().byId("abstract").getValue();
 				var validAbstract = true;
-				if(abstract == "") {
+				if(abstract === "") {
 					this.getView().byId("abstract").setValueState(sap.ui.core.ValueState.Error);
 					this.getView().byId("abstract").setValueStateText("Bitte einen Abstract eingeben.");
 					validAbstract = false;
@@ -136,7 +136,7 @@ sap.ui.define([
 				
 				var verweis = this.getView().byId("verweis").getValue();
 				var validVerweis = true;
-				if(verweis == "") {
+				if(verweis === "") {
 					this.getView().byId("verweis").setValueState(sap.ui.core.ValueState.Error);
 					this.getView().byId("verweis").setValueStateText("Bitte einen Verweis zum Original eingeben.");
 					validVerweis = false;
@@ -177,18 +177,18 @@ sap.ui.define([
 			onCancelNeueStudie: function() {
 				var pointer = this;
 				if(
-					this.getView().byId("vorname").getValue() != "" ||
-					this.getView().byId("nachname").getValue() != "" ||
-					this.getView().byId("titel").getValue() != "" ||
-					this.getView().byId("jahr").getValue() != "" ||
-					this.getView().byId("medium").getValue() != "" ||
-					this.getView().byId("abstract").getValue() != "" ||
-					this.getView().byId("verweis").getValue() != ""
+					this.getView().byId("vorname").getValue() !== "" ||
+					this.getView().byId("nachname").getValue() !== "" ||
+					this.getView().byId("titel").getValue() !== "" ||
+					this.getView().byId("jahr").getValue() !== "" ||
+					this.getView().byId("medium").getValue() !== "" ||
+					this.getView().byId("abstract").getValue() !== "" ||
+					this.getView().byId("verweis").getValue() !== ""
 				) {
 					MessageBox.confirm("Möchten Sie wirklich alle Änderungen verwerfen?", {										
 						actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],										
 						onClose: function(sResult) {
-							if(sResult == "YES") {																				
+							if(sResult === "YES") {																				
 								pointer.oDialog.destroy();
 								pointer.oDialog.close();
 							}
@@ -205,11 +205,11 @@ sap.ui.define([
 				var pointer = this;
 				var tmp = Object.values(oEvent.getParameters()).toString();
 				var id = parseInt(tmp.substring(48, tmp.length));
-				var tmp = Object.values(Object.values(this.getView().getModel().getData())[0])[id];
+				tmp = Object.values(Object.values(this.getView().getModel().getData())[0])[id];
 				MessageBox.confirm("Möchten Sie diesen Artikel wirklich löschen?", {							
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],									
 					onClose: function(sResult) {
-						if(sResult == "YES") {		
+						if(sResult === "YES") {		
 							$.ajax({																					
 								url: "php/studienpflege/deleteStudie.php",
 								data: {
@@ -241,9 +241,9 @@ sap.ui.define([
 				id[4] = "Medium-" + this.getView().getId() + "--StudienTab-";
 				id[5] = "Abstract-" + this.getView().getId() + "--StudienTab-";
 				id[6] = "Verweis-" + this.getView().getId() + "--StudienTab-";
-				var studienListe = new Array();
+				var studienListe = new Array[];
 				var i = 0;
-				while(this.getView().byId(id[0]+i) != undefined) {
+				while(this.getView().byId(id[0]+i) !== undefined) {
 					studienListe[i] = new Array(id.length);
 					for(var j = 0; j < studienListe[i].length; j++) {
 						studienListe[i][j] = this.getView().byId(id[j]+i).getValue();
@@ -254,10 +254,10 @@ sap.ui.define([
 				var validMedium = true;
 				var validAbstract = true;
 				var validVerweis = true;
-				var id = this.getView().getId() + "--StudienTab-";
-				for(var i = 0; i < studienListe.length; i++) {
-					var id = id.substring(0, 23) + i;
-					if(studienListe[i][4] == "") {
+				id = this.getView().getId() + "--StudienTab-";
+				for(i = 0; i < studienListe.length; i++) {
+					id = id.substring(0, 23) + i;
+					if(studienListe[i][4] === "") {
 						this.getView().byId("Medium-"+id).setValueState(sap.ui.core.ValueState.Error);
 						this.getView().byId("Medium-"+id).setValueStateText("Bitte ein Medium eingeben.");
 						validMedium = false;
@@ -266,7 +266,7 @@ sap.ui.define([
 						this.getView().byId("Medium-"+id).setValueState(sap.ui.core.ValueState.None);
 					}
 
-					if(studienListe[i][5] == "") {
+					if(studienListe[i][5] === "") {
 						this.getView().byId("Abstract-"+id).setValueState(sap.ui.core.ValueState.Error);
 						this.getView().byId("Abstract-"+id).setValueStateText("Bitte einen Abstract eingeben.");
 						validAbstract = false;
@@ -275,7 +275,7 @@ sap.ui.define([
 						this.getView().byId("Abstract-"+id).setValueState(sap.ui.core.ValueState.None);
 					}
 					
-					if(studienListe[i][6] == "") {
+					if(studienListe[i][6] === "") {
 						this.getView().byId("Verweis-"+id).setValueState(sap.ui.core.ValueState.Error);
 						this.getView().byId("Verweis-"+id).setValueStateText("Bitte einen Verweis zum Original eingeben.");
 						validVerweis = false;
@@ -293,7 +293,7 @@ sap.ui.define([
 						},
 						type: "POST",
 						context: this,
-						success: function handleSuccess(response) {
+						success: function handleSuccess() {
 							MessageBox.success("Speichern erfolgreich.");
 							this.loadData();
 						},
@@ -312,7 +312,7 @@ sap.ui.define([
 				MessageBox.confirm("Möchten Sie wirklich alle Änderungen verwerfen?", {										
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],										
 					onClose: function(sResult) {
-						if(sResult == "YES") {																				
+						if(sResult === "YES") {																				
 							pointer.loadData();																				
 						}
 					}
@@ -324,7 +324,7 @@ sap.ui.define([
 				MessageBox.confirm("Möchten Sie sich wirklich abmelden? Nicht gespeicherte Änderungen gehen verloren.", {
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
-						if(sResult == "YES") {
+						if(sResult === "YES") {
 							pointer.loadData();
 							pointer.getOwnerComponent().getTargets().display("login");							
 						}
