@@ -1,10 +1,9 @@
 sap.ui.define([
 		"sap/ui/core/mvc/Controller",
-		"sap/m/MessageBox",
-		"sap/ui/model/json/JSONModel"
+		"sap/m/MessageBox"
 	],
 
-	function(Controller, MessageBox, JSONModel) {
+	function(Controller, MessageBox) {
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Login", {
@@ -60,7 +59,7 @@ sap.ui.define([
 							switch (response) {
 								// Unterscheidung zwischen den Rückgabewerten der PHP-Ausführung
 								// 0: Login war erfolgreich
-								case '0':	
+								case "0":	
 									// Ausgelagertes Handling des erfolgreichen Logins
 									this.onLoginSuccessful();
 									// Initialzustand der Login-Felder wiederherstellen
@@ -68,13 +67,13 @@ sap.ui.define([
 									this.getView().byId("passwort").setValue("");
 									break;
 									// 1: Nutzername war falsch/ nicht vorhanden
-								case '1':
+								case "1":
 									MessageBox.error("Nutzer nicht vorhanden!");
 									this.getView().byId("user").setValueState(sap.ui.core.ValueState.Error);
 									this.getView().byId("user").setShowValueStateMessage(false);
 									break;
 									// 2: Passwort war falsch
-								case '2':
+								case "2":
 									MessageBox.error("Falsches Passwort!");
 									this.getView().byId("passwort").setValueState(sap.ui.core.ValueState.Error);
 									this.getView().byId("passwort").setShowValueStateMessage(false);
@@ -105,21 +104,21 @@ sap.ui.define([
 						var rollen = new Array(response.length);
 						for(var i = 0; i < rollen.length; i++) {
 							rollen[i] = response[i];
-						};
+						}
 						// Ab hier: Navigation basierend auf aktuellem Szenario
 						// Die folgende Passage muss für die Implementation des möglichen Szenarios geändert werden
 						switch(rollen[0]) {
 						// 0: User ist Admin
-						case '0':
+						case "0":
 							this.getOwnerComponent().getTargets().display("admin");
 							break;
 						// 1: User kann Nachrichten pflegen
-						case '1':
+						case "1":
 							// TODO: Navigation Studienpflege 
 							this.getOwnerComponent().getTargets().display("studienpflege");
 							break;
 						// 2: User ist Arzt
-						case '2':
+						case "2":
 							this.getOwnerComponent().getTargets().display("patienten");
 							break;
 						}

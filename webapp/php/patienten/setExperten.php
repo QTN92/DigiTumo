@@ -8,7 +8,7 @@
 		INTO 
 			tmp (
 				anwesendeAerzte
-			) 
+			)
 		VALUES (
 			'$anwesendeAerzte'
 		)

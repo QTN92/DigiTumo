@@ -15,21 +15,21 @@ sap.ui.define([
 						sap.ui.getCore().byId("__xmlview2").oController.onAnwesenheitVermerken();
 					}
 				}),
-					// Binding der Patienten- und Krankenakteninformationen
-					$.ajax({
-						url: "php/patienten/getPatienten.php",
-						type: "GET",
-						context: this,
-						success: function handleSuccess(response) {
-							var oModel = new JSONModel();
-							oModel.setJSON(response);
-							this.getView().setModel(oModel);
-							this.onAnwesenheitVermerken();
-						},
-						error: function handleError() {
-							sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-						}
-					});
+				// Binding der Patienten- und Krankenakteninformationen
+				$.ajax({
+					url: "php/patienten/getPatienten.php",
+					type: "GET",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						this.getView().setModel(oModel);
+						this.onAnwesenheitVermerken();
+					},
+					error: function handleError() {
+						sap.m.MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
 				$.ajax({
 					url: "php/patienten/getFilter.php",
 					type: "GET",
@@ -48,7 +48,7 @@ sap.ui.define([
 				if (!oDialog) {
 					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.setAnwesenheit", this);
 					this.getView().addDependent(oDialog);
-				};
+				}
 				$.ajax({
 					url: "php/patienten/getExperten.php",
 					type: "GET",
@@ -73,8 +73,10 @@ sap.ui.define([
 						this.getView().byId("__xmlview2--AnwSpeichern").setEnabled(true);
 						this.getView().byId("__xmlview2--ohneAnwSpeichern").setEnabled(false);
 						break;
-					} else {
+					} 
+					else {
 						this.getView().byId("__xmlview2--AnwSpeichern").setEnabled(false);
+						this.getView().byId("__xmlview2--ohneAnwSpeichern").setEnabled(true);
 					}
 				}
 			},
@@ -88,12 +90,12 @@ sap.ui.define([
 				for (var i = 0; i < anzahlAerzte; i++) {
 					id = id.substring(0, 38) + i;
 					if (sap.ui.getCore().byId(id).getSelected()) {
-						if (anwesendeAerzte != "") {
+						if (anwesendeAerzte !== "") {
 							anwesendeAerzte = anwesendeAerzte + ", ";
 						}
 						anwesendeAerzte = anwesendeAerzte + sap.ui.getCore().byId(id).getTitle();
-					};
-				};
+					}
+				}
 				$.ajax({
 					url: "php/patienten/setExperten.php",
 					data: {
@@ -120,7 +122,7 @@ sap.ui.define([
 
 			onFilter: function() {
 				var key = this.getView().byId("filter").getValue();
-				if (key != "") {
+				if (key !== "") {
 					$.ajax({
 						url: "php/patienten/getFilterGesetzt.php",
 						data: {
@@ -154,17 +156,21 @@ sap.ui.define([
 				}
 			},
 
-			// Logik für den Patientenview
+			// Daten für das Dashboard des ausgewählten Patienten werden bereits hier geladen.
+			// Werden die Daten erst im Dashboard-Controller geladen, kann es sein, dass das 
+			// Dashboard angezeigt wird, bevor die Daten geladen worden sind
 			onListItemPress: function(oEvent) {
+				// Auslesen des ausgewählten Patienten
 				var evt = oEvent.getSource().getId().toString();
 				var i = evt.length - 1;
 				var id = "";
 				while (!isNaN(parseInt(evt[i]))) {
 					id = evt[i] + id;
 					i--;
-				};
+				}
 				id = parseInt(id);
 				var patientId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[0];
+				// Laden der allgemeinen Patientendaten und des entsprechenden Röntgenbildes
 				$.ajax({
 					url: "php/dashboard/getPatientendaten.php",
 					data: {
@@ -181,6 +187,7 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+				// Laden des aktuellen Gesundheitsscores
 				$.ajax({
 					url: "php/dashboard/getGesundheitsscore.php",
 					data: {
@@ -203,6 +210,10 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+
+				
+				// Laden des Krankheitsverlaufs inkl. Medikamentationsverlauf
+				//Funktion zum Einbinden zusätzlicher Medikamenten
 				$.ajax({
 					url: "php/dashboard/getMedikamentation.php",
 					data: {
@@ -217,25 +228,6 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
-				$.ajax({
-					url: "php/dashboard/getWeiteresVorgehen.php",
-					data: {
-						"patientId": patientId
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						var oModel = new JSONModel();
-						oModel.setJSON(response);
-						sap.ui.getCore().byId("__xmlview3--vorgehenshistorie").setModel(oModel);
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-					}
-				});
-
-				//Funktion zum Einbinden zusätzlicher Medikamenten
-
 				$.ajax({
 					url: "php/dashboard/getKrankheitsverlauf.php",
 					data: {
@@ -278,6 +270,59 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+				// Laden der Röntgenbilder
+				$.ajax({
+					url: "php/dashboard/getRoentgenbilder.php",
+					data: {
+						"patientId": patientId
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						var htmlContent = "<video width='100%' height='100%' autoplay='true' loop='true' <source src='" 
+							+ response 
+							+ "' type='video/mp4'> Your browser does not support the video tag. </video>";
+						sap.ui.getCore().byId("__xmlview3--htmlVideo").setContent(htmlContent);
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+				// Laden des bisherigen weiteren Vorgehens
+				$.ajax({
+					url: "php/dashboard/getWeiteresVorgehen.php",
+					data: {
+						"patientId": patientId
+					},
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						var oModel = new JSONModel();
+						oModel.setJSON(response);
+						sap.ui.getCore().byId("__xmlview3--vorgehenshistorie").setModel(oModel);
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
+				// Feststellen, ob Experten vermerkt wurden (write-Modus) oder nicht (read-only)
+				// Davon ist abhängig, ob der Nutzer ein weiteres Vorgehen vermerken kann
+				$.ajax({
+					url: "php/dashboard/getModus.php",
+					type: "POST",
+					context: this,
+					success: function handleSuccess(response) {
+						if(response === "r") {
+							sap.ui.getCore().byId("__xmlview3--vorgehenFesthalten").setEnabled(false);
+						}
+						else if(response === "rw") {
+							sap.ui.getCore().byId("__xmlview3--vorgehenFesthalten").setEnabled(true);
+						}
+					},
+					error: function handleError() {
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
+					}
+				});
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 
@@ -286,7 +331,7 @@ sap.ui.define([
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
-						if (sResult == "YES") {
+						if (sResult === "YES") {
 							$.ajax({
 								url: "php/dashboard/clearHilfstabelle.php",
 								context: this
@@ -294,9 +339,9 @@ sap.ui.define([
 							pointer.getView().byId("filter").setSelectedKey("");
 							pointer.onFilter();
 							pointer.getOwnerComponent().getTargets().display("login");
-						};
+						}
 					}
 				});
-			},
+			}
 		});
 	});
