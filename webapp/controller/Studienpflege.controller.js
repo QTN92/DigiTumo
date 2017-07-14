@@ -39,123 +39,129 @@ sap.ui.define([
 			},
 			
 			onSaveNeueStudie: function() {
-				var vorname = this.getView().byId("vorname").getValue();
+				var oVorname = this.getView().byId("vorname");
+				var oVornameValue = oVorname.getValue();
 				var validVorname = true;																					
-				if(vorname === "") {																					
-					this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);								
-					this.getView().byId("vorname").setValueStateText("Bitte einen Vornamen eingeben.");														
+				if(oVornameValue === "") {																					
+					oVorname.setValueState(sap.ui.core.ValueState.Error);								
+					oVorname.setValueStateText("Bitte einen Vornamen eingeben.");														
 					validVorname = false;
 				}
 				else {
-					if(vorname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {																
-						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.Error);					
-						this.getView().byId("vorname").setValueStateText("Der Vorname darf nur Buchstaben enthalten.");		
-						this.getView().byId("Vorname").setValue("");													
+					if(oVornameValue.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {																
+						oVorname.setValueState(sap.ui.core.ValueState.Error);					
+						oVorname.setValueStateText("Der Vorname darf nur Buchstaben enthalten.");		
+						oVorname.setValue("");													
 						validVorname = false;
 					}
 					else {
-						this.getView().byId("vorname").setValueState(sap.ui.core.ValueState.None);							
-						vorname = vorname.trim();
-						vorname = vorname[0].toUpperCase() + vorname.substring(1, vorname.length);
+						oVorname.setValueState(sap.ui.core.ValueState.None);							
+						oVornameValue = oVornameValue.trim();
+						oVornameValue = oVornameValue[0].toUpperCase() + oVornameValue.substring(1, oVornameValue.length);
 					}
 				}
-
-				var nachname = this.getView().byId("nachname").getValue();												
+				var oNachname = this.getView().byId("nachname");
+				var oNachnameValue = oNachname.getValue();												
 				var validNachname = true;																				
-				if(nachname === "") {																					
-					this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);						
-					this.getView().byId("nachname").setValueStateText("Bitte einen Nachnamen eingeben.");												
+				if(oNachnameValue === "") {																					
+					oNachname.setValueState(sap.ui.core.ValueState.Error);						
+					oNachname.setValueStateText("Bitte einen Nachnamen eingeben.");												
 					validNachname = false;
 				}
 				else {
-					if(nachname.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {														
-						this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.Error);					
-						this.getView().byId("nachname").setValueStateText("Der Nachname darf nur Buchstaben enthalten.");					
+					if(oNachnameValue.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {														
+						oNachname.setValueState(sap.ui.core.ValueState.Error);					
+						oNachname.setValueStateText("Der Nachname darf nur Buchstaben enthalten.");					
 						validNachname = false;
 					}
 					else {
-						this.getView().byId("nachname").setValueState(sap.ui.core.ValueState.None);						
-						nachname = nachname.trim();
-						nachname = nachname[0].toUpperCase() + nachname.substring(1, nachname.length);
+						oNachname.setValueState(sap.ui.core.ValueState.None);						
+						oNachnameValue = oNachnameValue.trim();
+						oNachnameValue = oNachnameValue[0].toUpperCase() + oNachnameValue.substring(1, oNachnameValue.length);
 					}
 				}
 				
-				var titel = this.getView().byId("titel").getValue();
+				var oTitel = this.getView().byId("titel");
+				var oTitelValue = oTitel.getValue();
 				var validTitel = true;
-				if(titel === "") {
-					this.getView().byId("titel").setValueState(sap.ui.core.ValueState.Error);					
-					this.getView().byId("titel").setValueStateText("Bitte einen Titel eingeben.");
+				if(oTitelValue === "") {
+					oTitel.setValueState(sap.ui.core.ValueState.Error);					
+					oTitel.setValueStateText("Bitte einen Titel eingeben.");
 					validTitel = false;
 				}
 				else {
-					this.getView().byId("titel").setValueState(sap.ui.core.ValueState.None);
+					oTitel.setValueState(sap.ui.core.ValueState.None);
 				}
-
+				
+				var oJahr = this.getView().byId("jahr");
+				var oJahrValue = oJahr.getValue();
 				var validJahr = true;
-				var jahr = this.getView().byId("jahr").getValue();		
-				if(jahr === "") {
-					this.getView().byId("jahr").setValueState(sap.ui.core.ValueState.Error);					
-					this.getView().byId("jahr").setValueStateText("Bitte ein Jahr eingeben.");
+				if(oJahrValue === "") {
+					oJahr.setValueState(sap.ui.core.ValueState.Error);					
+					oJahr.setValueStateText("Bitte ein Jahr eingeben.");
 					validJahr = false;
 				}
-				else if(jahr.search(/^[0-9]+$/) === -1) {
-					this.getView().byId("jahr").setValueState(sap.ui.core.ValueState.Error);					
-					this.getView().byId("jahr").setValueStateText("Bitte ein gültiges Jahr eingeben.");
+				else if(oJahrValue.search(/^[0-9]+$/) === -1) {
+					oJahr.setValueState(sap.ui.core.ValueState.Error);					
+					oJahr.setValueStateText("Bitte ein gültiges Jahr eingeben.");
 					validJahr = false;
 				}
-				else if(parseInt(jahr) > new Date().getFullYear() || parseInt(jahr) < (parseInt(new Date().getFullYear())-10)){
-					this.getView().byId("jahr").setValueState(sap.ui.core.ValueState.Error);					
-					this.getView().byId("jahr").setValueStateText("Bitte ein gültiges Jahr eingeben.");
+				else if(parseInt(oJahrValue) > new Date().getFullYear() || parseInt(oJahrValue) < (parseInt(new Date().getFullYear())-10)){
+					oJahr.setValueState(sap.ui.core.ValueState.Error);					
+					oJahr.setValueStateText("Bitte ein gültiges Jahr eingeben.");
 					validJahr = false;
 				}
 				else {
-					this.getView().byId("jahr").setValueState(sap.ui.core.ValueState.None);
+					oJahr.setValueState(sap.ui.core.ValueState.None);
 				}
-								
-				var medium = this.getView().byId("medium").getValue();
+						
+				var oMedium = this.getView().byId("medium");				
+				var oMediumValue = oMedium.getValue();
 				var validMedium = true;
-				if(medium === "") {
-					this.getView().byId("medium").setValueState(sap.ui.core.ValueState.Error);
-					this.getView().byId("medium").setValueStateText("Bitte ein Medium eingeben.");
+				if(oMediumValue === "") {
+					oMedium.setValueState(sap.ui.core.ValueState.Error);
+					oMedium.setValueStateText("Bitte ein Medium eingeben.");
 					validMedium = false;
 				}
 				else {
-					this.getView().byId("medium").setValueState(sap.ui.core.ValueState.None);
+					oMedium.setValueState(sap.ui.core.ValueState.None);
 				}
 				
-				var abstract = this.getView().byId("abstract").getValue();
+				var oAbstract = this.getView().byId("abstract");
+				var oAbstractValue = oAbstract.getValue();
 				var validAbstract = true;
-				if(abstract === "") {
-					this.getView().byId("abstract").setValueState(sap.ui.core.ValueState.Error);
-					this.getView().byId("abstract").setValueStateText("Bitte einen Abstract eingeben.");
+				if(oAbstractValue === "") {
+					oAbstract.setValueState(sap.ui.core.ValueState.Error);
+					oAbstract.setValueStateText("Bitte einen Abstract eingeben.");
 					validAbstract = false;
 				}
 				else {
-					this.getView().byId("abstract").setValueState(sap.ui.core.ValueState.None);
+					oAbstract.setValueState(sap.ui.core.ValueState.None);
 				}
 				
-				var verweis = this.getView().byId("verweis").getValue();
+				var oVerweis = this.getView().byId("verweis");
+				var oVerweisValue = oVerweis.getValue();
 				var validVerweis = true;
-				if(verweis === "") {
-					this.getView().byId("verweis").setValueState(sap.ui.core.ValueState.Error);
-					this.getView().byId("verweis").setValueStateText("Bitte einen Verweis zum Original eingeben.");
+				if(oVerweisValue === "") {
+					oVerweis.setValueState(sap.ui.core.ValueState.Error);
+					oVerweis.setValueStateText("Bitte einen Verweis zum Original eingeben.");
 					validVerweis = false;
 				}
 				else {
-					this.getView().byId("verweis").setValueState(sap.ui.core.ValueState.None);
+					oVerweis.setValueState(sap.ui.core.ValueState.None);
 				}
 				
 				if(validVorname && validNachname && validTitel && validJahr && validMedium && validAbstract && validVerweis) {
 					$.ajax({
 						url: "php/studien/setNeueStudie.php",
 						data: {
-							"vorname": vorname,
-							"nachname": nachname,
-							"titel": titel,
-							"jahr": jahr,
-							"medium": medium,
-							"abstract": abstract,
-							"verweis": verweis
+							"vorname": oVornameValue,
+							"nachname": oNachnameValue,
+							"titel": oTitelValue,
+							"jahr": oJahrValue,
+							"medium": oMediumValue,
+							"abstract": oAbstractValue,
+							"verweis": oVerweisValue
 						},
 						type: "POST",
 						context: this,

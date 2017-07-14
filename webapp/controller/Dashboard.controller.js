@@ -8,8 +8,8 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
-			
-			onSaveAction: function() {
+
+			onVorgehenFesthalten: function() {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
 				// Dialog laden
@@ -35,7 +35,7 @@ sap.ui.define([
 				oDialog.open();
 			},
 
-			onSave: function() {
+			onSaveVorgehen: function() {
 				var patientId = Object.values(Object.values(Object.values(this.getView().byId("patienteninformation").getModel().getData())[0])[0])[
 					0];
 				var vorgehen = this.getView().byId("vorgehen").getSelectedKey();
@@ -84,7 +84,7 @@ sap.ui.define([
 				}
 			},
 
-			onClose: function() {
+			onCancelVorgehen: function() {
 				this.getView().byId("vorgehendialog").close();
 				this.getView().byId("vorgehendialog").destroy();
 			},
@@ -96,7 +96,7 @@ sap.ui.define([
 			onBack: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
-			
+
 			resetFilter: function() {
 				sap.ui.getCore().byId("__xmlview2--filter").setSelectedKey("");
 				$.ajax({
@@ -114,12 +114,12 @@ sap.ui.define([
 				});
 			},
 
-			onLogout: function() {	
+			onLogout: function() {
 				var pointer = this;
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {
 					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
-						if(sResult === "YES") {
+						if (sResult === "YES") {
 							$.ajax({
 								url: "php/dashboard/clearHilfstabelle.php",
 								context: this

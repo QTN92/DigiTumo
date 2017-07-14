@@ -70,22 +70,22 @@ sap.ui.define([
 				var anzahlAerzte = oList.mAggregations.items.length;
 				for (var i = 0; i < anzahlAerzte; i++) {
 					if (oList.mAggregations.items[i].mProperties.selected) {
-						this.getView().byId("__xmlview2--AnwSpeichern").setEnabled(true);
-						this.getView().byId("__xmlview2--ohneAnwSpeichern").setEnabled(false);
+						this.getView().byId("__xmlview2--AnwSave").setEnabled(true);
+						this.getView().byId("__xmlview2--noAnwSave").setEnabled(false);
 						break;
 					} 
 					else {
-						this.getView().byId("__xmlview2--AnwSpeichern").setEnabled(false);
-						this.getView().byId("__xmlview2--ohneAnwSpeichern").setEnabled(true);
+						this.getView().byId("__xmlview2--AnwSave").setEnabled(false);
+						this.getView().byId("__xmlview2--noAnwSave").setEnabled(true);
 					}
 				}
 			},
 
 			// Methoden für das Vermerken der Anwesenheit
-			onAnwesenheitSpeichern: function() {
+			onAnwSave: function() {
 				var alleAerzte = this.getView().byId("anwesenheitsdialog").getModel().getJSON();
 				var anzahlAerzte = (alleAerzte.match(/vorname/g) || []).length;
-				var anwesendeAerzte = "";
+				var anwesendeAerzte;
 				var id = "__item2-__xmlview2--anwesenheitsliste-";
 				for (var i = 0; i < anzahlAerzte; i++) {
 					id = id.substring(0, 38) + i;
@@ -115,7 +115,7 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
 
-			onAnwesenheitNichtSpeichern: function() {
+			onAnwNotSave  : function() {
 				this.oDialog.close();
 				this.oDialog.destroy();
 			},
@@ -196,14 +196,15 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
-						sap.ui.getCore().byId("__xmlview3--score").setValue(response);
+						var oScore = sap.ui.getCore().byId("__xmlview3--score");
+						oScore.setValue(response);
 						// Abhängig vom Score wird dieser entsprechend gefärbt
 						if (response <= 3) {
-							sap.ui.getCore().byId("__xmlview3--score").setValueColor("Error");
+							oScore.setValueColor("Error");
 						} else if (response > 3 && response <= 7) {
-							sap.ui.getCore().byId("__xmlview3--score").setValueColor("Critical");
+							oScore.setValueColor("Critical");
 						} else {
-							sap.ui.getCore().byId("__xmlview3--score").setValueColor("Good");
+							oScore.setValueColor("Good");
 						}
 					},
 					error: function handleError() {
@@ -312,11 +313,12 @@ sap.ui.define([
 					type: "POST",
 					context: this,
 					success: function handleSuccess(response) {
+						var oVorgehen = sap.ui.getCore().byId("__xmlview3--vorgehenFesthalten");
 						if(response === "r") {
-							sap.ui.getCore().byId("__xmlview3--vorgehenFesthalten").setEnabled(false);
+							oVorgehen.setEnabled(false);
 						}
 						else if(response === "rw") {
-							sap.ui.getCore().byId("__xmlview3--vorgehenFesthalten").setEnabled(true);
+							oVorgehen.setEnabled(true);
 						}
 					},
 					error: function handleError() {
