@@ -10,11 +10,6 @@
 							<Label text="Passwort"/>
 							<Input id="passwort" type="Password" change="onPwInputChange" class="sapUiSmallMarginBottom"/>
 							<Button id="LoginB" text="Login" press="onLogin" width="100%" type="Default"/>
-							
-							<!--Testbutton um Patientenview anzuzeigen-->
-							<Button id="Patienten" text="Patienten" press="onPatienten" width="100%"/>
-							<Button id="Admin" text="Admin" press="onAdmin" width="100%"/>
-							<Button id="Studienpflege" text="Studienpflege" press="onStudienpflege" width="100%"/>
 						</l:content>
 					</l:VerticalLayout>
 				</FlexBox>
