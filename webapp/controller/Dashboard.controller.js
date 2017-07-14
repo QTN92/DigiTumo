@@ -41,7 +41,7 @@ sap.ui.define([
 				var vorgehen = this.getView().byId("vorgehen").getSelectedKey();
 				var notiz = this.getView().byId("notiz").getValue();
 				if (vorgehen === "") {
-					MessageBox.error("Bitte eine Entscheidung über das weitere Vorgehen eingeben.");
+					MessageBox.error("Bitte geben Sie eine Entscheidung über das weitere Vorgehen ein.");
 				} else {
 					$.ajax({
 						url: "php/dashboard/setWeiteresVorgehen.php",

@@ -9,6 +9,7 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Studien", {
 
+			// Funktion wird beim ersten Aufruf des Views ausgeführt
 			onInit: function() {
 				// Binding der Patienten- und Krankenakteninformationen
 				$.ajax({

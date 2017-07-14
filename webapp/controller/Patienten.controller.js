@@ -8,7 +8,8 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Patienten", {
-
+			
+			// Funktion wird beim ersten Aufruf des Views ausgeführt
 			onInit: function() {
 				this.getView().addEventDelegate({
 					onAfterShow: function () {
@@ -41,7 +42,8 @@ sap.ui.define([
 					}
 				});
 			},
-
+			
+			// Damit der View übersichtlich bleibt, öffnet sich beim Anzeigen ein seperater Dialog für den Anwesenheitsvermerk
 			onAnwesenheitVermerken: function() {
 				// Dialog für Vermerken der Anwesenheit
 				var oDialog = this.getView().byId("anwesenheitsdialog");
