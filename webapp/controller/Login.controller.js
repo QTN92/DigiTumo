@@ -7,6 +7,9 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Login", {
+			onInit: function() {
+			window.hasLoggedIn = false;	
+			},
 
 			onLogin: function() {
 				// Initial beide Felder auf fehlerfrei setzen, um ggf. neu eintragene Inputs zu berücksichtigen
@@ -122,13 +125,14 @@ sap.ui.define([
 								break;
 								// 2: User ist Arzt
 							case "2":
+								window.hasLoggedIn = true;
 								this.getOwnerComponent().getTargets().display("patienten");
 								break;
 						}
 					}
 				});
 			},
-
+			
 			onPwInputChange: function() {
 				this.byId("passwort").setValueState(sap.ui.core.ValueState.None);
 			},
