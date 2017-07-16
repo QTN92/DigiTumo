@@ -73,7 +73,7 @@ sap.ui.define([
 								case "1":
 									MessageBox.error("Nutzer nicht vorhanden!");
 									oUser.setValueState(sap.ui.core.ValueState.Error);
-									oPw.setShowValueStateMessage(false);
+									oUser.setShowValueStateMessage(false);
 									break;
 									// 2: Passwort war falsch
 								case "2":
@@ -130,11 +130,11 @@ sap.ui.define([
 			},
 
 			onPwInputChange: function() {
-				this.byId("passwort").setValueState(sap.ui.core.ValueState.none);
+				this.byId("passwort").setValueState(sap.ui.core.ValueState.None);
 			},
 
 			onUserInputChange: function() {
-				this.byId("user").setValueState(sap.ui.core.ValueState.none);
+				this.byId("user").setValueState(sap.ui.core.ValueState.None);
 			}
 		});
 	});
