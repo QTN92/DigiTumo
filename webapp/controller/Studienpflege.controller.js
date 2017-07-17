@@ -41,6 +41,14 @@ sap.ui.define([
 				this.oDialog.open();
 			},
 			
+			/** Funktion wird beim Klick auf den Button mit dem Diskettensymbol im Dialog "benutzerdialog" ausgeführt
+			*	Bevor der neue Eintrag gespeichert wird, werden Schritt für Schritt die Eingaben geprüft. Vor- und
+			*	Nachname dürfen keine Sonderzeichen oder Zahlen enthalten. Das Jahr darf nur Zahlen beinhalten und
+			*	nicht in der Zukunft liegen. Das erste Zeichen wird automatisch groß geschrieben. Leere Eingaben sind
+			*	immer ungültig.  Für jeden Wert wird eine Prüfvariable "validWert" erstellt, welche bei fehlerhafter
+			*	Eingabe auf falsch gesetzt wird. Der Status des Objekts wird auf Error gesetzt, was eine rote 
+			*	Umrandung und eine Fehlertext für den Nutzer bewirkt.
+			*/
 			onSaveNeueStudie: function() {
 				var oVorname = this.getView().byId("vorname");
 				var oVornameValue = oVorname.getValue();
@@ -154,6 +162,7 @@ sap.ui.define([
 					oVerweis.setValueState(sap.ui.core.ValueState.None);
 				}
 				
+				// Wenn alle Eingaben korrekt sind, wird die neue Studie in die Datenbank geschrieben
 				if(validVorname && validNachname && validTitel && validJahr && validMedium && validAbstract && validVerweis) {
 					$.ajax({
 						url: "php/studien/setNeueStudie.php",
@@ -183,6 +192,7 @@ sap.ui.define([
 				}
 			},
 			
+			// Wenn der Nutzer doch keine Studie hinzufügen möchte, werden alle Felder zurückgesetzt und der Dialog zerstört
 			onCancelNeueStudie: function() {
 				var pointer = this;
 				if(
@@ -240,7 +250,8 @@ sap.ui.define([
 					}
 				});
 			},
-
+			
+			// Bevor die Studienliste gespeichert wird, werden alle Werte geprüft, wie bei onSaveNeueStudie beschrieben.
 			onSave: function() {
 				var id = new Array(7);
 				id[0] = "Vorname-" + this.getView().getId() + "--StudienTab-";
@@ -252,6 +263,12 @@ sap.ui.define([
 				id[6] = "Verweis-" + this.getView().getId() + "--StudienTab-";
 				var studienListe = new Array();
 				var i = 0;
+				
+				/** In das zweidimensionale Array "studienListe" werden alle Studien mit Vor-, Nachname, Titel, Jahr, Medium, Absract und Verweis gespeichert.
+				*	Somit kann in der folgenden Schleife jeder Wert geprüft werden, bevor er in die Datenbank geschrieben wird. Die Prüfung ist notwendig,
+				*	da der Nutzer Änderungen an den bereits vorhanden Einträgen durchführen kann.
+				*/
+				
 				while(this.getView().byId(id[0]+i) !== undefined) {
 					studienListe[i] = new Array(id.length);
 					for(var j = 0; j < studienListe[i].length; j++) {
@@ -268,7 +285,7 @@ sap.ui.define([
 					id = id.substring(0, 23) + i;
 					if(studienListe[i][4] === "") {
 						this.getView().byId("Medium-"+id).setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("Medium-"+id).setValueStateText("Bitte ein Medium eingeben.");
+						this.getView().byId("Medium-"+id).setValueStateText("Bitte geben Sie ein Medium ein.");
 						validMedium = false;
 					}
 					else {
@@ -277,7 +294,7 @@ sap.ui.define([
 
 					if(studienListe[i][5] === "") {
 						this.getView().byId("Abstract-"+id).setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("Abstract-"+id).setValueStateText("Bitte einen Abstract eingeben.");
+						this.getView().byId("Abstract-"+id).setValueStateText("Bitte geben Sie einen Abstract ein.");
 						validAbstract = false;
 					}
 					else {
@@ -286,14 +303,15 @@ sap.ui.define([
 					
 					if(studienListe[i][6] === "") {
 						this.getView().byId("Verweis-"+id).setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("Verweis-"+id).setValueStateText("Bitte einen Verweis zum Original eingeben.");
+						this.getView().byId("Verweis-"+id).setValueStateText("Bitte geben Sie einen Verweis zum Original ein.");
 						validVerweis = false;
 					}
 					else {
 						this.getView().byId("Verweis-"+id).setValueState(sap.ui.core.ValueState.None);
 					}
 				}
-
+				
+				// Wenn alle Werte stimmen, wird die Liste in die Datebank gespeichert
 				if(validMedium && validAbstract && validVerweis) {
 					$.ajax({
 						url: "php/studienpflege/updateStudien.php",
@@ -327,7 +345,8 @@ sap.ui.define([
 					}
 				});
 			},			
-
+			
+			// Der Logout muss vorher vom Nutzer bestätigt werden
 			onLogout: function() {		
 				var pointer = this;
 				MessageBox.confirm("Möchten Sie sich wirklich abmelden? Nicht gespeicherte Änderungen gehen verloren.", {

@@ -70,6 +70,7 @@ sap.ui.define([
 				this.oDialog.open();
 			},
 
+			// Wenn in dem Dialog keine Arzt/ Ärztin ausgewählt wurde, werden der grüne Disketten-Button de- und "ohne Speichern fortfahren" aktviert und umgekehrt.
 			onSelectionChange: function() {
 				var oList = this.getView().byId("__xmlview2--anwesenheitsliste");
 				var anzahlAerzte = oList.mAggregations.items.length;
@@ -333,6 +334,7 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 
+			// Der Logout muss vorher vom Nutzer bestätigt werden
 			onLogout: function() {
 				var pointer = this;
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {

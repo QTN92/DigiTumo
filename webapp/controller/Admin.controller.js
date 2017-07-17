@@ -11,6 +11,7 @@ sap.ui.define([
 
 			// Auslagern des AJAX-Call als eigene Funktion, da diese mehrfach genutzt wird. Es werden User mit ihren Rollen geladen.
 			loadData: function() {
+				// Binding der Rollen
 				$.ajax({
 					url: "php/admin/getRollen.php",
 					type: "GET",
@@ -25,6 +26,7 @@ sap.ui.define([
 					}
 				});
 				var anzahlUser;
+				// Binding der Hilfstabelle
 				$.ajax({
 					url: "php/admin/getAnzahlUserMitRolle.php",
 					type: "GET",
@@ -36,6 +38,7 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen."); 
 					}
 				});
+				// Binding der User
 				$.ajax({
 					url: "php/admin/getUser.php",
 					type: "GET",
@@ -105,7 +108,7 @@ sap.ui.define([
 				this.oDialog.open(); // Öffnen des Dialogs
 			},
 
-			// Funktion wird beim Ändern des Datepicker "geburtsdatum" im Dialog "benutzerdialog" ausgeführt
+			// Funktion wird beim Ändern des Datepicker "geburtsdatum" im Dialog "benutzerdialog" ausgeführt. SAPUI5 prüft selbstständig, ob der Input ein Datum ist.
 			handleDateChange: function(oEvent) {
 				var valid = oEvent.getParameter("valid");
 				if (!valid) {
@@ -122,8 +125,8 @@ sap.ui.define([
 			*	erste Zeichen wird automatisch groß geschrieben. Leere Eingaben sind immer ungültig. Das Geburstdatum
 			*	muss zum einen ein gültiges Datum sein, zum anderen muss der User min. 18 Jahre alt sein. Das Passwort
 			*	muss aus min. acht und max. 30 Zeichen bestehen, sowie eine Zahl enthalten. Für jeden Wert wird eine 
-			*	Prüfvariable "validWert" erstellt, welche bei fehlerhafter Eingabe auf falshc gesetzt wird. Der Status
-			*	des Objekts wird auf Error, gesetzt, was eine rote Umrandung und eine Fehlertext für den Nutzer bewirkt.
+			*	Prüfvariable "validWert" erstellt, welche bei fehlerhafter Eingabe auf falsch gesetzt wird. Der Status
+			*	des Objekts wird auf Error gesetzt, was eine rote Umrandung und eine Fehlertext für den Nutzer bewirkt.
 			*/
 			onSaveNeuerUser: function() {
 				var oVorname = this.getView().byId("vorname");
@@ -244,7 +247,7 @@ sap.ui.define([
 					oBerechtigung.setValueState(sap.ui.core.ValueState.None);
 				}
 				
-				// Wenn alle Eingaben korrekt sind, wird der n
+				// Wenn alle Eingaben korrekt sind, wird der neuer Nutzer in die Datenbank geschrieben
 				if (validVorname && validNachname && validGeburtsdatum && validPasswort && validBerechtigungsstatus) {
 					$.ajax({
 						url: "php/admin/generateUserId.php",
@@ -346,7 +349,7 @@ sap.ui.define([
 				});
 			},
 			
-			// Bevor die Benutzerliste gespeichert wird, werden alle Werte geprüft, wie bei onSaveNeuerUser beschrieben.
+			// Bevor die Benutzerliste gespeichert wird, werden alle Werte geprüft, wie bei onSaveNeuerUser beschrieben
 			onSave: function() {
 				var id = new Array(5);
 				id[0] = "Vorname-" + this.getView().getId() + "--BenutzerTab-";
@@ -491,7 +494,7 @@ sap.ui.define([
 				});
 			},
 
-			// 
+			// Der Logout muss vorher vom Nutzer bestätigt werden
 			onLogout: function() {
 				var pointer = this;
 				MessageBox.confirm("Möchten Sie sich wirklich abmelden? Nicht gespeicherte Änderungen gehen verloren.", {

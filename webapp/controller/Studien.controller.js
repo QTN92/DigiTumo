@@ -27,6 +27,7 @@ sap.ui.define([
 				});
 			},
 			
+			
 			onPress: function(oEvent) {
 				var evt = oEvent.getSource().getId().toString();
 				var i = evt.length-1;
@@ -58,6 +59,7 @@ sap.ui.define([
 				});
 			},
 			
+			// Der Logout muss vorher vom Nutzer bestätigt werden
 			onLogout: function() {
 				var pointer = this;
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {
