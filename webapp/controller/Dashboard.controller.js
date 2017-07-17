@@ -9,6 +9,7 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Dashboard", {
 
+			// damit der View übersichtlich bleibt, öffnet sich beim Hinzufügen neuer User ein seperater Dialog
 			onVorgehenFesthalten: function() {
 				var oView = this.getView();
 				var oDialog = oView.byId("vorgehendialog");
@@ -18,6 +19,7 @@ sap.ui.define([
 					oDialog = sap.ui.xmlfragment(oView.getId(), "DigiTumo.fragment.setVorgehen", this);
 					oView.addDependent(oDialog);
 				}
+				// Da zum Festhalten des weiteren Vorgehens das aktuelle Datum vermerkt wird, wird dieses zur Anzeige generiert und dem Dialog mitgegeben
 				var datum = new Date();
 				var tag = datum.getDate().toString();
 				var monat = (datum.getMonth() + 1).toString();
@@ -41,7 +43,7 @@ sap.ui.define([
 				var vorgehen = this.getView().byId("vorgehen").getSelectedKey();
 				var notiz = this.getView().byId("notiz").getValue();
 				if (vorgehen === "") {
-					MessageBox.error("Bitte eine Entscheidung über das weitere Vorgehen eingeben.");
+					MessageBox.error("Bitte geben Sie eine Entscheidung über das weitere Vorgehen ein.");
 				} else {
 					$.ajax({
 						url: "php/dashboard/setWeiteresVorgehen.php",
@@ -93,6 +95,7 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("studien");
 			},
 
+			// Auf diesem View gibt es einen Zurück-Button, der wieder zum Dashboard führt
 			onBack: function() {
 				this.getOwnerComponent().getTargets().display("patienten");
 			},
@@ -114,6 +117,7 @@ sap.ui.define([
 				});
 			},
 
+			// Der Logout muss vorher vom Nutzer bestätigt werden
 			onLogout: function() {
 				var pointer = this;
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {

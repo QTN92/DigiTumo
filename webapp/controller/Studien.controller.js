@@ -9,6 +9,7 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Studien", {
 
+			// Funktion wird beim ersten Aufruf des Views ausgeführt
 			onInit: function() {
 				// Binding der Patienten- und Krankenakteninformationen
 				$.ajax({
@@ -25,6 +26,7 @@ sap.ui.define([
 					}
 				});
 			},
+			
 			
 			onPress: function(oEvent) {
 				var evt = oEvent.getSource().getId().toString();
@@ -57,6 +59,7 @@ sap.ui.define([
 				});
 			},
 			
+			// Der Logout muss vorher vom Nutzer bestätigt werden
 			onLogout: function() {
 				var pointer = this;
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {
@@ -73,6 +76,7 @@ sap.ui.define([
 				});
 			},
 			
+			// Auf diesem View gibt es einen Zurück-Button, der wieder zum Dashboard führt
 			onBack: function() {
 				this.getOwnerComponent().getTargets().display("dashboard");
 			}

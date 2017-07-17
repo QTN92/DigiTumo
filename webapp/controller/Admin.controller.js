@@ -9,8 +9,9 @@ sap.ui.define([
 
 		return Controller.extend("DigiTumo.controller.Admin", {
 
-			// Auslagern des AJAX-Call als eigene Funktion
+			// Auslagern des AJAX-Call als eigene Funktion, da diese mehrfach genutzt wird. Es werden User mit ihren Rollen geladen.
 			loadData: function() {
+				// Binding der Rollen
 				$.ajax({
 					url: "php/admin/getRollen.php",
 					type: "GET",
@@ -21,10 +22,11 @@ sap.ui.define([
 						this.getView().byId("Benutzerrolle").setModel(oModel);
 					},
 					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen."); // Ausgabe einer Messagebox des Typs "Error"
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
 				var anzahlUser;
+				// Binding der Hilfstabelle
 				$.ajax({
 					url: "php/admin/getAnzahlUserMitRolle.php",
 					type: "GET",
@@ -33,10 +35,11 @@ sap.ui.define([
 						anzahlUser = response;
 					},
 					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen."); // Ausgabe einer Messagebox des Typs "Error"
+						MessageBox.error("Die Verbindung ist fehlgeschlagen."); 
 					}
 				});
-				$.ajax({ // Aufruf eines AJAX-Calls
+				// Binding der User
+				$.ajax({
 					url: "php/admin/getUser.php",
 					type: "GET",
 					context: this,
@@ -59,12 +62,12 @@ sap.ui.define([
 								}
 							},
 							error: function handleError() {
-								MessageBox.error("Die Verbindung ist fehlgeschlagen."); // Ausgabe einer Messagebox des Typs "Error"
+								MessageBox.error("Die Verbindung ist fehlgeschlagen."); 
 							}
 						});
 					},
 					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen."); // Ausgabe einer Messagebox des Typs "Error"
+						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
 			},
@@ -81,7 +84,7 @@ sap.ui.define([
 						var oElement = oEvent.getParameter("value");
 						if (oElement.setValueState) {
 							oElement.setValueState(sap.ui.core.ValueState.Error);
-							oElement.setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
+							oElement.setValueStateText("Bitte geben Sie ein gültiges Datum ein.");
 						}
 					}
 				);
@@ -95,59 +98,67 @@ sap.ui.define([
 				);
 			},
 
-			// Funktion wird beim Klick auf den Button "addUser" ausgeführt
+			// damit der View übersichtlich bleibt, öffnet sich beim Hinzufügen neuer User ein seperater Dialog
 			onAddUser: function() {
 				var oDialog = this.getView().byId("benutzerdialog");
 				if (!oDialog) {
-					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addUser", this); // Aufruf des Fragments "addBenutzer"
+					this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "DigiTumo.fragment.addUser", this);
 					this.getView().addDependent(oDialog);
 				}
 				this.oDialog.open(); // Öffnen des Dialogs
 			},
 
-			// Funktion wird beim Ändern des Datepicker "geburtsdatum" im Dialog "benutzerdialog" ausgeführt
+			// Funktion wird beim Ändern des Datepicker "geburtsdatum" im Dialog "benutzerdialog" ausgeführt. SAPUI5 prüft selbstständig, ob der Input ein Datum ist.
 			handleDateChange: function(oEvent) {
 				var valid = oEvent.getParameter("valid");
 				if (!valid) {
-					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error" (rote Umrandung)
+					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.Error);
 					this.getView().byId("geburtsdatum").setShowValueStateMessage(true);
 				} else {
-					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.None); // Ändert den Status auf "None"
+					this.getView().byId("geburtsdatum").setValueState(sap.ui.core.ValueState.None);
 				}
 			},
 
-			// Funktion wird beim Klick auf den Button mit dem Diskettensymbol im Dialog "benutzerdialog" ausgeführt
+			/** Funktion wird beim Klick auf den Button mit dem Diskettensymbol im Dialog "benutzerdialog" ausgeführt
+			*	Bevor der neue Eintrag gespeichert wird, werden Schritt für Schritt die Eingaben geprüft. Vor- und
+			*	Nachname dürfen keine Sonderzeichen oder Zahlen enthalten und nicht länger als 40 Zeichen sein. Das
+			*	erste Zeichen wird automatisch groß geschrieben. Leere Eingaben sind immer ungültig. Das Geburstdatum
+			*	muss zum einen ein gültiges Datum sein, zum anderen muss der User min. 18 Jahre alt sein. Das Passwort
+			*	muss aus min. acht und max. 30 Zeichen bestehen, sowie eine Zahl enthalten. Für jeden Wert wird eine 
+			*	Prüfvariable "validWert" erstellt, welche bei fehlerhafter Eingabe auf falsch gesetzt wird. Der Status
+			*	des Objekts wird auf Error gesetzt, was eine rote Umrandung und eine Fehlertext für den Nutzer bewirkt.
+			*/
 			onSaveNeuerUser: function() {
 				var oVorname = this.getView().byId("vorname");
 				var oVornameValue = oVorname.getValue(); // Auslesen des Wertes "Vorname"
 				var validVorname = true; // Variable "validVorname" initial falsch setzen
 				if (oVornameValue === "") { // Abfangen von leerer Eingabe
 					oVorname.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
-					oVorname.setValueStateText("Bitte einen Vornamen eingeben."); // Ausgabe einer Messagebox des Typs "Error"
+					oVorname.setValueStateText("Bitte geben Sie einen Vornamen ein.");
 					validVorname = false;
 				} else if (oVornameValue.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) { // Abfangen von Sonderzeichen und Zahlen 
 					oVorname.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
-					oVorname.setValueStateText("Der Vorname darf nur Buchstaben enthalten."); // Ausgabe einer Messagebox des Typs "Error"
-					validVorname = false;
-				} else if (oVornameValue.length > 40) {
-					oVorname.setValueState(sap.ui.core.ValueState.Error);
+					oVorname.setValueStateText("Der Vorname darf nur Buchstaben enthalten.");
+					validVorname = false; // Variable "validVorname" falsch setzen
+				} else if (oVornameValue.length > 40) { // Abfangen eines Vornamens mit mehr als 40 Zeichen
+					oVorname.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
 					oVorname.setValueStateText("Der Vorname darf max. 40 Zeichen lang sein.");
-					validVorname = false;
+					validVorname = false; // Variable "validVorname" falsch setzen
 				} else {
 					oVorname.setValueState(sap.ui.core.ValueState.None); // Ändert den Status auf "None"
 					oVornameValue = oVornameValue.trim();
-					oVornameValue = oVornameValue[0].toUpperCase() + oVornameValue.substring(1, oVornameValue.length);
+					oVornameValue = oVornameValue[0].toUpperCase() + oVornameValue.substring(1, oVornameValue.length); // Setzt das erste Zeichen als Großbuchstaben
 				}
 
 				var oNachname = this.getView().byId("nachname");
-				var oNachnameValue = oNachname.getValue(); // Auslesen des Wertes "Vorname"
-				var validNachname = true; // Variable "validNachname" initial falsch setzen
-				if (oNachnameValue === "") { // Abfangen von leerer Eingabe
-					oNachname.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
-					oNachname.setValueStateText("Bitte einen Nachnamen eingeben.");
+				var oNachnameValue = oNachname.getValue();
+				var validNachname = true;
+				if (oNachnameValue === "") {
+					oNachname.setValueState(sap.ui.core.ValueState.Error);
+					oNachname.setValueStateText("Bitte geben Sie einen Nachnamen ein.");
 					validNachname = false;
-				} else if (oNachnameValue.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) { // Abfangen von Sonderzeichen und Zahlen
-					oNachname.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
+				} else if (oNachnameValue.search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {
+					oNachname.setValueState(sap.ui.core.ValueState.Error);
 					oNachname.setValueStateText("Der Nachname darf nur Buchstaben enthalten.");
 					validNachname = false;
 				} else if (oNachnameValue.length > 40) {
@@ -155,36 +166,36 @@ sap.ui.define([
 					oNachname.setValueStateText("Der Nachname darf max. 40 Zeichen lang sein.");
 					validNachname = false;
 				} else {
-					oNachname.setValueState(sap.ui.core.ValueState.None); // Ändert den Status auf "None"
+					oNachname.setValueState(sap.ui.core.ValueState.None);
 					oNachnameValue = oNachnameValue.trim();
 					oNachnameValue = oNachnameValue[0].toUpperCase() + oNachnameValue.substring(1, oNachnameValue.length);
 				}
-
+		
 				var oGeb = this.getView().byId("geburtsdatum");
-				var oGebValue = oGeb.getValue(); // Auslesen des Wertes "geburtsdatum"
-				var validGeburtsdatum = true; // Variable "validGeburtsdatum" initial falsch setzen
-				if (oGebValue === "") { // Abfangen von leerer Eingabe
-					oGeb.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
-					oGeb.setValueStateText("Bitte ein Geburtsdatum eingeben.");
+				var oGebValue = oGeb.getValue();
+				var validGeburtsdatum = true;
+				if (oGebValue === "") {
+					oGeb.setValueState(sap.ui.core.ValueState.Error);
+					oGeb.setValueStateText("Bitte geben Sie ein Geburtsdatum ein.");
 					validGeburtsdatum = false;
 				} else if (oGebValue.substring(6, 10) >= new Date().getFullYear()) {
 					oGeb.setValueState(sap.ui.core.ValueState.Error);
-					oGeb.setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
+					oGeb.setValueStateText("Bitte geben Sie ein gültiges Geburtsdatum ein.");
 					validGeburtsdatum = false;
-				} else if (oGeb.getValueState() === "Error") { // Falls Status "None"
-					oGeb.setValueStateText("Bitte ein gültiges Geburtsdatum eingeben.");
-					validGeburtsdatum = false; // Variable "validGeburtsdatum" auf wahr setzen
+				} else if (oGeb.getValueState() === "Error") { // Falls Funktion handleDateChange den Status gesetzt hat
+					oGeb.setValueStateText("Bitte geben Sie ein gültiges Geburtsdatum ein.");
+					validGeburtsdatum = false;
 				} else {
-					if (oGebValue.substring(6, 10) > (new Date().getFullYear()) - 18) {
+					if (oGebValue.substring(6, 10) > (new Date().getFullYear()) - 18) { // Prüfung der Jahreszahl
 						oGeb.setValueState(sap.ui.core.ValueState.Error);
 						oGeb.setValueStateText("Der User muss min. 18 Jahre alt sein.");
 						validGeburtsdatum = false;
-					} else if (oGebValue.substring(6, 10) === (new Date().getFullYear()) - 18) {
+					} else if (oGebValue.substring(6, 10) === (new Date().getFullYear()) - 18) { // Falls der 18. Geburstag im aktuellen Jahr liegt, wird der Monat geprüft
 						if (parseInt(oGebValue.substring(3, 5)) > (new Date().getMonth()) + 1) {
 							oGeb.setValueState(sap.ui.core.ValueState.Error);
 							oGeb.setValueStateText("Der User muss min. 18 Jahre alt sein.");
 							validGeburtsdatum = false;
-						} else if (parseInt(oGebValue.substring(3, 5)) === (new Date().getMonth()) + 1) {
+						} else if (parseInt(oGebValue.substring(3, 5)) === (new Date().getMonth()) + 1) { // Falls der 18. Geburstag im aktuellen Monat liegt, wird der Tag geprüft
 							if (parseInt(oGebValue.substring(0, 2)) > new Date().getDate()) {
 								oGeb.setValueState(sap.ui.core.ValueState.Error);
 								oGeb.setValueStateText("Der User muss min. 18 Jahre alt sein.");
@@ -193,50 +204,52 @@ sap.ui.define([
 						}
 					}
 				}
+				
 				var oPw = this.getView().byId("passwort");
-				var oPwValue = oPw.getValue(); // Auslesen des Wertes "passwort"	
-				var validPasswort = true; // Variable "validPasswort" initial falsch setzen
-				if (oPwValue.length < 8) { // Abfangen eines Passworts unter 8 Zeichen
-					oPw.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
-					oPw.setValueStateText("Das Passwort muss aus min. acht Zeichen bestehen."); // Ausgabe einer Messagebox des Typs "Error"
+				var oPwValue = oPw.getValue();
+				var validPasswort = true;
+				if (oPwValue.length < 8) {
+					oPw.setValueState(sap.ui.core.ValueState.Error);
+					oPw.setValueStateText("Das Passwort muss aus min. acht Zeichen bestehen.");
 					validPasswort = false;
 				} else if (oPwValue.length > 30) {
 					oPw.setValueState(sap.ui.core.ValueState.Error);
 					oPw.setValueStateText("Das Passwort darf max. 30 Zeichen lang sein.");
 					validPasswort = false;
 				} else {
-					var zahl = false; // Variable "zahl" initial falsch setzen
-					for (var i = 0; i < oPwValue.length; i++) { // Schleife mit Anzahl der Durchläufe gleich Länge des Passworts in einzelnen Buchtaben
-						if (!isNaN(oPwValue[i])) { // isNaN --> is not a number
-							zahl = true; // Variable "validGeburtsdatum" auf wahr setzen
+					var zahl = false;
+					for (var i = 0; i < oPwValue.length; i++) {
+						if (!isNaN(oPwValue[i])) {
+							zahl = true;
 						}
 					}
 					if (!zahl) {
-						oPw.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
-						oPw.setValueStateText("Das Passwort muss min. eine Zahl enthalten."); // Ausgabe einer Messagebox des Typs "Error"
+						oPw.setValueState(sap.ui.core.ValueState.Error);
+						oPw.setValueStateText("Das Passwort muss min. eine Zahl enthalten.");
 						validPasswort = false;
 					} else {
-						oPw.setValueState(sap.ui.core.ValueState.None); // Ändert den Status auf "None"
+						oPw.setValueState(sap.ui.core.ValueState.None);
 					}
 				}
 
 				var oBerechtigung = this.getView().byId("berechtigungsstatus");
-				var oBerechtigungValue = oBerechtigung.getValue(); // Auslesen des Wertes "berechtigungsstatus"
-				var validBerechtigungsstatus = true; // Variable "validBerechtigungsstatus" initial falsch setzen
-				if (oBerechtigungValue === "") { // Abfangen von leerer Eingabe
-					oBerechtigung.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
-					oBerechtigung.setValueStateText("Bitte einen Berechtigungsstatus auswählen."); // Ausgabe einer Messagebox des Typs "Error"
+				var oBerechtigungValue = oBerechtigung.getValue();
+				var validBerechtigungsstatus = true;
+				if (oBerechtigungValue === "") {
+					oBerechtigung.setValueState(sap.ui.core.ValueState.Error);
+					oBerechtigung.setValueStateText("Bitte wählen Sie einen Berechtigungsstatus aus.");
 					validBerechtigungsstatus = false;
-				} else if (oBerechtigungValue !== "Arzt" && oBerechtigungValue !== "Administrator" && oBerechtigungValue !== "Studienpflege") { // Abfangen von unbekannter Eingabe
-					oBerechtigung.setValueState(sap.ui.core.ValueState.Error); // Ändert den Status auf "Error"
-					oBerechtigung.setValueStateText("Bitte einen gültigen Berechtigungsstatus auswählen."); // Ausgabe einer Messagebox des Typs "Error"
+				} else if (oBerechtigungValue !== "Arzt" && oBerechtigungValue !== "Administrator" && oBerechtigungValue !== "Studienpflege") {
+					oBerechtigung.setValueState(sap.ui.core.ValueState.Error);
+					oBerechtigung.setValueStateText("Bitte wählen Sie einen gültigen Berechtigungsstatus aus.");
 					validBerechtigungsstatus = false;
 				} else {
-					oBerechtigung.setValueState(sap.ui.core.ValueState.None); // Ändert den Status auf "None"
+					oBerechtigung.setValueState(sap.ui.core.ValueState.None);
 				}
-
+				
+				// Wenn alle Eingaben korrekt sind, wird der neuer Nutzer in die Datenbank geschrieben
 				if (validVorname && validNachname && validGeburtsdatum && validPasswort && validBerechtigungsstatus) {
-					$.ajax({ // Aufruf eines AJAX-Calls
+					$.ajax({
 						url: "php/admin/generateUserId.php",
 						data: {
 							"vorname": oVornameValue,
@@ -259,26 +272,26 @@ sap.ui.define([
 								context: this,
 								success: function handleSuccess() {
 									this.loadData();
-									this.oDialog.destroy();
-									this.oDialog.close();
+									this.oDialog.destroy(); // Zerstören des Dialogs
+									this.oDialog.close(); // Schließen des Dialogs
 								},
 								error: function handleError() {
-									MessageBox.error("Die Verbindung ist fehlgeschlagen."); // Ausgabe einer Messagebox des Typs "Error"
+									MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 								}
 							});
 						},
 						error: function handleError() {
-							MessageBox.error("Die Verbindung ist fehlgeschlagen."); // Ausgabe einer Messagebox des Typs "Error"
+							MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 						}
 					});
 				} else {
-					MessageBox.error("Bitte die Eingaben überprüfen!");
+					MessageBox.error("Bitte überprüfen Sie Ihre Eingaben!");
 				}
 			},
 
 			// Funktion wird beim Klick auf den Button mit dem roten X im Dialog "benutzerdialog" ausgeführt
 			onCancelNeuerUser: function() {
-				var pointer = this;
+				var pointer = this; // Durch die Variable kann auch in der Funktion der Messagebox auf den Dialog verwiesen werden
 				if (
 					this.getView().byId("vorname").getValue() !== "" ||
 					this.getView().byId("nachname").getValue() !== "" ||
@@ -290,8 +303,8 @@ sap.ui.define([
 						actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 						onClose: function(sResult) {
 							if (sResult === "YES") {
-								pointer.oDialog.destroy();
-								pointer.oDialog.close();
+								pointer.oDialog.destroy(); // Zerstören des Dialogs
+								pointer.oDialog.close(); // Schließen des Dialogs
 							}
 						}
 					});
@@ -307,11 +320,11 @@ sap.ui.define([
 				var id = tmp.substring(47, tmp.length);
 				var userId = Object.values(Object.values(Object.values(this.getView().getModel().getData())[0])[id])[3];
 				var pointer = this;
-				MessageBox.confirm("Möchten Sie den Benutzer " + userId + " wirklich löschen?", { // Ausgabe einer Messagebox des Typs "Confirm"
-					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO], // Definieren der Aktionen
+				MessageBox.confirm("Möchten Sie den Benutzer " + userId + " wirklich löschen?", {
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 					onClose: function(sResult) {
-						if (sResult === "YES") { // Falls Aktion "YES"
-							$.ajax({ // Aufruf eines AJAX-Calls
+						if (sResult === "YES") {
+							$.ajax({
 								url: "php/admin/deleteUser.php",
 								data: {
 									"userId": userId
@@ -321,21 +334,22 @@ sap.ui.define([
 								success: function handleSuccess(response) {
 									if (response === "0") {
 										MessageBox.error(
-											"Der einzige Administrator kann nicht gelöscht werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie diesen Nutzer löschen."
+											"Der einzige Administrator kann nicht gelöscht werden. Bitte erstellen Sie erst einen weiteren Administrator, bevor Sie diesen Nutzer löschen."
 										);
 									} else {
 										pointer.loadData();
 									}
 								},
 								error: function handleError() {
-									MessageBox.error("Die Verbindung ist fehlgeschlagen."); // Ausgabe einer Messagebox des Typs "Error"
+									MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 								}
 							});
 						}
 					}
 				});
 			},
-
+			
+			// Bevor die Benutzerliste gespeichert wird, werden alle Werte geprüft, wie bei onSaveNeuerUser beschrieben
 			onSave: function() {
 				var id = new Array(5);
 				id[0] = "Vorname-" + this.getView().getId() + "--BenutzerTab-";
@@ -345,6 +359,11 @@ sap.ui.define([
 				id[4] = "Benutzerrolle-" + this.getView().getId() + "--BenutzerTab-";
 				var userListe = new Array();
 				var i = 0;
+				
+				/** In das zweidimensionale Array "userListe" werden alle Nutzer mit Vor-, Nachname, Benutzerkennung, Passwort und Rolle gespeichert.
+				*	Somit kann in der folgenden Schleife jeder Wert geprüft werden, bevor er in die Datenbank geschrieben wird. Die Prüfung ist notwendig,
+				*	da der Nutzer Änderungen an den bereits vorhanden Einträgen durchführen kann.
+				*/
 				while (this.getView().byId(id[0] + i) !== undefined) {
 					userListe[i] = new Array(id.length);
 					for (var j = 0; j < userListe[i].length; j++) {
@@ -362,7 +381,7 @@ sap.ui.define([
 					id = id.substring(0, 24) + i;
 					if (userListe[i][0] === "") {
 						this.getView().byId("Vorname-" + id).setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("Vorname-" + id).setValueStateText("Bitte einen Vornamen eingeben.");
+						this.getView().byId("Vorname-" + id).setValueStateText("Bitte geben Sie einen Vornamen ein.");
 						validVorname = false;
 					} else if (userListe[i][0].search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {
 						this.getView().byId("Vorname-" + id).setValueState(sap.ui.core.ValueState.Error);
@@ -380,7 +399,7 @@ sap.ui.define([
 
 					if (userListe[i][1] === "") {
 						this.getView().byId("Nachname-" + id).setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("Nachname-" + id).setValueStateText("Bitte einen Nachnamen eingeben.");
+						this.getView().byId("Nachname-" + id).setValueStateText("Bitte geben Sie einen Nachnamen ein.");
 						validNachname = false;
 					} else if (userListe[i][1].search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === -1) {
 						this.getView().byId("Nachname-" + id).setValueState(sap.ui.core.ValueState.Error);
@@ -422,20 +441,21 @@ sap.ui.define([
 
 					if (userListe[i][4] === "") {
 						this.getView().byId("Benutzerrolle-" + id).setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("Benutzerrolle-" + id).setValueStateText("Bitte einen Berechtigungsstatus auswählen.");
+						this.getView().byId("Benutzerrolle-" + id).setValueStateText("Bitte wählen Sie einen Berechtigungsstatus aus.");
 						validBenutzerrolle = false;
 					} else if (userListe[i][4] !== "Arzt" && userListe[i][4] !== "Administrator" && userListe[i][4] !== "Studienpflege") {
 						this.getView().byId("Benutzerrolle-" + id).setValueState(sap.ui.core.ValueState.Error);
-						this.getView().byId("Benutzerrolle-" + id).setValueStateText("Bitte einen gültigen Berechtigungsstatus auswählen.");
+						this.getView().byId("Benutzerrolle-" + id).setValueStateText("Bitte wählen Sie einen gültigen Berechtigungsstatus aus.");
 						this.getView().byId("Benutzerrolle-" + id).setValue("");
 						validBenutzerrolle = false;
 					} else {
 						this.getView().byId("Benutzerrolle-" + id).setValueState(sap.ui.core.ValueState.None);
 					}
 				}
-
+				
+				// Wenn alle Werte stimmen, wird die Liste in die Datebank gespeichert
 				if (validVorname && validNachname && validPasswort && validBenutzerrolle) {
-					$.ajax({ // Aufruf eines AJAX-Calls
+					$.ajax({
 						url: "php/admin/updateUser.php",
 						data: {
 							"userListe": userListe
@@ -445,36 +465,36 @@ sap.ui.define([
 						success: function handleSuccess(response) {
 							if (response === "0") {
 								MessageBox.error(
-									"Die Rolle des einzigen Administrators kann nicht geändert werden. Bitte erst einen weiteren Administrator erstellen, bevor Sie die Rolle dieses Nutzers ändern."
+									"Die Rolle des einzigen Administrators kann nicht geändert werden. Bitte erstellen Sie erst einen weiteren Administrator, bevor Sie die Rolle dieses Nutzers ändern."
 								);
 							} else {
-								MessageBox.success("Speichern erfolgreich."); // Ausgabe einer Messagebox des Typs "Success"
+								MessageBox.success("Speichern erfolgreich.");
 							}
 							this.loadData();
 						},
 						error: function handleError() {
-							MessageBox.error("Die Verbindung ist fehlgeschlagen."); // Ausgabe einer Messagebox des Typs "Error"
+							MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 						}
 					});
 				} else {
-					MessageBox.error("Bitte die Eingaben überprüfen!");
+					MessageBox.error("Bitte überprüfen Sie Ihre Eingaben!");
 				}
 			},
 
 			// Funktion wird beim Klick auf den Button "cancel" ausgeführt
 			onCancel: function() {
 				var pointer = this;
-				MessageBox.confirm("Möchten Sie wirklich alle Änderungen verwerfen?", { // Ausgabe einer Messagebox des Typs "Confirm"
-					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO], // Definieren der Aktionen
+				MessageBox.confirm("Möchten Sie wirklich alle Änderungen verwerfen?", {
+					actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO], 
 					onClose: function(sResult) {
-						if (sResult === "YES") { // Falls Aktion "YES"
-							pointer.loadData(); // Aufruf der Funktion loadData
+						if (sResult === "YES") {
+							pointer.loadData();
 						}
 					}
 				});
 			},
 
-			// Funktion wird beim Klick auf den Button "logout" ausgeführt
+			// Der Logout muss vorher vom Nutzer bestätigt werden
 			onLogout: function() {
 				var pointer = this;
 				MessageBox.confirm("Möchten Sie sich wirklich abmelden? Nicht gespeicherte Änderungen gehen verloren.", {

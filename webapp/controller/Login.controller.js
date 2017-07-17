@@ -34,19 +34,19 @@ sap.ui.define([
 						oPw.setValueState(sap.ui.core.ValueState.Error);
 						oPw.setShowValueStateMessage(false);
 						// Fehlermeldung ausgeben
-						MessageBox.error("Bitte Nutzernamen und Passwort eingeben!");
+						MessageBox.error("Bitte geben Sie einen Nutzernamen und ein Passwort ein!");
 					}
 					// Handling, wenn nur Username fehlt; Handling äquivalent
 					else if (oUserValue === "") {
 						oUser.setValueState(sap.ui.core.ValueState.Error);
 						oUser.setShowValueStateMessage(false);
-						MessageBox.error("Bitte Nutzernamen eingeben!");
+						MessageBox.error("Bitte geben Sie einen Nutzernamen ein!");
 					}
 					// Handling, wenn nur PW fehlt; Handling äquivalent
 					else {
 						oPw.setValueState(sap.ui.core.ValueState.Error);
 						oPw.setShowValueStateMessage(false);
-						MessageBox.error("Bitte Passwort eingeben!");
+						MessageBox.error("Bitte geben Sie ein Passwort ein!");
 					}
 				}
 				// Handling, wenn Username und PW eingegeben wurden

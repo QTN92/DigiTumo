@@ -8,7 +8,8 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("DigiTumo.controller.Patienten", {
-
+			
+			// Funktion wird beim ersten Aufruf des Views ausgeführt
 			onInit: function() {
 				this.getView().addEventDelegate({
 					onAfterShow: function () {
@@ -44,7 +45,8 @@ sap.ui.define([
 					}
 				});
 			},
-
+			
+			// Damit der View übersichtlich bleibt, öffnet sich beim Anzeigen ein seperater Dialog für den Anwesenheitsvermerk
 			onAnwesenheitVermerken: function() {
 				// Dialog für Vermerken der Anwesenheit
 				var oDialog = this.getView().byId("anwesenheitsdialog");
@@ -68,6 +70,7 @@ sap.ui.define([
 				this.oDialog.open();
 			},
 
+			// Wenn in dem Dialog keine Arzt/ Ärztin ausgewählt wurde, werden der grüne Disketten-Button de- und "ohne Speichern fortfahren" aktviert und umgekehrt.
 			onSelectionChange: function() {
 				var oList = this.getView().byId("__xmlview2--anwesenheitsliste");
 				var anzahlAerzte = oList.mAggregations.items.length;
@@ -331,6 +334,7 @@ sap.ui.define([
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 
+			// Der Logout muss vorher vom Nutzer bestätigt werden
 			onLogout: function() {
 				var pointer = this;
 				MessageBox.confirm("Möchten Sie sich ausloggen?", {
