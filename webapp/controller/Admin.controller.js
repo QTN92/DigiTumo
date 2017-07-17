@@ -243,7 +243,8 @@ sap.ui.define([
 				} else {
 					oBerechtigung.setValueState(sap.ui.core.ValueState.None);
 				}
-
+				
+				// Wenn alle Eingaben korrekt sind, wird der n
 				if (validVorname && validNachname && validGeburtsdatum && validPasswort && validBerechtigungsstatus) {
 					$.ajax({
 						url: "php/admin/generateUserId.php",
@@ -268,8 +269,8 @@ sap.ui.define([
 								context: this,
 								success: function handleSuccess() {
 									this.loadData();
-									this.oDialog.destroy();
-									this.oDialog.close();
+									this.oDialog.destroy(); // Zerstören des Dialogs
+									this.oDialog.close(); // Schließen des Dialogs
 								},
 								error: function handleError() {
 									MessageBox.error("Die Verbindung ist fehlgeschlagen.");
@@ -287,7 +288,7 @@ sap.ui.define([
 
 			// Funktion wird beim Klick auf den Button mit dem roten X im Dialog "benutzerdialog" ausgeführt
 			onCancelNeuerUser: function() {
-				var pointer = this;
+				var pointer = this; // Durch die Variable kann auch in der Funktion der Messagebox auf den Dialog verwiesen werden
 				if (
 					this.getView().byId("vorname").getValue() !== "" ||
 					this.getView().byId("nachname").getValue() !== "" ||
@@ -299,8 +300,8 @@ sap.ui.define([
 						actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 						onClose: function(sResult) {
 							if (sResult === "YES") {
-								pointer.oDialog.destroy();
-								pointer.oDialog.close();
+								pointer.oDialog.destroy(); // Zerstören des Dialogs
+								pointer.oDialog.close(); // Schließen des Dialogs
 							}
 						}
 					});
@@ -356,7 +357,10 @@ sap.ui.define([
 				var userListe = new Array();
 				var i = 0;
 				
-				// In das zweidimensionale Array "userListe" werden alle Nutzer mit Vor-, Nachname, Benutzerkennung, Passwort und Rolle gespeichert. Somit kann in der folgenden Schleife jeder Wert geprüft werden.
+				/** In das zweidimensionale Array "userListe" werden alle Nutzer mit Vor-, Nachname, Benutzerkennung, Passwort und Rolle gespeichert.
+				*	Somit kann in der folgenden Schleife jeder Wert geprüft werden, bevor er in die Datenbank geschrieben wird. Die Prüfung ist notwendig,
+				*	da der Nutzer Änderungen an den bereits vorhanden Einträgen durchführen kann.
+				*/
 				while (this.getView().byId(id[0] + i) !== undefined) {
 					userListe[i] = new Array(id.length);
 					for (var j = 0; j < userListe[i].length; j++) {

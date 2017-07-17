@@ -74,6 +74,7 @@ sap.ui.define([
 				});
 			},
 			
+			// Auf diesem View gibt es einen Zurück-Button, der wieder zum Dashboard führt
 			onBack: function() {
 				this.getOwnerComponent().getTargets().display("dashboard");
 			}
