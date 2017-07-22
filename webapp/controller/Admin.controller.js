@@ -232,7 +232,7 @@ sap.ui.define([
 						else if (!isNaN(oPwValue[i])) {
 							zahl = true;
 						}
-					};
+					}
 					if (!grBuchstabe || !klBuchstabe || !zahl) {
 						oPw.setValueState(sap.ui.core.ValueState.Error);
 						oPw.setValueStateText("Das Passwort muss min. einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.");
@@ -449,7 +449,7 @@ sap.ui.define([
 							else if (!isNaN(userListe[i][3][j])) {
 								zahl = true;
 							}
-						};
+						}
 						if (!grBuchstabe || !klBuchstabe || !zahl) {
 							this.getView().byId("Passwort-" + id).setValueState(sap.ui.core.ValueState.Error);
 							this.getView().byId("Passwort-" + id).setValueStateText("Das Passwort muss min. einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.");
