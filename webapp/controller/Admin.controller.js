@@ -218,14 +218,24 @@ sap.ui.define([
 					validPasswort = false;
 				} else {
 					var zahl = false;
+					var grBuchstabe = false;
+					var klBuchstabe = false;
 					for (var i = 0; i < oPwValue.length; i++) {
-						if (!isNaN(oPwValue[i])) {
+						if (oPwValue[i].search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === 0) {
+							if(oPwValue[i] === oPwValue[i].toUpperCase()) {
+								grBuchstabe = true;
+							}
+							else {
+								 klBuchstabe = true;
+							}
+						}
+						else if (!isNaN(oPwValue[i])) {
 							zahl = true;
 						}
-					}
-					if (!zahl) {
+					};
+					if (!grBuchstabe || !klBuchstabe || !zahl) {
 						oPw.setValueState(sap.ui.core.ValueState.Error);
-						oPw.setValueStateText("Das Passwort muss min. eine Zahl enthalten.");
+						oPw.setValueStateText("Das Passwort muss min. einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.");
 						validPasswort = false;
 					} else {
 						oPw.setValueState(sap.ui.core.ValueState.None);
@@ -425,14 +435,24 @@ sap.ui.define([
 						validPasswort = false;
 					} else {
 						var zahl = false;
+						var grBuchstabe = false;
+						var klBuchstabe = false;
 						for (j = 0; j < userListe[i][3].length; j++) {
-							if (!isNaN(userListe[i][3][j])) {
+							if (userListe[i][3][j].search(/^[a-zA-ZäÄöÖüÜ\- ]+$/) === 0) {
+								if(userListe[i][3][j] === userListe[i][3][j].toUpperCase()) {
+									grBuchstabe = true;
+								}
+								else {
+									 klBuchstabe = true;
+								}
+							}
+							else if (!isNaN(userListe[i][3][j])) {
 								zahl = true;
 							}
-						}
-						if (!zahl) {
+						};
+						if (!grBuchstabe || !klBuchstabe || !zahl) {
 							this.getView().byId("Passwort-" + id).setValueState(sap.ui.core.ValueState.Error);
-							this.getView().byId("Passwort-" + id).setValueStateText("Das Passwort muss min. eine Zahl enthalten.");
+							this.getView().byId("Passwort-" + id).setValueStateText("Das Passwort muss min. einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.");
 							validPasswort = false;
 						} else {
 							this.getView().byId("Passwort-" + id).setValueState(sap.ui.core.ValueState.None);
