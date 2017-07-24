@@ -166,6 +166,7 @@ sap.ui.define([
 			// Werden die Daten erst im Dashboard-Controller geladen, kann es sein, dass das 
 			// Dashboard angezeigt wird, bevor die Daten geladen worden sind
 			onListItemPress: function(oEvent) {
+				sap.ui.core.BusyIndicator.show(0);
 				// Auslesen des ausgewählten Patienten
 				var evt = oEvent.getSource().getId().toString();
 				var i = evt.length - 1;
@@ -331,6 +332,7 @@ sap.ui.define([
 						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
 					}
 				});
+				sap.ui.core.BusyIndicator.hide();
 				this.getOwnerComponent().getTargets().display("dashboard");
 			},
 
