@@ -221,21 +221,6 @@ sap.ui.define([
 
 				
 				// Laden des Krankheitsverlaufs inkl. Medikamentationsverlauf
-				//Funktion zum Einbinden zusätzlicher Medikamenten
-				$.ajax({
-					url: "php/dashboard/getMedikamentation.php",
-					data: {
-						"patientId": patientId
-					},
-					type: "POST",
-					context: this,
-					success: function handleSuccess(response) {
-						//QUYNH
-					},
-					error: function handleError() {
-						MessageBox.error("Die Verbindung ist fehlgeschlagen.");
-					}
-				});
 				$.ajax({
 					url: "php/dashboard/getKrankheitsverlauf.php",
 					data: {
