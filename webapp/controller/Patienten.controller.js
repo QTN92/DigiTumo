@@ -13,7 +13,7 @@ sap.ui.define([
 			onInit: function() {
 				this.getView().addEventDelegate({
 					onAfterShow: function () {
-						if (window.hasLogged) {
+						if (window.hasLoggedIn) {
 						sap.ui.getCore().byId("__xmlview2").oController.onAnwesenheitVermerken();
 						window.hasLoggedIn = false;
 						}
