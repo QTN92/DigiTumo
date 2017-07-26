@@ -31,9 +31,23 @@
 			AND
 				medikamentation.krankenakte_krankenakteId = '$krankenakteId'
 		ORDER BY
-			krankheitsverlauf.datum; 
+			krankheitsverlauf.datum
 	";
 	$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
+	if ($sqlResult == '[]') {
+		$sql = "
+			SELECT
+				DATE_FORMAT(krankheitsverlauf.datum, '%d.%m.%Y') AS datum,
+				gesundheitsscore
+			FROM
+				krankheitsverlauf
+			WHERE
+				krankheitsverlauf.krankenakte_krankenakteId = '$krankenakteId'
+			ORDER BY
+				krankheitsverlauf.datum
+		";
+		$sqlResult = json_encode(sql($sql), JSON_UNESCAPED_UNICODE);
+	};
 	$result = '{"krankheitsverlauf": ' . $sqlResult . '}';
 	echo $result;
 ?>
