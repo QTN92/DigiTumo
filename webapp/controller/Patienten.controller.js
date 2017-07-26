@@ -91,7 +91,7 @@ sap.ui.define([
 			onAnwSave: function() {
 				var alleAerzte = this.getView().byId("anwesenheitsdialog").getModel().getJSON();
 				var anzahlAerzte = (alleAerzte.match(/vorname/g) || []).length;
-				var anwesendeAerzte;
+				var anwesendeAerzte = "";
 				var id = "__item2-__xmlview2--anwesenheitsliste-";
 				for (var i = 0; i < anzahlAerzte; i++) {
 					id = id.substring(0, 38) + i;
